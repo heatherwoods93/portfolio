@@ -24,34 +24,39 @@ const systemItems = [
 function Home() {
   return (
     <main className="page home">
-      <section className="hero section--dark" aria-labelledby="hero-title">
+      <section className="section section--dark hero" aria-labelledby="hero-title">
         <header className="hero__header">
           <a className="hero__brand" href="/">
             Heather Woods
           </a>
+
           <nav className="hero__nav" aria-label="Primary navigation">
             <a href="#work">Work</a>
             <a href="#systems">Systems</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>
-          <a className="button button--light hero__resume" href="/resume.pdf">
-            Download Résumé
+
+          <a className="button button--light" href="/resume.pdf">
+            Download R&eacute;sum&eacute;
           </a>
         </header>
 
-        <div className="hero__inner">
+        <div className="hero__layout">
           <div className="hero__content">
-            <p className="hero__eyebrow">Webflow Developer &amp; Systems Builder</p>
-            <h1 className="hero__title" id="hero-title">
+            <p className="text-tagline">Webflow Developer &amp; Systems Builder</p>
+
+            <h1 className="text-display" id="hero-title">
               I build clear, maintainable websites and scalable front-end
               systems.
             </h1>
-            <p className="hero__text">
+
+            <p className="hero__summary text-body is-muted">
               I help mission-driven teams turn complex content, CMS structures,
               and internal workflows into web experiences that are easier to use,
               easier to manage, and easier to trust.
             </p>
+
             <div className="hero__actions" aria-label="Hero actions">
               <a className="button button--primary" href="#work">
                 View Selected Work
@@ -60,7 +65,8 @@ function Home() {
                 Explore My Process
               </a>
             </div>
-            <p className="hero__status">
+
+            <p className="hero__status text-small is-muted">
               Currently focused on Webflow, CMS architecture, accessibility, QA
               systems, and workflow improvement.
             </p>
@@ -69,7 +75,7 @@ function Home() {
           <div className="hero__visual">
             <article className="system-panel" aria-labelledby="system-panel-title">
               <div className="system-panel__header">
-                <p className="system-panel__label" id="system-panel-title">
+                <p className="text-tagline" id="system-panel-title">
                   System Snapshot
                 </p>
                 <span className="system-panel__status">Active</span>
@@ -78,9 +84,9 @@ function Home() {
               <div className="system-panel__list">
                 {systemItems.map((item) => (
                   <div className="system-panel__item" key={item.label}>
-                    <div>
-                      <h2>{item.label}</h2>
-                      <p>{item.detail}</p>
+                    <div className="system-panel__content">
+                      <h2 className="text-heading">{item.label}</h2>
+                      <p className="text-small is-muted">{item.detail}</p>
                     </div>
                     <div className="system-panel__signal" aria-hidden="true">
                       <span className={`system-panel__bar ${item.strength}`} />

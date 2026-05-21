@@ -18,13 +18,14 @@ a more distinctive type system later.
 1. `styles/reset.css`
 2. `styles/variables.css`
 3. `styles/base.css`
-4. `styles/layout.css`
-5. `styles/components.css`
+4. `styles/components.css`
 
 `reset.css` normalizes browser defaults. `variables.css` owns design tokens.
-`base.css` defines global element behavior. `layout.css` contains reusable
-page and section structures. `components.css` contains reusable component
-foundations such as buttons, cards, tags, and directional links.
+`base.css` defines global element behavior, typography roles, and reusable
+layout primitives such as `.page`, `.section`, `.section__inner`,
+`.content-grid`, and `.card-grid`. `components.css` contains semantic interface
+classes such as the hero, site header, system panel, buttons, cards, tags,
+style guide patterns, and directional links.
 
 There is intentionally no `utilities.css`.
 
@@ -62,6 +63,16 @@ design intent into markup. This foundation borrows Client-First ideas of clear
 naming and reusable structure without turning every spacing, alignment, and
 text treatment into a class.
 
+Base classes are reusable foundations that describe stable page roles:
+sections, containers, repeated grids, and typography roles. Semantic component
+classes describe specific interface patterns: `.hero`, `.system-panel`,
+`.card`, `.site-header`, and `.style-guide`.
+
+Typography role classes such as `.text-display`, `.text-heading`, and
+`.text-body` are allowed because they describe reusable content hierarchy. The
+project still avoids utility-heavy spacing and layout classes such as margin
+shortcuts, one-off alignment helpers, or Tailwind-like composition classes.
+
 ## Using The System For Future Sections
 
 Future portfolio sections should start with `.section` and `.section__inner`.
@@ -72,6 +83,9 @@ Use `.content-grid` when a section has two primary columns, and `.card-grid`
 when showing repeated items. Use `.card` and its child classes for project,
 writing, service, or proof-point blocks. Use `.tag-list` and `.tag` for concise
 metadata.
+
+Layout primitives now live in `base.css`. More specific interface patterns
+belong in `components.css`.
 
 When a new pattern appears more than once, add it as a semantic component or
 layout class in the closest design-system file. Keep one-off styling close to
