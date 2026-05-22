@@ -4,10 +4,7 @@ import StyleGuide from './pages/StyleGuide.jsx'
 
 function App() {
   return (
-    <>
       <Home />
-      <StyleGuide />
-    </>
   )
 }
 

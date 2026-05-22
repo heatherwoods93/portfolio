@@ -63,15 +63,15 @@ Rather than:
 
 ```txt
 src/styles/
-  reset.css
+  system.css
   variables.css
-  base.css
-  components.css
+  ui.css
+  home.css
 ```
 
 ---
 
-## reset.css
+## system.css
 
 Contains only reset/normalization behavior:
 
@@ -102,13 +102,14 @@ No component styling should live here.
 
 ---
 
-## base.css
+## ui.css
 
 Contains:
 - global element styling
 - foundational layout patterns
 - typography roles
 - reusable structural patterns
+- shared interface patterns
 
 Examples:
 
@@ -131,44 +132,65 @@ Typography roles also live here:
 .text-tagline
 .text-body
 .text-small
+.button
+.card
+.tag
+.link-arrow
 ```
 
 These are not utility classes.
 
 They represent reusable typographic roles used consistently throughout the system.
 
-Base classes should define:
+UI classes should define:
 - rhythm
 - spacing patterns
 - typography systems
 - structural defaults
+- reusable interface defaults
 
-The purpose of base.css is to reduce repeated styling decisions and create consistency through strong foundational patterns.
+The purpose of ui.css is to reduce repeated styling decisions and create consistency through strong foundational patterns.
 
 ---
 
-## components.css
+## home.css
 
-Contains semantic interface-specific styling.
+Contains homepage-specific composition and page-level styling.
 
 Examples:
 
 ```css
+.home
 .hero
 .site-header
-.hero background image
-.work-card
-.process-block
-.case-study
+.home__next
 ```
 
 These classes define:
-- component-specific layout
-- component-specific spacing
-- visual treatments
-- semantic UI structures
+- homepage layout
+- homepage-specific spacing
+- the hero background image treatment
+- future homepage section composition
 
-Component classes should remain relatively lightweight and focused.
+Page files should remain relatively lightweight and focused. Future pages may
+add files such as `work.css`, `about.css`, or `project.css` when their
+composition is substantial enough to deserve a dedicated file.
+
+---
+
+## Anchor Comments
+
+Long CSS files use Anchor Comments to make navigation easier in VS Code.
+
+Examples:
+
+```css
+/* ANCHOR Typography */
+/* ANCHOR Buttons */
+/* ANCHOR Hero */
+```
+
+These anchors are labels for maintainability, not new architecture layers.
 
 ---
 
