@@ -159,9 +159,9 @@ p {
 .text-display {
   color: inherit;
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 7vw, 6.25rem);
+  font-size: clamp(2.55rem, 5.95vw, 5.3125rem);
   font-weight: 600;
-  line-height: 1.08;
+  line-height: 1;
 }
 
 .text-heading {

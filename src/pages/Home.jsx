@@ -1,26 +1,3 @@
-const systemItems = [
-  {
-    label: 'CMS architecture',
-    detail: 'Structured content models',
-    strength: 'system-panel__bar--strong',
-  },
-  {
-    label: 'QA workflows',
-    detail: 'Repeatable review systems',
-    strength: 'system-panel__bar--medium',
-  },
-  {
-    label: 'Component systems',
-    detail: 'Reusable front-end patterns',
-    strength: 'system-panel__bar--strong',
-  },
-  {
-    label: 'Accessibility checks',
-    detail: 'Clearer, more trusted releases',
-    strength: 'system-panel__bar--short',
-  },
-]
-
 function Home() {
   return (
     <main className="page home">
@@ -47,7 +24,7 @@ function Home() {
             <p className="text-tagline">Webflow Developer &amp; Systems Builder</p>
 
             <h1 className="text-display" id="hero-title">
-              I build clear, maintainable websites and scalable front-end
+              I build clear, maintainable websites and scalable frontend
               systems.
             </h1>
 
@@ -70,32 +47,6 @@ function Home() {
               Currently focused on Webflow, CMS architecture, accessibility, QA
               systems, and workflow improvement.
             </p>
-          </div>
-
-          <div className="hero__visual">
-            <article className="system-panel" aria-labelledby="system-panel-title">
-              <div className="system-panel__header">
-                <p className="text-tagline" id="system-panel-title">
-                  System Snapshot
-                </p>
-                <span className="system-panel__status">Active</span>
-              </div>
-
-              <div className="system-panel__list">
-                {systemItems.map((item) => (
-                  <div className="system-panel__item" key={item.label}>
-                    <div className="system-panel__content">
-                      <h2 className="text-heading">{item.label}</h2>
-                      <p className="text-small is-muted">{item.detail}</p>
-                    </div>
-                    <div className="system-panel__signal" aria-hidden="true">
-                      <span className={`system-panel__bar ${item.strength}`} />
-                      <span className="system-panel__dot" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
           </div>
         </div>
       </section>
