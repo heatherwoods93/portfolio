@@ -45,23 +45,38 @@
   min-height: 100vh;
   overflow: hidden;
   padding-block: 0;
-  background:
-    linear-gradient(90deg, rgb(31 41 35 / 0.96) 0%, rgb(31 41 35 / 61%) 42%, rgb(31 41 35 / 26%) 100%), linear-gradient(180deg, rgb(31 41 35 / 0.88) 0%, rgb(31 41 35 / 0.64) 48%, var(--color-dark) 100%), url(/assets/system-overview-hero.png) center / cover no-repeat, var(--color-dark)
+  background: var(--color-dark);
 }
 
-/*.hero::after {
+.hero::before,
+.hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 76% 36%, rgb(223 231 209 / 0.16), transparent 34%),
-    linear-gradient(180deg, transparent 0%, rgb(31 41 35 / 0.22) 68%, var(--color-dark) 100%);
   pointer-events: none;
-}*/
+}
+
+.hero::before {
+  z-index: 0;
+  background: url("/assets/hero-systems_v2.png") center right / cover no-repeat;
+  filter: saturate(0.68) contrast(0.88) blur(0.42px);
+  opacity: 0.5;
+}
+
+.hero::after {
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at 23% 38%, rgb(31 41 35) 0%, rgb(31 41 35 / 0.48) 34%, transparent 58%), 
+    radial-gradient(ellipse at 76% 36%, rgb(31 41 35 / 0.34) 0%, #00000000 42%), 
+    radial-gradient(circle at 86% 28%, rgb(222 231 204 / 10%), #00000000 28%), 
+    linear-gradient(30deg, #171f1b 0%, rgb(31 41 35 / 70%) 30%, rgb(31 41 35 / 60%) 60%, rgb(31 41 35 / 42%) 100%), 
+    linear-gradient(180deg, rgb(31 41 35 / 0.86) 0%, rgb(31 41 35 / 37%) 46%, var(--color-dark) 100%)
+  }
+
 
 .hero__header {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   gap: var(--space-lg);
@@ -99,7 +114,7 @@
 
 .hero__layout {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: min(100% - 2rem, var(--container-main));
   margin-inline: auto;
   padding-block: clamp(4rem, 9vw, 7rem);
@@ -113,6 +128,7 @@
 
 .hero__content .text-display {
   font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1.04;
 }
 
 .hero__summary {
@@ -509,6 +525,19 @@
   .hero__layout {
     gap: var(--space-2xl);
     padding-block: var(--space-2xl);
+  }
+
+  .hero::before {
+    background-position: 62% center;
+    filter: saturate(0.58) contrast(0.84) blur(0.58px);
+    opacity: 0.28;
+  }
+
+  .hero::after {
+    background:
+      radial-gradient(ellipse at 28% 28%, rgb(31 41 35 / 0.68) 0%, transparent 58%),
+      linear-gradient(90deg, var(--color-dark) 0%, rgb(31 41 35 / 0.96) 58%, rgb(31 41 35 / 0.78) 100%),
+      linear-gradient(180deg, rgb(31 41 35 / 0.9) 0%, rgb(31 41 35 / 0.72) 46%, var(--color-dark) 100%);
   }
 
   .token-card {
