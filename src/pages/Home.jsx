@@ -42,11 +42,6 @@ function Home() {
                 Explore My Process
               </a>
             </div>
-
-            <p className="hero__status text-small is-muted">
-              Currently focused on Webflow, CMS architecture, accessibility, QA
-              systems, and workflow improvement.
-            </p>
           </div>
         </div>
       </section>

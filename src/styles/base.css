@@ -128,7 +128,7 @@ p {
 
 .section--dark .section__eyebrow,
 .section--dark .text-tagline {
-  color: var(--color-accent-soft);
+  color: var(--color-accent-lightest);
 }
 
 .section__title {

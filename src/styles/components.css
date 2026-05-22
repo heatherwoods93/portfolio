@@ -66,11 +66,25 @@
 .hero::after {
   z-index: 1;
   background:
-    radial-gradient(ellipse at 23% 38%, rgb(31 41 35) 0%, rgb(31 41 35 / 0.48) 34%, transparent 58%), 
-    radial-gradient(ellipse at 76% 36%, rgb(31 41 35 / 0.34) 0%, #00000000 42%), 
-    radial-gradient(circle at 86% 28%, rgb(222 231 204 / 10%), #00000000 28%), 
-    linear-gradient(30deg, #171f1b 0%, rgb(31 41 35 / 70%) 30%, rgb(31 41 35 / 60%) 60%, rgb(31 41 35 / 42%) 100%), 
-    linear-gradient(180deg, rgb(31 41 35 / 0.86) 0%, rgb(31 41 35 / 37%) 46%, var(--color-dark) 100%)
+  radial-gradient(
+    ellipse at 22% 38%,
+    rgb(20 28 24 / 0.92) 0%,
+    rgb(20 28 24 / 0.72) 32%,
+    transparent 62%
+  ),
+
+  radial-gradient(
+    ellipse at 82% 34%,
+    rgb(68 82 64 / 0.18) 0%,
+    transparent 46%
+  ),
+
+  linear-gradient(
+    180deg,
+    rgb(20 28 24 / 0.82) 0%,
+    rgb(20 28 24 / 0.38) 48%,
+    rgb(18 24 21 / 0.92) 100%
+  );
   }
 
 
@@ -188,7 +202,7 @@
 .section--dark .button--primary,
 .hero .button--primary {
   color: var(--color-dark);
-  background: var(--color-surface);
+  background: var(--color-accent-lighter);
 }
 
 .section--dark .button--primary:hover,
@@ -199,7 +213,7 @@
 
 .section--dark .button--secondary,
 .hero .button--secondary {
-  color: var(--color-surface);
+  color: var(--color-surface-muted);
   border-color: rgb(255 253 248 / 0.28);
   background: transparent;
 }
@@ -212,7 +226,7 @@
 
 .button--light {
   color: var(--color-dark);
-  background: var(--color-surface);
+  background: var(--color-surface-muted);
 }
 
 .button--light:hover {
