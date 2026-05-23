@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import cmsWorkflowsImage from '../assets/showcase/dispatch-v2.png'
 import interactiveNavigationImage from '../assets/showcase/interactive-navigation.png'
-import memberPathwaysImage from '../assets/showcase/better-future_v3.png'
+import memberPathwaysImage from '../assets/showcase/organize.png'
 import resourceSystemsImage from '../assets/showcase/resource-systems.png'
 
 const systemSlides = [
@@ -102,8 +102,15 @@ function ShowcaseIcon({ name }) {
 function Home() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [trackOffset, setTrackOffset] = useState(0)
+  const [dragOffset, setDragOffset] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragPointerId = useRef(null)
+  const dragStartX = useRef(0)
+  const didDrag = useRef(false)
   const slideRefs = useRef([])
+  const sliderRef = useRef(null)
   const viewportRef = useRef(null)
+  const wheelIntent = useRef(0)
 
   useEffect(() => {
     const updateTrackOffset = () => {
@@ -143,16 +150,204 @@ function Home() {
     }
   }, [activeSlide])
 
+  useEffect(() => {
+    const stickyMedia = window.matchMedia('(min-width: 1041px)')
+    const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let animationFrame
+
+    const updateActiveSlideFromScroll = () => {
+      const slider = sliderRef.current
+
+      if (!slider || !stickyMedia.matches || motionMedia.matches) {
+        return
+      }
+
+      const scrollDistance = slider.offsetHeight - window.innerHeight
+
+      if (scrollDistance <= 0) {
+        return
+      }
+
+      const sliderTop = slider.getBoundingClientRect().top
+      const progress = Math.min(Math.max(-sliderTop / scrollDistance, 0), 1)
+      const nextSlide = Math.round(progress * (systemSlides.length - 1))
+
+      setActiveSlide((current) => (current === nextSlide ? current : nextSlide))
+    }
+
+    const requestScrollUpdate = () => {
+      window.cancelAnimationFrame(animationFrame)
+      animationFrame = window.requestAnimationFrame(updateActiveSlideFromScroll)
+    }
+
+    requestScrollUpdate()
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true })
+    window.addEventListener('resize', requestScrollUpdate)
+    stickyMedia.addEventListener('change', requestScrollUpdate)
+    motionMedia.addEventListener('change', requestScrollUpdate)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('scroll', requestScrollUpdate)
+      window.removeEventListener('resize', requestScrollUpdate)
+      stickyMedia.removeEventListener('change', requestScrollUpdate)
+      motionMedia.removeEventListener('change', requestScrollUpdate)
+    }
+  }, [])
+
+  const goToSlide = (index, options = {}) => {
+    const slider = sliderRef.current
+    const { wrap = true } = options
+    const lastSlide = systemSlides.length - 1
+
+    if (!wrap && (index < 0 || index > lastSlide)) {
+      return false
+    }
+
+    const nextSlide = wrap
+      ? (index + systemSlides.length) % systemSlides.length
+      : Math.min(Math.max(index, 0), lastSlide)
+
+    setActiveSlide(nextSlide)
+
+    if (
+      !slider ||
+      !window.matchMedia('(min-width: 1041px)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return
+    }
+
+    const scrollDistance = slider.offsetHeight - window.innerHeight
+
+    if (scrollDistance <= 0) {
+      return
+    }
+
+    const sliderTop = slider.getBoundingClientRect().top + window.scrollY
+    const slideProgress = nextSlide / (systemSlides.length - 1)
+
+    window.scrollTo({
+      top: sliderTop + scrollDistance * slideProgress,
+      behavior: 'smooth',
+    })
+
+    return true
+  }
+
   const showPreviousSlide = () => {
-    setActiveSlide((current) =>
-      current === 0 ? systemSlides.length - 1 : current - 1,
-    )
+    goToSlide(activeSlide - 1)
   }
 
   const showNextSlide = () => {
-    setActiveSlide((current) =>
-      current === systemSlides.length - 1 ? 0 : current + 1,
-    )
+    goToSlide(activeSlide + 1)
+  }
+
+  const handleDragStart = (event) => {
+    if (event.button !== undefined && event.button !== 0) {
+      return
+    }
+
+    dragPointerId.current = event.pointerId
+    dragStartX.current = event.clientX
+    didDrag.current = false
+    setIsDragging(true)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handleDragMove = (event) => {
+    if (!isDragging || dragPointerId.current !== event.pointerId) {
+      return
+    }
+
+    const nextDragOffset = event.clientX - dragStartX.current
+
+    if (Math.abs(nextDragOffset) > 6) {
+      didDrag.current = true
+    }
+
+    setDragOffset(nextDragOffset)
+  }
+
+  const handleDragEnd = (event) => {
+    if (dragPointerId.current !== event.pointerId) {
+      return
+    }
+
+    const finalDragOffset = event.clientX - dragStartX.current
+    const dragThreshold = 72
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    dragPointerId.current = null
+    setIsDragging(false)
+    setDragOffset(0)
+
+    if (Math.abs(finalDragOffset) < dragThreshold) {
+      return
+    }
+
+    if (finalDragOffset < 0) {
+      showNextSlide()
+      return
+    }
+
+    showPreviousSlide()
+  }
+
+  const handleSlideClick = (event) => {
+    if (!didDrag.current) {
+      return
+    }
+
+    event.preventDefault()
+    event.stopPropagation()
+    didDrag.current = false
+  }
+
+  const handleSliderWheel = (event) => {
+    const canUseStickyWheel =
+      window.matchMedia('(min-width: 1041px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!canUseStickyWheel) {
+      return
+    }
+
+    const primaryDelta =
+      Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX
+
+    if (Math.abs(primaryDelta) < 8) {
+      return
+    }
+
+    if (Math.sign(wheelIntent.current) !== Math.sign(primaryDelta)) {
+      wheelIntent.current = 0
+    }
+
+    wheelIntent.current += primaryDelta
+
+    const intentThreshold = 180
+
+    if (Math.abs(wheelIntent.current) < intentThreshold) {
+      return
+    }
+
+    const direction = wheelIntent.current > 0 ? 1 : -1
+    const canAdvance =
+      direction > 0
+        ? activeSlide < systemSlides.length - 1
+        : activeSlide > 0
+
+    if (!canAdvance) {
+      return
+    }
+
+    event.preventDefault()
+    wheelIntent.current = 0
+    goToSlide(activeSlide + direction, { wrap: false })
   }
 
   return (
@@ -220,96 +415,108 @@ function Home() {
             </p>
           </div>
 
-          <div className="systems-showcase__slider">
-            {/* ANCHOR Systems Showcase Slider */}
-            <div className="systems-showcase__viewport" ref={viewportRef}>
+          <div className="systems-showcase__slider" ref={sliderRef}>
+            {/* ANCHOR Systems Showcase Sticky Carousel */}
+            <div className="systems-showcase__sticky" onWheel={handleSliderWheel}>
               <div
-                className="systems-showcase__track"
-                style={{
-                  transform: `translateX(${trackOffset}px)`,
-                }}
+                className={`systems-showcase__viewport ${
+                  isDragging ? 'is-dragging' : ''
+                }`}
+                ref={viewportRef}
+                onClickCapture={handleSlideClick}
+                onPointerCancel={handleDragEnd}
+                onPointerDown={handleDragStart}
+                onPointerMove={handleDragMove}
+                onPointerUp={handleDragEnd}
               >
-                {systemSlides.map((slide, index) => (
-                  <article
-                    aria-hidden={activeSlide !== index}
-                    aria-live={activeSlide === index ? 'polite' : undefined}
-                    className={`systems-showcase__slide ${
-                      activeSlide === index ? 'is-active' : 'is-dimmed'
-                    }`}
-                    key={slide.category}
-                    ref={(node) => {
-                      slideRefs.current[index] = node
-                    }}
-                  >
-                    <div className="systems-showcase__slide-content">
-                      <p className="text-small is-muted">
-                        {String(index + 1).padStart(2, '0')}
-                      </p>
-                      <p className="text-tagline">{slide.category}</p>
-                      <h3 className="slider-title">{slide.heading}</h3>
-                      <p className="text-body is-muted">{slide.description}</p>
-                      <ul className="tag-list" aria-label={`${slide.category} features`}>
-                        {slide.tags.map((tag) => (
-                          <li className="tag" key={tag}>
-                            {tag}
-                          </li>
-                        ))}
-                      </ul>
-                      <a
-                        className="link-arrow"
-                        href="#work"
-                        tabIndex={activeSlide === index ? 0 : -1}
-                      >
-                        View examples
-                      </a>
-                    </div>
-
-                    <div className="systems-showcase__slide-media">
-                      <img src={slide.image} alt="" />
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="systems-showcase__nav" aria-label="Systems showcase controls">
-              <div className="systems-showcase__controls">
-                <button
-                  aria-label="Show previous system"
-                  className="systems-showcase__arrow"
-                  type="button"
-                  onClick={showPreviousSlide}
+                <div
+                  className="systems-showcase__track"
+                  style={{
+                    transform: `translateX(${trackOffset + dragOffset}px)`,
+                  }}
                 >
-                  &larr;
-                </button>
-                <p className="text-small">
-                  {activeSlide + 1} / {systemSlides.length}
-                </p>
-                <button
-                  aria-label="Show next system"
-                  className="systems-showcase__arrow"
-                  type="button"
-                  onClick={showNextSlide}
-                >
-                  &rarr;
-                </button>
+                  {systemSlides.map((slide, index) => (
+                    <article
+                      aria-hidden={activeSlide !== index}
+                      aria-live={activeSlide === index ? 'polite' : undefined}
+                      className={`systems-showcase__slide ${
+                        activeSlide === index ? 'is-active' : 'is-dimmed'
+                      }`}
+                      key={slide.category}
+                      ref={(node) => {
+                        slideRefs.current[index] = node
+                      }}
+                    >
+                      <div className="systems-showcase__slide-content">
+                        <p className="text-small is-muted">
+                          {String(index + 1).padStart(2, '0')}
+                        </p>
+                        <p className="text-tagline">{slide.category}</p>
+                        <h3 className="slider-title">{slide.heading}</h3>
+                        <p className="text-body is-muted">{slide.description}</p>
+                        <ul className="tag-list" aria-label={`${slide.category} features`}>
+                          {slide.tags.map((tag) => (
+                            <li className="tag" key={tag}>
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
+                        <a
+                          className="link-arrow"
+                          href="#work"
+                          tabIndex={activeSlide === index ? 0 : -1}
+                        >
+                          View examples
+                        </a>
+                      </div>
+
+                      <div className="systems-showcase__slide-media">
+                        <img src={slide.image} alt="" />
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
 
-              <div className="systems-showcase__tabs" role="tablist" aria-label="System types">
-                {systemSlides.map((slide, index) => (
+              <div className="systems-showcase__nav" aria-label="Systems showcase section index">
+                <div className="systems-showcase__controls" aria-label="Systems showcase controls">
                   <button
-                    aria-selected={activeSlide === index}
-                    className="systems-showcase__tab"
-                    key={slide.category}
-                    onClick={() => setActiveSlide(index)}
-                    role="tab"
+                    aria-label="Show previous system"
+                    className="systems-showcase__control"
                     type="button"
+                    onClick={showPreviousSlide}
                   >
-                    <ShowcaseIcon name={slide.icon} />
-                    <span>{slide.navLabel}</span>
-                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    &larr;
                   </button>
-                ))}
+                  <p className="systems-showcase__count text-small">
+                    {activeSlide + 1} / {systemSlides.length}
+                  </p>
+                  <button
+                    aria-label="Show next system"
+                    className="systems-showcase__control"
+                    type="button"
+                    onClick={showNextSlide}
+                  >
+                    &rarr;
+                  </button>
+                </div>
+
+                <div className="systems-showcase__tabs" role="tablist" aria-label="System types">
+                  {systemSlides.map((slide, index) => (
+                    <button
+                      aria-selected={activeSlide === index}
+                      className="systems-showcase__tab"
+                      key={slide.category}
+                      onClick={() => goToSlide(index)}
+                      role="tab"
+                      type="button"
+                    >
+                      <ShowcaseIcon name={slide.icon} />
+                      <span>{slide.navLabel}</span>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
