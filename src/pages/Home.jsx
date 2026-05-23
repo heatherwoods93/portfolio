@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import cmsWorkflowsImage from '../assets/showcase/dispatch-v2.png'
 import interactiveNavigationImage from '../assets/showcase/interactive-navigation.png'
@@ -20,17 +21,17 @@ const systemSlides = [
     category: 'CMS & Workflow Systems',
     navLabel: 'CMS & Workflow Systems',
     icon: 'workflow',
-    heading: 'Flexible CMS systems that adapt to real organizational workflows.',
+    heading: 'Flexible systems built around real workflows.',
     description:
       'CMS-driven structures for job calls, dispatch workflows, uploads, filtering, grouped listings, and operational content that needs to stay manageable over time.',
     tags: ['CMS architecture', 'filtering', 'grouped listings', 'uploads', 'custom workflows'],
     image: cmsWorkflowsImage,
   },
   {
-    category: 'Interactive Navigation Systems',
-    navLabel: 'Interactive Mapping Systems',
+    category: 'Dynamic Content Navigation',
+    navLabel: 'Interactive Navigation Systems',
     icon: 'map',
-    heading: 'Interactive maps connected to structured CMS content.',
+    heading: 'Interactive navigation for structured content.',
     description:
       'Clickable maps, filters, and location-based navigation systems that help users explore regional data, districts, lodges, representatives, legislation, or other structured content.',
     tags: ['interactive maps', 'CMS filtering', 'location-based UX', 'SVG systems'],
@@ -40,7 +41,7 @@ const systemSlides = [
     category: 'Structured Resource Systems',
     navLabel: 'Searchable Directories',
     icon: 'search',
-    heading: 'Organized content systems for dense, high-value information.',
+    heading: 'Searchable systems for large content libraries.',
     description:
       'Searchable and categorized resource systems that make contracts, wellness resources, documents, meetings, directories, and recurring content easier to find and maintain.',
     tags: ['resource directories', 'search', 'filtering', 'categorized content', 'document systems'],
@@ -108,9 +109,7 @@ function Home() {
   const dragStartX = useRef(0)
   const didDrag = useRef(false)
   const slideRefs = useRef([])
-  const sliderRef = useRef(null)
   const viewportRef = useRef(null)
-  const wheelIntent = useRef(0)
 
   useEffect(() => {
     const updateTrackOffset = () => {
@@ -150,96 +149,25 @@ function Home() {
     }
   }, [activeSlide])
 
-  useEffect(() => {
-    const stickyMedia = window.matchMedia('(min-width: 1041px)')
-    const motionMedia = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let animationFrame
-
-    const updateActiveSlideFromScroll = () => {
-      const slider = sliderRef.current
-
-      if (!slider || !stickyMedia.matches || motionMedia.matches) {
-        return
-      }
-
-      const scrollDistance = slider.offsetHeight - window.innerHeight
-
-      if (scrollDistance <= 0) {
-        return
-      }
-
-      const sliderTop = slider.getBoundingClientRect().top
-      const progress = Math.min(Math.max(-sliderTop / scrollDistance, 0), 1)
-      const nextSlide = Math.round(progress * (systemSlides.length - 1))
-
-      setActiveSlide((current) => (current === nextSlide ? current : nextSlide))
-    }
-
-    const requestScrollUpdate = () => {
-      window.cancelAnimationFrame(animationFrame)
-      animationFrame = window.requestAnimationFrame(updateActiveSlideFromScroll)
-    }
-
-    requestScrollUpdate()
-    window.addEventListener('scroll', requestScrollUpdate, { passive: true })
-    window.addEventListener('resize', requestScrollUpdate)
-    stickyMedia.addEventListener('change', requestScrollUpdate)
-    motionMedia.addEventListener('change', requestScrollUpdate)
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame)
-      window.removeEventListener('scroll', requestScrollUpdate)
-      window.removeEventListener('resize', requestScrollUpdate)
-      stickyMedia.removeEventListener('change', requestScrollUpdate)
-      motionMedia.removeEventListener('change', requestScrollUpdate)
-    }
-  }, [])
-
-  const goToSlide = (index, options = {}) => {
-    const slider = sliderRef.current
-    const { wrap = true } = options
+  const goToSlide = (index) => {
     const lastSlide = systemSlides.length - 1
 
-    if (!wrap && (index < 0 || index > lastSlide)) {
-      return false
-    }
-
-    const nextSlide = wrap
-      ? (index + systemSlides.length) % systemSlides.length
-      : Math.min(Math.max(index, 0), lastSlide)
-
-    setActiveSlide(nextSlide)
-
-    if (
-      !slider ||
-      !window.matchMedia('(min-width: 1041px)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      return
-    }
-
-    const scrollDistance = slider.offsetHeight - window.innerHeight
-
-    if (scrollDistance <= 0) {
-      return
-    }
-
-    const sliderTop = slider.getBoundingClientRect().top + window.scrollY
-    const slideProgress = nextSlide / (systemSlides.length - 1)
-
-    window.scrollTo({
-      top: sliderTop + scrollDistance * slideProgress,
-      behavior: 'smooth',
-    })
-
-    return true
+    setActiveSlide(Math.min(Math.max(index, 0), lastSlide))
   }
 
   const showPreviousSlide = () => {
+    if (activeSlide === 0) {
+      return
+    }
+
     goToSlide(activeSlide - 1)
   }
 
   const showNextSlide = () => {
+    if (activeSlide === systemSlides.length - 1) {
+      return
+    }
+
     goToSlide(activeSlide + 1)
   }
 
@@ -307,49 +235,6 @@ function Home() {
     didDrag.current = false
   }
 
-  const handleSliderWheel = (event) => {
-    const canUseStickyWheel =
-      window.matchMedia('(min-width: 1041px)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    if (!canUseStickyWheel) {
-      return
-    }
-
-    const primaryDelta =
-      Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX
-
-    if (Math.abs(primaryDelta) < 8) {
-      return
-    }
-
-    if (Math.sign(wheelIntent.current) !== Math.sign(primaryDelta)) {
-      wheelIntent.current = 0
-    }
-
-    wheelIntent.current += primaryDelta
-
-    const intentThreshold = 180
-
-    if (Math.abs(wheelIntent.current) < intentThreshold) {
-      return
-    }
-
-    const direction = wheelIntent.current > 0 ? 1 : -1
-    const canAdvance =
-      direction > 0
-        ? activeSlide < systemSlides.length - 1
-        : activeSlide > 0
-
-    if (!canAdvance) {
-      return
-    }
-
-    event.preventDefault()
-    wheelIntent.current = 0
-    goToSlide(activeSlide + direction, { wrap: false })
-  }
-
   return (
     <main className="page home">
       <section className="section section--dark hero" aria-labelledby="hero-title">
@@ -406,7 +291,7 @@ function Home() {
           <div className="systems-showcase__header">
             <p className="section__eyebrow">Client-Facing Systems</p>
             <h2 className="section__title" id="systems-showcase-title">
-              Systems that turn complexity into clarity.
+              Clarity through structure, flexibility through design, and trust through usability.
             </h2>
             <p className="section__description">
               I build flexible Webflow systems that help organizations organize
@@ -415,9 +300,9 @@ function Home() {
             </p>
           </div>
 
-          <div className="systems-showcase__slider" ref={sliderRef}>
-            {/* ANCHOR Systems Showcase Sticky Carousel */}
-            <div className="systems-showcase__sticky" onWheel={handleSliderWheel}>
+          <div className="systems-showcase__slider">
+            {/* ANCHOR Systems Showcase Carousel */}
+            <div className="systems-showcase__frame">
               <div
                 className={`systems-showcase__viewport ${
                   isDragging ? 'is-dragging' : ''
@@ -478,29 +363,36 @@ function Home() {
                 </div>
               </div>
 
-              <div className="systems-showcase__nav" aria-label="Systems showcase section index">
-                <div className="systems-showcase__controls" aria-label="Systems showcase controls">
-                  <button
-                    aria-label="Show previous system"
-                    className="systems-showcase__control"
-                    type="button"
-                    onClick={showPreviousSlide}
-                  >
-                    &larr;
-                  </button>
-                  <p className="systems-showcase__count text-small">
-                    {activeSlide + 1} / {systemSlides.length}
-                  </p>
-                  <button
-                    aria-label="Show next system"
-                    className="systems-showcase__control"
-                    type="button"
-                    onClick={showNextSlide}
-                  >
-                    &rarr;
-                  </button>
-                </div>
+              <div className="systems-showcase__controls" aria-label="Systems showcase controls">
+                <button
+                  aria-label="Show previous system"
+                  aria-hidden={activeSlide === 0}
+                  className={`systems-showcase__control ${
+                    activeSlide === 0 ? 'is-hidden' : ''
+                  }`}
+                  disabled={activeSlide === 0}
+                  tabIndex={activeSlide === 0 ? -1 : 0}
+                  type="button"
+                  onClick={showPreviousSlide}
+                >
+                  <ArrowLeft aria-hidden="true" size={18} strokeWidth={1.8} />
+                </button>
+                <button
+                  aria-label="Show next system"
+                  aria-hidden={activeSlide === systemSlides.length - 1}
+                  className={`systems-showcase__control ${
+                    activeSlide === systemSlides.length - 1 ? 'is-hidden' : ''
+                  }`}
+                  disabled={activeSlide === systemSlides.length - 1}
+                  tabIndex={activeSlide === systemSlides.length - 1 ? -1 : 0}
+                  type="button"
+                  onClick={showNextSlide}
+                >
+                  <ArrowRight aria-hidden="true" size={18} strokeWidth={1.8} />
+                </button>
+              </div>
 
+              <div className="systems-showcase__nav" aria-label="Systems showcase section index">
                 <div className="systems-showcase__tabs" role="tablist" aria-label="System types">
                   {systemSlides.map((slide, index) => (
                     <button
