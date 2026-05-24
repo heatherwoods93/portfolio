@@ -6,6 +6,9 @@ import interactiveNavigationImage from '../assets/showcase/interactive-navigatio
 import memberPathwaysImage from '../assets/showcase/organize.png'
 import resourceSystemsImage from '../assets/showcase/resource-systems.png'
 
+import { DesignSystemCard } from '../components/DesignSystemCard/DesignSystemCard'
+import ReviewWorkflowCard from '../components/ReviewWorkflowCard/ReviewWorkflowCard'
+
 const systemSlides = [
   {
     category: 'Organizational Clarity & Member Pathways',
@@ -47,6 +50,33 @@ const systemSlides = [
     tags: ['resource directories', 'search', 'filtering', 'categorized content', 'document systems'],
     image: resourceSystemsImage,
   },
+]
+
+const problemSnippets = [
+  'Translate messy requests into clear content, CMS, and interaction decisions.',
+  'Balance UX clarity with maintainable implementation.',
+  'Choose practical tools, including AI-assisted workflows, when they reduce repetitive operational friction.',
+]
+
+const problemFlow = [
+  'observe',
+  'structure',
+  'build',
+  'refine',
+]
+
+const designFoundationPoints = [
+  'Reusable components',
+  'Consistent UI patterns',
+  'Implementation standards',
+  'Scalable foundations',
+]
+
+const reviewWorkflowPoints = [
+  'Structured QA workflows',
+  'Clear review ownership',
+  'Documentation standards',
+  'Consistent launch processes',
 ]
 
 function ShowcaseIcon({ name }) {
@@ -289,14 +319,12 @@ function Home() {
       >
         <div className="section__inner">
           <div className="systems-showcase__header">
-            <p className="section__eyebrow">Client-Facing Systems</p>
+            <p className="section__eyebrow">WHAT I BUILD</p>
             <h2 className="section__title" id="systems-showcase-title">
-              Clarity through structure, flexibility through design, and trust through usability.
+            I build clarity through structure, flexibility through design, and trust through usability.            
             </h2>
             <p className="section__description">
-              I build flexible Webflow systems that help organizations organize
-              content, clarify user paths, and manage complex workflows without
-              forcing every client into the same pattern.
+              Organizing content, clarifying user paths, and streamlining complex needs into client-first systems.
             </p>
           </div>
 
@@ -410,6 +438,97 @@ function Home() {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section workflow-section" aria-labelledby="workflow-title">
+        <div className="section__inner">
+          <div className="workflow-section__intro">
+            <p className="section__eyebrow">WORKFLOWS & IMPLEMENTATION</p>
+            <h2 className="section__title" id="workflow-title">
+              I build maintainable systems from the ground up.
+            </h2>
+            <p className="section__description">
+             Reusable patterns that improve consistency, implementation standards that reduce drift, and structured review processes that support high-quality work at scale.
+            </p>
+          </div>
+
+          <div className="workflow-section__layers">
+            <article className="workflow-section__layer">
+              <div className="workflow-section__layer-header">
+                <div className="workflow-section__layer-copy">
+                  <p className="workflow-section__number">01</p>
+                  <h3 className="text-heading">Design standards and strong foundations</h3>
+                  <p className="text-body is-muted">
+                  A shared foundation for building pages that stay consistent, maintainable, and easy to extend.                  
+                  </p>
+                </div>
+
+                <ul className="workflow-section__annotation" aria-label="Design standards principles">
+                  {designFoundationPoints.map((point) => (
+                    <li className="workflow-section__annotation-item text-small" key={point}>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="workflow-section__visual">
+                <DesignSystemCard />
+              </div>
+            </article>
+
+            <article className="workflow-section__layer">
+              <div className="workflow-section__layer-header">
+                <div className="workflow-section__layer-copy">
+                  <p className="workflow-section__number">02</p>
+                  <h3 className="text-heading">Workflows that support clearer collaboration and consistency</h3>
+                  <p className="text-body is-muted">
+                    Structured QA, documentation, and review processes that reduce ambiguity and help projects stay cohesive as they evolve.
+                  </p>
+                </div>
+
+                <ul className="workflow-section__annotation" aria-label="Review workflow standards">
+                  {reviewWorkflowPoints.map((point) => (
+                    <li className="workflow-section__annotation-item text-small" key={point}>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="workflow-section__visual">
+                <ReviewWorkflowCard />
+              </div>
+            </article>
+          </div>
+
+          <div className="workflow-section__layer workflow-section__closing">
+            <div className="workflow-section__closing-statement">
+              <p className="text-tagline">Layer Three - Friction Underneath the Request</p>
+              <h3 className="text-heading">
+                I look for the friction underneath the request.
+              </h3>
+              <p className="text-body">
+                I am most useful in the space between design, development,
+                content, and workflow, where unclear systems need to become
+                something people can actually use, maintain, and trust.
+              </p>
+              <div className="workflow-section__mini-flow" aria-label="Problem solving process">
+                {problemFlow.map((step) => (
+                  <span key={step}>{step}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="workflow-section__snippet-list">
+              {problemSnippets.map((snippet) => (
+                <p className="workflow-section__snippet text-small" key={snippet}>
+                  {snippet}
+                </p>
+              ))}
             </div>
           </div>
         </div>

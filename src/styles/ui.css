@@ -82,6 +82,14 @@ p {
   text-transform: uppercase;
 }
 
+.text-label {
+  font-family: var(--font-body);
+  font-size: var(--size-xs);
+  color: #1F2923;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .text-display {
   color: inherit;
   font-family: var(--font-heading);
@@ -361,6 +369,41 @@ p {
 
 .card__text {
   color: var(--color-text-muted);
+}
+
+/* System Cards */
+
+.system-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--color-dark) 12%, transparent);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.system-card__main {
+  min-width: 0;
+}
+
+.system-card__eyebrow {
+  margin: 0;
+}
+
+.system-card__section {
+  padding: var(--space-lg);
+  border-right: 1px solid color-mix(in srgb, var(--color-dark) 8%, transparent);
+}
+
+.system-card__section:last-child {
+  border-right: 0;
+}
+
+.system-card__section h3 {
+  margin: 0 0 var(--space-lg);
 }
 
 .principle-card,

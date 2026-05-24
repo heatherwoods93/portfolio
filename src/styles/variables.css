@@ -13,13 +13,21 @@
   --color-accent-soft: #dfe7d1;
   --color-border: #ddd2c4;
 
+  /*ANCHOR - Typography*/
   --font-body:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  /* Newsreader test: "Newsreader", Georgia, "Times New Roman", ui-serif, serif; */
   --font-heading:
     "Fraunces", Georgia, "Times New Roman", ui-serif, serif;
 
+  --size-xxs: 0.625rem;
+  --size-xs: 0.75rem;
+  --size-sm: 0.875rem;
+  --size-md: 1rem;
+  --size-lg: 1.125rem;
+  --size-xl: 1.25rem;
+
+  /*ANCHOR - Spacing*/
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
   --space-md: 1rem;
@@ -28,15 +36,19 @@
   --space-2xl: 3rem;
   --space-3xl: 5rem;
 
+  /*ANCHOR - Border Radius*/
   --radius-sm: 0.375rem;
   --radius-md: 0.625rem;
   --radius-lg: 0.875rem;
   --radius-xl: 1.25rem;
 
+  /*ANCHOR - Shadows*/
   --shadow-soft: 0 1rem 2.5rem rgb(37 34 29 / 0.08);
 
+  /*ANCHOR - Container Widths*/
   --container-main: 70rem;
   --container-narrow: 50rem;
 
+  /*ANCHOR - Transitions*/
   --transition-base: 180ms ease;
 }
