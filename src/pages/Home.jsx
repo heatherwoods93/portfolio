@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 
 import cmsWorkflowsImage from '../assets/showcase/dispatch-v2.png'
 import interactiveNavigationImage from '../assets/showcase/interactive-navigation.png'
 import memberPathwaysImage from '../assets/showcase/organize.png'
 import resourceSystemsImage from '../assets/showcase/resource-systems.png'
 
-import { DesignSystemCard } from '../components/DesignSystemCard/DesignSystemCard'
-import ReviewWorkflowCard from '../components/ReviewWorkflowCard/ReviewWorkflowCard'
+import { DesignSystemCard } from '../components/DesignSystemCard'
+import ReviewWorkflowCard from '../components/ReviewWorkflowCard'
 
 const systemSlides = [
   {
@@ -295,9 +295,7 @@ function Home() {
             </h1>
 
             <p className="hero__summary text-body is-muted">
-              I help mission-driven teams turn complex content, CMS structures,
-              and internal workflows into web experiences that are easier to use,
-              easier to manage, and easier to trust.
+              I turn complex content, CMS structures, and evolving workflows into frontend systems that are easier to use, easier to manage, and easier to scale.            
             </p>
 
             <div className="hero__actions" aria-label="Hero actions">
@@ -319,9 +317,9 @@ function Home() {
       >
         <div className="section__inner">
           <div className="systems-showcase__header">
-            <p className="section__eyebrow">WHAT I BUILD</p>
+            <p className="section__eyebrow">My Work</p>
             <h2 className="section__title" id="systems-showcase-title">
-            I build clarity through structure, flexibility through design, and trust through usability.            
+              Structured for clarity, usability, and flexibility.              
             </h2>
             <p className="section__description">
               Organizing content, clarifying user paths, and streamlining complex needs into client-first systems.
@@ -446,90 +444,65 @@ function Home() {
       <section className="section workflow-section" aria-labelledby="workflow-title">
         <div className="section__inner">
           <div className="workflow-section__intro">
-            <p className="section__eyebrow">WORKFLOWS & IMPLEMENTATION</p>
+            <p className="section__eyebrow">How it scales</p>
             <h2 className="section__title" id="workflow-title">
-              I build maintainable systems from the ground up.
+              Systems that support consistency as projects evolve.
             </h2>
             <p className="section__description">
-             Reusable patterns that improve consistency, implementation standards that reduce drift, and structured review processes that support high-quality work at scale.
+            Reusable systems, implementation standards, and structured workflows that help projects stay consistent as they evolve.            
             </p>
           </div>
 
-          <div className="workflow-section__layers">
-            <article className="workflow-section__layer">
-              <div className="workflow-section__layer-header">
-                <div className="workflow-section__layer-copy">
-                  <p className="workflow-section__number">01</p>
+          <div className="workflow-section__layout">
+            <article className="workflow-subsection">
+              <div className="workflow-subheader">
+                <div className="workflow-subheader__copy">
+                  <p className="workflow-subheader__number">01</p>
                   <h3 className="text-heading">Design standards and strong foundations</h3>
                   <p className="text-body is-muted">
                   A shared foundation for building pages that stay consistent, maintainable, and easy to extend.                  
                   </p>
                 </div>
 
-                <ul className="workflow-section__annotation" aria-label="Design standards principles">
+                <ul className="workflow-subsection__annotation" aria-label="Design standards principles">
                   {designFoundationPoints.map((point) => (
-                    <li className="workflow-section__annotation-item text-small" key={point}>
+                    <li className="workflow-subsection__annotation-item text-small" key={point}>
+                      <Check aria-hidden="true" size={14} strokeWidth={1.8} />
                       {point}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="workflow-section__visual">
+              <div className="workflow-subsection__visual">
                 <DesignSystemCard />
               </div>
             </article>
 
-            <article className="workflow-section__layer">
-              <div className="workflow-section__layer-header">
-                <div className="workflow-section__layer-copy">
-                  <p className="workflow-section__number">02</p>
-                  <h3 className="text-heading">Workflows that support clearer collaboration and consistency</h3>
+            <article className="workflow-subsection">
+              <div className="workflow-subheader">
+                <div className="workflow-subheader__copy">
+                  <p className="workflow-subheader__number">02</p>
+                  <h3 className="text-heading">Structured workflows for collaborative teams</h3>
                   <p className="text-body is-muted">
                     Structured QA, documentation, and review processes that reduce ambiguity and help projects stay cohesive as they evolve.
                   </p>
                 </div>
 
-                <ul className="workflow-section__annotation" aria-label="Review workflow standards">
+                <ul className="workflow-subsection__annotation" aria-label="Review workflow standards">
                   {reviewWorkflowPoints.map((point) => (
-                    <li className="workflow-section__annotation-item text-small" key={point}>
+                    <li className="workflow-subsection__annotation-item text-small" key={point}>
+                      <Check aria-hidden="true" size={14} strokeWidth={1.8} />
                       {point}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="workflow-section__visual">
+              <div className="workflow-subsection__visual">
                 <ReviewWorkflowCard />
               </div>
             </article>
-          </div>
-
-          <div className="workflow-section__layer workflow-section__closing">
-            <div className="workflow-section__closing-statement">
-              <p className="text-tagline">Layer Three - Friction Underneath the Request</p>
-              <h3 className="text-heading">
-                I look for the friction underneath the request.
-              </h3>
-              <p className="text-body">
-                I am most useful in the space between design, development,
-                content, and workflow, where unclear systems need to become
-                something people can actually use, maintain, and trust.
-              </p>
-              <div className="workflow-section__mini-flow" aria-label="Problem solving process">
-                {problemFlow.map((step) => (
-                  <span key={step}>{step}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="workflow-section__snippet-list">
-              {problemSnippets.map((snippet) => (
-                <p className="workflow-section__snippet text-small" key={snippet}>
-                  {snippet}
-                </p>
-              ))}
-            </div>
           </div>
         </div>
       </section>

@@ -1,5 +1,3 @@
-import "./DesignSystemCard.css";
-
 export function DesignSystemCard() {
   return (
     <div className="system-card design-system-card">
