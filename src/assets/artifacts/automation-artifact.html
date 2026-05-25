@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review Automation Rules Artifact</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg: #080d0d;
+      --panel: #0f1515;
+      --panel-soft: #131a1a;
+      --panel-mid: #182020;
+      --line: rgba(255,255,255,0.11);
+      --line-soft: rgba(255,255,255,0.07);
+      --text: #f4f1ec;
+      --text-muted: #c5c1b9;
+      --text-soft: #8f938e;
+      --accent: #e47e39;
+      --accent-dark: #a84f1d;
+      --green: #79b85e;
+      --green-soft: #263f22;
+      --blue: #3277a9;
+      --blue-soft: #183550;
+      --purple: #7f55d9;
+      --yellow: #d99b19;
+      --teal: #2e867d;
+      --rose: #9e3f59;
+      --gray: #2b3030;
+      --radius: 18px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .artifact {
+      width: min(1600px, 100%);
+      min-height: 960px;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(255,255,255,0.035), transparent 34rem),
+        radial-gradient(circle at 16% 90%, rgba(74, 129, 111, 0.12), transparent 42rem),
+        var(--panel);
+      overflow: hidden;
+      padding: 38px 38px 52px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 31px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .nav {
+      display: flex;
+      gap: 44px;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .nav span {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav .active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav .active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -24px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      padding-top: 50px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .button.primary {
+      background: #b45b24;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .section-head {
+      margin-top: 34px;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    .rule-labels,
+    .rule-row {
+      display: grid;
+      grid-template-columns: minmax(340px, 0.9fr) 88px minmax(410px, 1.05fr) 88px minmax(370px, 0.95fr);
+      align-items: center;
+    }
+
+    .rule-labels {
+      gap: 0;
+      margin-bottom: 18px;
+      color: var(--text);
+      font-weight: 720;
+      font-size: 23px;
+    }
+
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .label i { color: #d8c5a3; }
+
+    .rules {
+      display: grid;
+      gap: 24px;
+    }
+
+    .rule-row {
+      position: relative;
+      padding: 12px 0;
+    }
+
+    .rule-row + .rule-row {
+      border-top: 1px solid var(--line-soft);
+      padding-top: 24px;
+    }
+
+    .card {
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(255,255,255,0.025);
+      display: flex;
+      align-items: center;
+      padding: 30px 30px;
+      box-shadow: inset 0 1px rgba(255,255,255,0.025);
+    }
+
+    .trigger-card {
+      gap: 28px;
+    }
+
+    .icon-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #fff;
+    }
+
+    .icon-orange { background: #8f4a1d; }
+    .icon-blue { background: #1f4266; }
+    .icon-rose { background: #8d344c; }
+    .icon-action-blue { background: #2f74a8; }
+    .icon-action-purple { background: #794ecb; }
+    .icon-action-yellow { background: #c48a10; }
+    .icon-action-slack { background: #333839; }
+    .icon-action-green { background: #2b8442; }
+    .icon-action-gray { background: #333839; }
+
+    .trigger-text,
+    .result-title {
+      font-size: 21px;
+      line-height: 1.28;
+      color: var(--text);
+    }
+
+    .trigger-text .accent { color: var(--accent); }
+    .trigger-text .blue { color: #55a9e4; }
+    .trigger-text .rose { color: #ff6a81; }
+
+    .action-card {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 16px 0;
+      min-height: 150px;
+    }
+
+    .action-line {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 10px 30px;
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .action-line + .action-line {
+      border-top: 1px solid rgba(255,255,255,0.045);
+    }
+
+    .small-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .result-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+    }
+
+    .result-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 720;
+    }
+
+    .check-badge,
+    .result-check {
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+    }
+
+    .check-badge {
+      background: #6ca552;
+    }
+
+    .result-list {
+      display: grid;
+      gap: 13px;
+      margin-left: 1px;
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .result-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .result-check {
+      border: 2px solid #72c05e;
+      color: #72c05e;
+      background: transparent;
+    }
+
+    .connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cdbd9a;
+    }
+
+    .connector::before {
+      content: "";
+      width: 70px;
+      height: 1.5px;
+      background: rgba(205, 189, 154, 0.78);
+    }
+
+    .connector::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      margin-left: -2px;
+      border-radius: 50%;
+      background: #cdbd9a;
+    }
+
+    .lucide {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.9;
+    }
+
+    .icon-box .lucide { width: 35px; height: 35px; }
+    .small-icon .lucide { width: 24px; height: 24px; }
+    .button .lucide { width: 20px; height: 20px; }
+  </style>
+</head>
+<body>
+  <main class="artifact">
+    <header class="app-header">
+      <div>
+        <div class="title-row">
+          <h1>Review Automations</h1>
+          <i data-lucide="chevron-down"></i>
+        </div>
+        <nav class="nav" aria-label="views">
+          <span>Main table</span>
+          <span>Reviews</span>
+          <span class="active">Automations</span>
+          <span>All sites</span>
+          <span>Calendar</span>
+          <i data-lucide="plus"></i>
+        </nav>
+      </div>
+      <div class="actions">
+        <span class="button"><i data-lucide="history"></i>Activity log</span>
+        <span class="button primary"><i data-lucide="plus"></i>Add automation</span>
+      </div>
+    </header>
+
+    <section class="section-head">
+      <p class="lead">Site review animation rules</p>
+    </section>
+
+    <section class="rule-labels" aria-label="automation columns">
+      <div class="label"><i data-lucide="zap"></i>When this happens</div>
+      <div></div>
+      <div class="label"><i data-lucide="arrow-right"></i>Then do this</div>
+      <div></div>
+      <div class="label"><i data-lucide="check"></i>Result</div>
+    </section>
+
+    <section class="rules">
+      <article class="rule-row">
+        <div class="card trigger-card">
+          <div class="icon-box icon-orange"><i data-lucide="list"></i></div>
+          <p class="trigger-text">When Review Status changes to<br><span class="accent">Internal Review</span></p>
+        </div>
+        <div class="connector"></div>
+        <div class="card action-card">
+          <div class="action-line"><span class="small-icon icon-action-blue"><i data-lucide="plus"></i></span>Create reviewer subitems</div>
+          <div class="action-line"><span class="small-icon icon-action-purple"><i data-lucide="user-round"></i></span>Assign review roles</div>
+          <div class="action-line"><span class="small-icon icon-action-yellow"><i data-lucide="clipboard-check"></i></span>Generate QA checklist</div>
+          <div class="action-line"><span class="small-icon icon-action-slack"><i data-lucide="message-square-more"></i></span>Notify review team in Slack</div>
+        </div>
+        <div class="connector"></div>
+        <div class="card result-card">
+          <div class="result-title"><span class="check-badge"><i data-lucide="check"></i></span>Review setup complete</div>
+          <div class="result-list">
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Reviewer subitems created</span>
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Roles assigned</span>
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>QA checklist attached</span>
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Reviewers notified in Slack</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-row">
+        <div class="card trigger-card">
+          <div class="icon-box icon-blue"><i data-lucide="circle-check"></i></div>
+          <p class="trigger-text">When all reviewer statuses are<br><span class="blue">QA Complete</span></p>
+        </div>
+        <div class="connector"></div>
+        <div class="card action-card">
+          <div class="action-line"><span class="small-icon icon-action-green"><i data-lucide="repeat-2"></i></span>Move item to Client Review</div>
+          <div class="action-line"><span class="small-icon icon-action-gray"><i data-lucide="bell"></i></span>Notify project owner in Slack</div>
+        </div>
+        <div class="connector"></div>
+        <div class="card result-card">
+          <div class="result-title"><span class="check-badge"><i data-lucide="check"></i></span>Item advanced</div>
+          <div class="result-list">
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Status updated to Client Review</span>
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Project owner notified</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-row">
+        <div class="card trigger-card">
+          <div class="icon-box icon-rose"><i data-lucide="globe-2"></i></div>
+          <p class="trigger-text">When <span class="rose">Live Check</span> is<br>marked complete</p>
+        </div>
+        <div class="connector"></div>
+        <div class="card action-card">
+          <div class="action-line"><span class="small-icon icon-action-green"><i data-lucide="badge-check"></i></span>Update Review Status to Live</div>
+          <div class="action-line"><span class="small-icon icon-action-gray"><i data-lucide="archive"></i></span>Archive QA tasks</div>
+        </div>
+        <div class="connector"></div>
+        <div class="card result-card">
+          <div class="result-title"><span class="check-badge"><i data-lucide="check"></i></span>Live process complete</div>
+          <div class="result-list">
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>Status updated to Live</span>
+            <span class="result-item"><span class="result-check"><i data-lucide="check"></i></span>QA tasks archived</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

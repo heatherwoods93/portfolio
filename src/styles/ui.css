@@ -224,7 +224,8 @@ p {
   font-size: 1.1rem;
 }
 
-.section__layout-grid {
+.section__layout-grid,
+.section-layout__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-2xl);
@@ -563,6 +564,8 @@ p {
   }
 
   .content-grid,
+  .section__layout-grid,
+  .section-layout__grid,
   .card-grid,
   .principle-grid,
   .token-grid {

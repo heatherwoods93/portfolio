@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Reviews Dashboard Mockup</title>
+  <style>
+    :root {
+      --bg: #101312;
+
+  --panel: #171b1d;
+  --panel-soft: #1f2426;
+  --panel-mid: #262c2f;
+
+  --line: rgba(255,255,255,0.09);
+  --line-soft: rgba(255,255,255,0.06);
+
+  --text: #f2f1ed;
+  --text-muted: #c7cbc8;
+  --text-soft: #8d9390;
+
+  --accent: #e08247;
+  --accent-soft: #b96b3c;
+
+  --blue: #3d7fb0;
+  --blue-soft: #324e67;
+
+  --rose: #c26764;
+  --pink: #cf7298;
+  --violet: #7d73c7;
+  --teal: #469198;
+  --green: #417f74;
+
+  --chip: #324458;
+
+      --radius: 18px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+  margin: 0;
+  min-height: 100vh;
+  background: #111413;
+  color: var(--text);
+  font-family: var(--font);
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+    .dashboard-shot {
+  width: min(1600px, 100%);
+  background: #171a19;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  padding: clamp(24px, 2.5vw, 40px);
+}
+
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .dashboard-title {
+      font-size: clamp(26px, 2.2vw, 36px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 650;
+      margin: 0;
+    }
+
+    .chevron {
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--text);
+      border-bottom: 2px solid var(--text);
+      transform: rotate(45deg) translateY(-3px);
+      opacity: 0.9;
+    }
+
+    .tabs {
+      display: flex;
+      align-items: center;
+      gap: clamp(28px, 4vw, 58px);
+      border-bottom: 1px solid var(--line-soft);
+      padding: 0 0 14px;
+      margin-bottom: 22px;
+      color: var(--text-muted);
+      font-size: clamp(13px, 1.05vw, 18px);
+    }
+
+    .tab {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .tab.is-active {
+      color: var(--text);
+    }
+
+    .tab.is-active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -15px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .plus {
+      font-size: 25px;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 2.2vw, 32px);
+      margin-bottom: 30px;
+      font-size: clamp(13px, 1vw, 17px);
+      color: var(--text-muted);
+    }
+
+    .new-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  background: #2a2d2c;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: none;
+}
+
+    .tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .tool-icon {
+      width: 18px;
+      height: 18px;
+      border: 1.8px solid currentColor;
+      border-radius: 50%;
+      opacity: .85;
+    }
+
+    .tool-icon.square { border-radius: 4px; }
+    .tool-icon.slash { transform: rotate(-18deg); }
+
+    .group-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #e48449;
+      font-size: clamp(20px, 1.8vw, 26px);
+      font-weight: 700;
+      margin: 0 0 18px 6px;
+    }
+
+    .down-caret {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg) translateY(-3px);
+    }
+
+    .board-table {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.015);
+    }
+
+    .grid {
+    display: grid;
+    grid-template-columns:
+        52px
+        minmax(240px, 2.6fr)   /* Site */
+        minmax(92px, 0.75fr)   /* Developer */
+        minmax(96px, 0.8fr)    /* Dev Link */
+        minmax(220px, 1.6fr)   /* Review Status */
+        minmax(110px, 0.7fr)   /* QA Checklist */
+        minmax(100px, 0.7fr);  /* Due Date */
+    }
+
+    .cell {
+      min-height: 32px;
+      min-width: 0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      color: var(--text-muted);
+      font-size: clamp(12px, .92vw, 16px);
+      position: relative;
+    }
+
+    .cell:last-child { border-right: 0; }
+
+    .header-cell {
+      color: #d9d9d6;
+      font-weight: 520;
+      background: rgba(255,255,255,0.018);
+    }
+
+    .row-main .cell {
+      background: rgba(255,255,255,0.012);
+      min-height: 38px;
+    }
+
+    .row-main .cell:first-child::before,
+.subwrap::before,
+.add-row .cell:first-child::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--accent);
+}
+
+    .check {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 3px;
+      background: rgba(0,0,0,.16);
+    }
+
+    .site-cell {
+      justify-content: flex-start;
+      gap: 18px;
+      color: var(--text);
+      font-weight: 500;
+      font-size: clamp(14px, 1.02vw, 18px);
+    }
+
+    .comment {
+      margin-left: auto;
+      width: 22px;
+      height: 18px;
+      border: 2px solid #d8d8d3;
+      border-radius: 6px;
+      position: relative;
+      opacity: .9;
+    }
+
+    .comment::after {
+      content: "";
+      position: absolute;
+      right: 2px;
+      bottom: -5px;
+      width: 8px;
+      height: 8px;
+      border-left: 2px solid #d8d8d3;
+      border-bottom: 2px solid #d8d8d3;
+      transform: skew(-20deg);
+      background: transparent;
+    }
+
+    .count {
+      margin-left: 7px;
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #3b3f40;
+      color: #f0efea;
+      font-size: 14px;
+    }
+
+    .avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #55728b;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+    .link { color: #55a6cf; }
+
+   .pill {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: min(150px, 100%);
+  min-height: 34px;
+  border-radius: 4px;
+  padding: 8px 14px;
+  color: #fff;
+  background: var(--chip);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.04),
+    0 1px 1px rgba(0,0,0,.18);
+  font-weight: 500;
+}
+
+    .pill.review {
+  background: var(--accent-soft);
+}
+
+.pill.progress {
+  background: var(--blue-soft);
+  min-width: 120px;
+}
+
+.pill.blue {
+  background: var(--blue);
+}
+
+.pill.gray {
+  background: #313232;
+}
+
+.pill.role-1 {
+  background: var(--rose);
+}
+
+.pill.role-2 {
+  background: var(--pink);
+}
+
+.pill.role-3 {
+  background: var(--violet);
+}
+
+.pill.role-4 {
+  background: var(--teal);
+}
+
+.pill.role-5 {
+  background: var(--green);
+}
+
+.pill.name {
+  background: var(--chip);
+  min-width: 90px;
+  min-height: 30px;
+}
+
+    .doc {
+      font-size: 26px;
+      line-height: 1;
+      filter: saturate(.8);
+    }
+
+    .subwrap {
+      grid-column: 1 / -1;
+      padding: 26px 12px 26px 34px;
+      border-bottom: 1px solid var(--line-soft);
+      position: relative;
+    }
+
+    .subtable {
+      border: 1px solid var(--line-soft);
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.012);
+    }
+
+    .subgrid {
+        display: grid;
+        grid-template-columns:
+            52px
+            minmax(150px, 1fr)      /* Reviewer */
+            minmax(170px, 1.2fr)    /* Status */
+            minmax(180px, 1.2fr)   /* Primary Role */
+            minmax(150px, 0.95fr)   /* Backup Reviewer */
+            minmax(260px, 2fr)      /* Notes */
+        }
+
+    .subgrid .cell { min-height: 38px; }
+    .subgrid.header .cell { min-height: 38px; }
+
+    .person-cell {
+      justify-content: flex-start;
+      gap: 16px;
+      color: var(--text);
+      font-weight: 450;
+      font-size: clamp(14px, 1vw, 17px);
+    }
+
+    .mini-person {
+      margin-left: auto;
+      width: 21px;
+      height: 21px;
+      border: 1.6px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      position: relative;
+      opacity: .86;
+    }
+
+    .mini-person::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      width: 11px;
+      height: 6px;
+      border: 1.4px solid rgba(255,255,255,.7);
+      border-radius: 50% 50% 0 0;
+      transform: translateX(-50%);
+    }
+
+    .info {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      font-size: 12px;
+      margin-left: 8px;
+      color: rgba(255,255,255,.75);
+    }
+
+    .add-row .cell {
+      min-height: 56px;
+      justify-content: flex-start;
+      padding-left: 20px;
+      color: var(--text-muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 3.2fr 1.05fr 1.18fr 1.3fr 1.25fr 1.35fr 1.05fr;
+      margin-left: 28%;
+      border-left: 1px solid var(--line-soft);
+    }
+
+    .footer-grid .cell {
+      min-height: 52px;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .small { font-size: 12px; color: var(--text-soft); }
+
+    @media (max-width: 1100px) {
+      body { padding: 16px; }
+      .dashboard-shot { min-width: 1100px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="dashboard-shot" aria-label="Website Reviews dashboard mockup">
+    <header class="dashboard-header">
+      <h1 class="dashboard-title">WEBSITE REVIEWS</h1>
+      <span class="chevron" aria-hidden="true"></span>
+    </header>
+
+    <nav class="tabs" aria-label="Board views">
+      <span class="tab is-active">Main table</span>
+      <span class="tab">Build Vibe view</span>
+      <span class="tab">All sites</span>
+      <span class="tab">Calendar</span>
+      <span class="plus">+</span>
+    </nav>
+
+    <h2 class="group-label"><span class="down-caret" aria-hidden="true"></span>Internal Review</h2>
+
+    <section class="board-table">
+      <div class="grid header-row">
+        <div class="cell header-cell"><span class="check"></span></div>
+        <div class="cell header-cell">Site</div>
+        <div class="cell header-cell">Developer</div>
+        <div class="cell header-cell">Dev Link</div>
+        <div class="cell header-cell">Review Status</div>
+        <div class="cell header-cell">QA Checklist</div>
+        <div class="cell header-cell">Due Date</div>
+      </div>
+
+      <div class="grid row-main">
+        <div class="cell"><span class="check"></span></div>
+        <div class="cell site-cell"><span class="down-caret"></span>Union Website</div>
+        <div class="cell"><span class="avatar">MS</span></div>
+        <div class="cell"><span class="link">Link</span></div>
+        <div class="cell"><span class="pill review">Internal Review</span></div>
+        <div class="cell"><span class="doc">📋</span></div>
+        <div class="cell">May 23</div>
+      </div>
+
+      <div class="subwrap">
+        <div class="subtable">
+          <div class="subgrid header">
+            <div class="cell header-cell"><span class="check"></span></div>
+            <div class="cell header-cell">Reviewer</div>
+            <div class="cell header-cell">Status</div>
+            <div class="cell header-cell">Primary Review Role <span class="info">i</span></div>
+            <div class="cell header-cell">Backup Reviewer <span class="info">i</span></div>
+            <div class="cell header-cell">Notes</div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">Lisa</div>
+            <div class="cell"><span class="pill blue">QA Complete</span></div>
+            <div class="cell"><span class="pill role-1">Webflow Settings</span></div>
+            <div class="cell"><span class="pill name">Mike</span></div>
+            <div class="cell"></div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">Jim</div>
+            <div class="cell"><span class="pill gray">Ready for review</span></div>
+            <div class="cell"><span class="pill role-2">Content</span></div>
+            <div class="cell"><span class="pill name">Brandon</span></div>
+            <div class="cell"></div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">Mike</div>
+            <div class="cell"><span class="pill gray">Ready for review</span></div>
+            <div class="cell"><span class="pill role-3">Integrations &amp; Systems</span></div>
+            <div class="cell"><span class="pill name">Jim</span></div>
+            <div class="cell"></div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">Heather</div>
+            <div class="cell"><span class="pill blue">QA Complete</span></div>
+            <div class="cell"><span class="pill role-4">Designer Audit</span></div>
+            <div class="cell"><span class="pill name">Lisa</span></div>
+            <div class="cell"></div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">Brandon</div>
+            <div class="cell"><span class="pill gray">Ready for review</span></div>
+            <div class="cell"><span class="pill role-5">UI/UX</span></div>
+            <div class="cell"><span class="pill name">Heather</span></div>
+            <div class="cell"></div>
+          </div>
+
+          <div class="subgrid">
+            <div class="cell"><span class="check"></span></div>
+            <div class="cell person-cell">+ Add reviewer</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
