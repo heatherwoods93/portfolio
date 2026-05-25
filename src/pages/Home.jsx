@@ -1,34 +1,28 @@
-import { Check } from 'lucide-react'
-
-import { DesignSystemCard } from '../components/DesignSystemCard'
-import ReviewWorkflowArtifact from '../components/ReviewWorkflowArtifact'
 import SystemsShowcase from '../components/SystemsShowcase'
 
-const problemSnippets = [
-  'Translate messy requests into clear content, CMS, and interaction decisions.',
-  'Balance UX clarity with maintainable implementation.',
-  'Choose practical tools, including AI-assisted workflows, when they reduce repetitive operational friction.',
+import reviewDashboardImage from '../assets/case-studies/review_dashboard.png'
+
+const workflowFeatures = [
+  {
+    title: 'Role-based reviews',
+    text: 'Dedicated responsibilities ensure complete coverage and clear accountability.',
+  },
+  {
+    title: 'Automation where it helps',
+    text: 'Streamlined handoffs, notifications, and status updates reduce manual work.',
+  },
+  {
+    title: 'Documentation that scales',
+    text: 'SOPs and guides keep teams aligned and onboarding smooth.',
+  },
 ]
 
-const problemFlow = [
-  'observe',
-  'structure',
-  'build',
-  'refine',
-]
-
-const designFoundationPoints = [
-  'Reusable components',
-  'Consistent UI patterns',
-  'Implementation standards',
-  'Scalable foundations',
-]
-
-const reviewWorkflowPoints = [
-  'Structured QA workflows',
-  'Clear review ownership',
-  'Documentation standards',
-  'Consistent launch processes',
+const reviewRoles = [
+  'Webflow Settings',
+  'Content',
+  'Integrations & Systems',
+  'Designer Audit',
+  'UI/UX',
 ]
 
 function Home() {
@@ -100,56 +94,97 @@ function Home() {
       <section className="section workflow-section" aria-labelledby="workflow-title">
         <div className="section__inner">
           <div className="workflow-section__intro">
-            <p className="section__eyebrow">How it scales</p>
-            <h2 className="section__title" id="workflow-title">
-              Systems that support consistency as projects evolve.
-            </h2>
-            <p className="section__description">
-            Reusable systems, implementation standards, and structured workflows that help projects stay consistent as they evolve.            
-            </p>
+            <div className="workflow-section__content">
+              <p className="workflow-section__number" aria-hidden="true">
+                03
+              </p>
+              <p className="section__eyebrow">Structured Workflows</p>
+              <h2 className="section__title" id="workflow-title">
+                Structured Workflows for Collaborative Teams
+              </h2>
+              <p className="section__description">
+                I design and improve the systems, processes, and documentation
+                that keep projects moving forward with consistency and
+                transparency.
+              </p>
+
+              <div className="workflow-section__features" aria-label="Workflow system strengths">
+                {workflowFeatures.map((feature) => (
+                  <article className="workflow-feature" key={feature.title}>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="workflow-section__media">
+              <img
+                src={reviewDashboardImage}
+                alt="Anonymized Website Reviews dashboard showing review tasks, reviewer roles, and workflow status."
+              />
+            </div>
           </div>
 
-          <div className="workflow-section__layout">
-            <article className="workflow-subsection">
-              <div className="workflow-subheader">
-                <div className="workflow-subheader__copy">
-                  <p className="workflow-subheader__number">01</p>
-                  <h3 className="text-heading">Design standards and strong foundations</h3>
-                  <p className="text-body is-muted">
-                  A shared foundation for building pages that stay consistent, maintainable, and easy to extend.                  
-                  </p>
-                </div>
-
-                <ul className="workflow-subsection__annotation" aria-label="Design standards principles">
-                  {designFoundationPoints.map((point) => (
-                    <li className="workflow-subsection__annotation-item text-small" key={point}>
-                      <Check aria-hidden="true" size={14} strokeWidth={1.8} />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+          <div className="workflow-proof-grid" aria-label="Workflow support systems">
+            <article className="workflow-proof-card">
+              <div className="workflow-proof-card__visual workflow-proof-card__visual--checklist" aria-hidden="true">
+                <span />
+                <span />
+                <span />
               </div>
-
-              <div className="workflow-subsection__visual">
-                <DesignSystemCard />
-              </div>
+              <h3>QA Checklist</h3>
+              <p>
+                Standardized checks help reviews stay consistent across design,
+                content, accessibility, settings, and launch readiness.
+              </p>
             </article>
 
-            <article className="workflow-subsection">
-              <div className="workflow-subheader">
-                <div className="workflow-subheader__copy">
-                  <p className="workflow-subheader__number">02</p>
-                  <h3 className="text-heading">Structured workflows for collaborative teams</h3>
-                  <p className="text-body is-muted">
-                    Structured QA, documentation, and review processes that reduce ambiguity and help projects stay cohesive as they evolve.
-                  </p>
-                </div>
+            <article className="workflow-proof-card">
+              <div className="workflow-proof-card__visual workflow-proof-card__visual--roles" aria-hidden="true">
+                <span />
+                <span />
+                <span />
               </div>
-
-              <div className="workflow-subsection__visual">
-                <ReviewWorkflowArtifact />
-              </div>
+              <h3>Review Roles</h3>
+              <p>
+                Focused reviewer roles clarify ownership and make sure each
+                build is checked from multiple angles.
+              </p>
+              <ul className="tag-list" aria-label="Review role examples">
+                {reviewRoles.map((role) => (
+                  <li className="tag" key={role}>
+                    {role}
+                  </li>
+                ))}
+              </ul>
             </article>
+
+            <article className="workflow-proof-card">
+              <div className="workflow-proof-card__visual workflow-proof-card__visual--docs" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <h3>Documentation &amp; SOPs</h3>
+              <p>
+                Centralized resources keep repeatable processes clear,
+                findable, and easier to maintain.
+              </p>
+            </article>
+          </div>
+
+          <div className="workflow-cta">
+            <div>
+              <h3>Systems. Standards. Workflows.</h3>
+              <p>
+                Everything connected to create better websites — and a better
+                way to build them.
+              </p>
+            </div>
+            <a className="button button--light" href="#work">
+              See Selected Work
+            </a>
           </div>
         </div>
       </section>
