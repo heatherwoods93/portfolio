@@ -87,7 +87,8 @@ p {
   font-size: var(--size-xs);
   color: #1F2923;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
 .text-display {

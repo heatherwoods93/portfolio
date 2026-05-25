@@ -7,7 +7,7 @@ import memberPathwaysImage from '../assets/showcase/organize.png'
 import resourceSystemsImage from '../assets/showcase/resource-systems.png'
 
 import { DesignSystemCard } from '../components/DesignSystemCard'
-import ReviewWorkflowCard from '../components/ReviewWorkflowCard'
+import ReviewWorkflowArtifact from '../components/ReviewWorkflowArtifact'
 
 const systemSlides = [
   {
@@ -488,19 +488,10 @@ function Home() {
                     Structured QA, documentation, and review processes that reduce ambiguity and help projects stay cohesive as they evolve.
                   </p>
                 </div>
-
-                <ul className="workflow-subsection__annotation" aria-label="Review workflow standards">
-                  {reviewWorkflowPoints.map((point) => (
-                    <li className="workflow-subsection__annotation-item text-small" key={point}>
-                      <Check aria-hidden="true" size={14} strokeWidth={1.8} />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               <div className="workflow-subsection__visual">
-                <ReviewWorkflowCard />
+                <ReviewWorkflowArtifact />
               </div>
             </article>
           </div>
