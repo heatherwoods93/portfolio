@@ -232,11 +232,6 @@
   text-align: left;
 }
 
-.workflow-feature:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
 .workflow-feature h3 {
   margin: 0;
   color: var(--color-text);
@@ -430,6 +425,122 @@
 .workflow-cta p {
   margin: 0;
   color: var(--color-dark-muted);
+}
+
+/* ANCHOR Structured Workflows Dark Theme */
+.workflow-section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(6rem, 10vw, 8rem);
+  color: #f3efe7;
+  background:
+    linear-gradient(to bottom, rgb(0 0 0 / 0.04), transparent 8rem),
+    radial-gradient(circle at 72% 45%, rgba(120, 143, 102, 0.16), transparent 30rem),
+    #19251d;
+  box-shadow: inset 0 1.5rem 3rem rgb(0 0 0 / 0.08);
+}
+
+.workflow-section .section__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-section .section__eyebrow {
+  color: #8f9f79;
+}
+
+.workflow-section .section__title {
+  color: #f3efe7;
+}
+
+.workflow-section .section__description {
+  color: rgb(243 239 231 / 0.72);
+}
+
+.workflow-section p {
+  color: rgba(243, 239, 231, 0.78);
+}
+
+.workflow-section .section-layout__grid {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+}
+
+.workflow-feature {
+  border-top-color: rgb(243 239 231 / 0.12);
+  color: rgb(243 239 231 / 0.62);
+}
+
+.workflow-feature h3 {
+  color: rgb(243 239 231 / 0.82);
+}
+
+.workflow-feature p {
+  color: rgb(243 239 231 / 0.6);
+}
+
+.workflow-switcher__button {
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+
+.workflow-switcher__button::before {
+  background: transparent;
+}
+
+.workflow-switcher__button:hover {
+  border-color: rgb(243 239 231 / 0.12);
+  background: rgb(243 239 231 / 0.035);
+}
+
+.workflow-switcher__button.is-active {
+  border-color: rgb(143 159 121 / 0.28);
+  color: #f3efe7;
+  background: rgb(243 239 231 / 0.055);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+}
+
+.workflow-switcher__button.is-active::before {
+  background: #8f9f79;
+}
+
+.workflow-switcher__button.is-active h3 {
+  color: #f3efe7;
+}
+
+.workflow-switcher__button.is-active p {
+  color: rgb(243 239 231 / 0.72);
+}
+
+.workflow-section__media {
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: var(--radius-xl);
+  padding: clamp(0.55rem, 1.2vw, 0.85rem);
+  background: rgba(255, 255, 255, 0.008);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12),
+    0 0 80px rgba(120, 143, 102, 0.08);
+  backdrop-filter: blur(2px);
+  position: relative;
+}
+
+.workflow-switcher__image-frame {
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  height: clamp(24rem, 40vw, 32rem);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.workflow-section__media img {
+  grid-area: 1 / 1;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  height: auto;
+  display: block;
+  justify-self: center;
 }
 
 /* ANCHOR Future Sections */
