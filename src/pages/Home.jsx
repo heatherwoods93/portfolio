@@ -9,7 +9,6 @@ import reviewDashboardImage from '../assets/artifacts/reviews-artifact.png'
 const workflowFeatures = [
   {
     id: 'review-board',
-    tabLabel: 'Review board',
     title: 'Role-based reviews',
     text: 'Dedicated responsibilities ensure complete coverage and clear accountability.',
     image: reviewDashboardImage,
@@ -17,7 +16,6 @@ const workflowFeatures = [
   },
   {
     id: 'automation',
-    tabLabel: 'Automation',
     title: 'Automation where it helps',
     text: 'Streamlined handoffs, notifications, and status updates reduce manual work.',
     image: automationDashboardImage,
@@ -25,7 +23,6 @@ const workflowFeatures = [
   },
   {
     id: 'documentation',
-    tabLabel: 'Documentation',
     title: 'Documentation that scales',
     text: 'SOPs and guides keep teams aligned and onboarding smooth.',
     image: documentationDashboardImage,
@@ -138,9 +135,6 @@ function Home() {
                     aria-controls="workflow-switcher-panel"
                     onClick={() => setActiveWorkflowId(feature.id)}
                   >
-                    <span className="workflow-switcher__tab-label">
-                      {feature.tabLabel}
-                    </span>
                     <h3>{feature.title}</h3>
                     <p>{feature.text}</p>
                   </button>

@@ -254,7 +254,6 @@
 
 .workflow-switcher__button {
   position: relative;
-  border-radius: var(--radius-md);
   padding-inline: var(--space-md);
   padding-bottom: var(--space-md);
   cursor: pointer;
@@ -273,12 +272,6 @@
   width: 2px;
   border-radius: 999px;
   background: transparent;
-}
-
-.workflow-switcher__button:hover,
-.workflow-switcher__button.is-active {
-  color: var(--color-text);
-  background: rgb(255 253 248 / 0.62);
 }
 
 .workflow-switcher__button.is-active {
