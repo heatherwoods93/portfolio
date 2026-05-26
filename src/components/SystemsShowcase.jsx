@@ -11,7 +11,7 @@ import resourceSystemsImage from '../assets/showcase/resource-systems.png'
 const implementationSlides = [
   {
     category: 'Interactive Navigation',
-    title: 'Map-based content paths',
+    title: 'Built interactive map-based navigation for structured regional content.',
     image: interactiveNavigationImage,
     alt: 'Interactive map interface with location-based navigation panels',
     annotations: [
@@ -19,11 +19,10 @@ const implementationSlides = [
       'Location-based paths for complex information',
       'Responsive SVG and CMS-friendly patterns',
     ],
-    tags: ['Maps', 'CMS', 'Navigation'],
   },
   {
     category: 'Content Structure',
-    title: 'Cleaner page hierarchy',
+    title: 'Restructured dense member content into clearer, reusable page systems.',
     image: memberPathwaysImage,
     alt: 'Organized website page layout with structured content sections',
     annotations: [
@@ -31,11 +30,10 @@ const implementationSlides = [
       'Reusable section rhythm across page types',
       'Member-focused paths through dense information',
     ],
-    tags: ['UX', 'Structure', 'Webflow'],
   },
   {
     category: 'Operational CMS',
-    title: 'Dispatch-style content system',
+    title: 'Built structured dispatch systems for clearer operational visibility and updates.',
     image: cmsWorkflowsImage,
     alt: 'CMS-driven dispatch interface with grouped cards and operational content',
     annotations: [
@@ -43,23 +41,10 @@ const implementationSlides = [
       'CMS fields planned around real publishing needs',
       'Scannable card structure for frequent use',
     ],
-    tags: ['CMS', 'Workflow', 'Filtering'],
-  },
-  {
-    category: 'Resource Systems',
-    title: 'Searchable content library',
-    image: resourceSystemsImage,
-    alt: 'Resource library interface with searchable and categorized content',
-    annotations: [
-      'Search and taxonomy patterns for large libraries',
-      'Card structure supports varied resource types',
-      'Maintainable categories for future content growth',
-    ],
-    tags: ['Search', 'Taxonomy', 'Resources'],
   },
   {
     category: 'Review Systems',
-    title: 'Structured QA workflow',
+    title: 'Built structured QA workflows with role-based review and launch validation.',
     image: reviewWorkflowImage,
     alt: 'Review workflow dashboard with QA checklist and status columns',
     annotations: [
@@ -67,11 +52,10 @@ const implementationSlides = [
       'Structured QA checklist for launch validation',
       'Status visibility for feedback and approvals',
     ],
-    tags: ['QA', 'Reviews', 'Launch'],
   },
   {
     category: 'Frontend Standards',
-    title: 'Reusable component patterns',
+    title: 'Built reusable Relume and Webflow component systems for more consistent frontend builds.',
     image: relumeComponentsImage,
     alt: 'Component library mockup showing reusable interface sections',
     annotations: [
@@ -79,7 +63,6 @@ const implementationSlides = [
       'Reusable sections reduce rebuild time',
       'Shared conventions support cleaner handoff',
     ],
-    tags: ['Relume', 'Client-First', 'Components'],
   },
 ]
 
@@ -151,14 +134,6 @@ export default function SystemsShowcase() {
                     >
                       {annotation}
                     </li>
-                  ))}
-                </ul>
-                <ul
-                  className="implementation-gallery__tags"
-                  aria-label={`${slide.title} focus areas`}
-                >
-                  {slide.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
                   ))}
                 </ul>
               </div>

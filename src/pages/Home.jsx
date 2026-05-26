@@ -54,6 +54,31 @@ const systems = [
   },
 ]
 
+const toolGroups = [
+  {
+    title: 'Frontend & CMS',
+    items: ['HTML / CSS / JavaScript', 'React', 'Webflow', 'Finsweet', 'Relume'],
+  },
+  {
+    title: 'Workflow & Operations',
+    items: ['Monday.com', 'Notion', 'Slack', 'Make', 'Zapier'],
+  },
+  {
+    title: 'Development & Deployment',
+    items: ['GitHub', 'VS Code', 'Vite', 'Vercel', 'Firebase'],
+  },
+  {
+    title: 'AI-Assisted Workflows',
+    items: [
+      'ChatGPT',
+      'Claude Code',
+      'Codex',
+      'Cursor',
+      'AI wireframing & implementation review',
+    ],
+  },
+]
+
 function Home() {
   return (
     <main className="page home">
@@ -186,6 +211,32 @@ function Home() {
                 <FileText aria-hidden="true" size={17} strokeWidth={1.8} />
                 View resume
               </a>
+            </div>
+          </div>
+
+          <div className="about-tools">
+            <div className="about-tools__header">
+              <p className="section__eyebrow">Tools &amp; Technologies</p>
+              <p>
+                A selection of the platforms, workflows, and tools I regularly
+                work with across frontend development, CMS architecture,
+                documentation, and operational systems.
+              </p>
+            </div>
+
+            <div className="about-tools__grid">
+              {toolGroups.map((group) => (
+                <section className="about-tools__group" key={group.title}>
+                  <h3 className="about-tools__title">{group.title}</h3>
+                  <ul className="about-tools__list">
+                    {group.items.map((item) => (
+                      <li className="about-tools__item" key={item}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
             </div>
           </div>
         </div>
