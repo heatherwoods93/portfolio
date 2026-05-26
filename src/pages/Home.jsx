@@ -1,5 +1,58 @@
+import {
+  Bot,
+  Boxes,
+  ClipboardCheck,
+  Database,
+  FileText,
+  Network,
+  Workflow,
+} from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
-import WorkflowSwitcher from '../components/WorkflowSwitcher'
+
+const systems = [
+  {
+    title: 'Design Systems',
+    description:
+      'Evolving frontend standards, reusable component patterns, and scalable implementation systems for consistent Webflow builds.',
+    tags: ['Client-First', 'Relume', 'Components'],
+    icon: Boxes,
+  },
+  {
+    title: 'Review Workflows',
+    description:
+      'Structured QA and review processes that clarify ownership, improve feedback quality, and reduce missed launch issues.',
+    tags: ['QA', 'Accessibility', 'Launch Checks'],
+    icon: ClipboardCheck,
+  },
+  {
+    title: 'Automation Systems',
+    description:
+      'Internal automations that connect project status, review stages, and team notifications to reduce manual coordination.',
+    tags: ['Monday.com', 'Slack', 'Process'],
+    icon: Workflow,
+  },
+  {
+    title: 'Documentation & SOPs',
+    description:
+      'Clear implementation notes, development standards, and process documentation that make systems easier to maintain and hand off.',
+    tags: ['Notion', 'SOPs', 'Team Enablement'],
+    icon: FileText,
+  },
+  {
+    title: 'CMS Architecture',
+    description:
+      'Structured content systems for resource libraries, member-focused pages, filtered content, and maintainable site architecture.',
+    tags: ['Webflow CMS', 'Filtering', 'UX'],
+    icon: Database,
+  },
+  {
+    title: 'AI-Assisted Development',
+    description:
+      'Exploring practical AI-supported workflows for documentation, development planning, content structure, and internal process improvements.',
+    tags: ['AI Workflows', 'Research', 'Tooling'],
+    icon: Bot,
+  },
+]
 
 function Home() {
   return (
@@ -48,18 +101,57 @@ function Home() {
       </section>
 
       <section
-        className="section systems-showcase"
+        className="section systems"
         id="systems"
-        aria-labelledby="systems-showcase-title"
+        aria-labelledby="systems-title"
       >
         <div className="section__inner">
-          <div className="systems-showcase__header">
-            <p className="section__eyebrow">My Work</p>
-            <h2 className="section__title" id="systems-showcase-title">
-              Structured for clarity, usability, and flexibility.              
+          <div className="systems__header">
+            <p className="section__eyebrow">Systems &amp; Solutions</p>
+            <h2 className="section__title" id="systems-title">
+              I build web-based systems that solve real-world problems.
             </h2>
             <p className="section__description">
-              Organizing content, clarifying user paths, and streamlining complex needs into client-first systems.
+              From CMS architecture and reusable frontend standards to review
+              workflows and automation, I focus on the structures that help
+              teams build clearer, more maintainable websites.
+            </p>
+          </div>
+
+          <div className="systems__grid">
+            {systems.map(({ title, description, tags, icon: Icon }) => (
+              <article className="systems-card" key={title}>
+                <div className="systems-card__icon" aria-hidden="true">
+                  <Icon size={22} strokeWidth={1.8} />
+                </div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <ul className="systems-card__tags" aria-label={`${title} tools and focus areas`}>
+                  {tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="section systems-showcase featured-work"
+        id="work"
+        aria-labelledby="featured-work-title"
+      >
+        <div className="section__inner">
+          <div className="featured-work__header">
+            <p className="section__eyebrow">Featured Work</p>
+            <h2 className="section__title" id="featured-work-title">
+              Selected work and implementation examples
+            </h2>
+            <p className="section__description">
+              Larger examples of content structure, CMS planning, navigation,
+              and interface decisions that turn complex website needs into
+              maintainable systems.
             </p>
           </div>
 
@@ -67,22 +159,36 @@ function Home() {
         </div>
       </section>
 
-      <section className="section workflow-section" aria-labelledby="workflow-title">
+      <section className="section about-contact" id="about" aria-labelledby="about-title">
         <div className="section__inner">
-          <div className="workflow-section__intro">
-            <p className="section__eyebrow">Structured Workflows</p>
-            <h2 className="section__title" id="workflow-title">
-              Workflows for collaboration and quality assurance
-            </h2>
-            <p className="section__description">
-              I design and improve the systems, processes, and documentation
-              that keep projects moving forward with consistency and
-              transparency.
-            </p>
-          </div>
-          <WorkflowSwitcher />
-        </div>
+          <div className="about-contact__grid">
+            <div className="about-contact__content">
+              <p className="section__eyebrow">About</p>
+              <h2 className="section__title" id="about-title">
+                Frontend systems with practical roots.
+              </h2>
+              <p className="section__description">
+                My work sits between design implementation, CMS architecture,
+                process improvement, and documentation. I like building the
+                structures that make websites easier to understand, launch, and
+                keep improving after handoff.
+              </p>
+            </div>
 
+            <div className="about-contact__card" id="contact">
+              <Network aria-hidden="true" size={24} strokeWidth={1.8} />
+              <h3>Let&apos;s talk systems.</h3>
+              <p>
+                Interested in Webflow implementation, CMS planning, frontend
+                standards, or workflow cleanup?
+              </p>
+              <a className="button button--primary" href="/resume.pdf">
+                <FileText aria-hidden="true" size={17} strokeWidth={1.8} />
+                View resume
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   )
