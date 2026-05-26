@@ -4,53 +4,53 @@ import {
   ClipboardCheck,
   Database,
   FileText,
+  LayoutTemplate,
   Network,
-  Workflow,
 } from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
 
 const systems = [
   {
-    title: 'Design Systems',
+    title: 'Frontend Standards',
     description:
-      'Evolving frontend standards, reusable component patterns, and scalable implementation systems for consistent Webflow builds.',
-    tags: ['Client-First', 'Relume', 'Components'],
+      'Scalable implementation standards, naming conventions, accessibility expectations, and responsive development patterns designed to improve consistency across projects and teams.',
+    tags: ['Client-First', 'Accessibility', 'Responsive Design'],
     icon: Boxes,
   },
   {
-    title: 'Review Workflows',
+    title: 'Component Libraries',
     description:
-      'Structured QA and review processes that clarify ownership, improve feedback quality, and reduce missed launch issues.',
-    tags: ['QA', 'Accessibility', 'Launch Checks'],
-    icon: ClipboardCheck,
-  },
-  {
-    title: 'Automation Systems',
-    description:
-      'Internal automations that connect project status, review stages, and team notifications to reduce manual coordination.',
-    tags: ['Monday.com', 'Slack', 'Process'],
-    icon: Workflow,
-  },
-  {
-    title: 'Documentation & SOPs',
-    description:
-      'Clear implementation notes, development standards, and process documentation that make systems easier to maintain and hand off.',
-    tags: ['Notion', 'SOPs', 'Team Enablement'],
-    icon: FileText,
+      'Reusable sections, interaction patterns, and modular frontend resources designed to accelerate development and support more maintainable Webflow builds.',
+    tags: ['Relume', 'Reusable Components', 'UI Systems'],
+    icon: LayoutTemplate,
   },
   {
     title: 'CMS Architecture',
     description:
-      'Structured content systems for resource libraries, member-focused pages, filtered content, and maintainable site architecture.',
-    tags: ['Webflow CMS', 'Filtering', 'UX'],
+      'Structured content systems for resource libraries, searchable content, member-focused pages, and maintainable CMS-driven website experiences.',
+    tags: ['Webflow CMS', 'Content Systems', 'Filtering', 'Finsweet'],
     icon: Database,
   },
   {
-    title: 'AI-Assisted Development',
+    title: 'Review Workflows',
     description:
-      'Exploring practical AI-supported workflows for documentation, development planning, content structure, and internal process improvements.',
-    tags: ['AI Workflows', 'Research', 'Tooling'],
+      'Structured QA and review systems that improve accountability, clarify ownership, and reduce missed issues during implementation and launch.',
+    tags: ['QA', 'Team Workflows', 'Launch Validation'],
+    icon: ClipboardCheck,
+  },
+  {
+    title: 'AI Workflows & Automation',
+    description:
+      'Practical AI-supported workflows and automation systems designed to reduce manual coordination, improve visibility, and support scalable internal processes.',
+    tags: ['AI', 'Automation', 'Zapier', 'Monday.com', 'Make.com'],
     icon: Bot,
+  },
+  {
+    title: 'Documentation & SOPs',
+    description:
+      'Clear implementation documentation, development standards, and operational resources that make systems easier to maintain, scale, and hand off across teams.',
+    tags: ['SOPs', 'Notion', 'Docs', 'Internal Resources'],
+    icon: FileText,
   },
 ]
 
@@ -138,7 +138,7 @@ function Home() {
       </section>
 
       <section
-        className="section systems-showcase featured-work"
+        className="section featured-work"
         id="work"
         aria-labelledby="featured-work-title"
       >
@@ -146,12 +146,12 @@ function Home() {
           <div className="featured-work__header">
             <p className="section__eyebrow">Featured Work</p>
             <h2 className="section__title" id="featured-work-title">
-              Selected work and implementation examples
+              Selected implementation examples
             </h2>
             <p className="section__description">
-              Larger examples of content structure, CMS planning, navigation,
-              and interface decisions that turn complex website needs into
-              maintainable systems.
+              A closer look at the CMS structures, interface patterns, review
+              systems, and frontend details behind practical web-based
+              solutions.
             </p>
           </div>
 
