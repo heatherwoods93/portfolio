@@ -45,8 +45,10 @@
     }
 
     .artifact {
-      width: min(1600px, 100%);
+      width: 100%;
+      max-width: 1600px;
       min-height: 960px;
+      font-size: 14px;
       background:
         radial-gradient(circle at 80% 10%, rgba(255,255,255,0.035), transparent 34rem),
         radial-gradient(circle at 16% 90%, rgba(74, 129, 111, 0.12), transparent 42rem),
@@ -73,7 +75,7 @@
 
     h1 {
       margin: 0;
-      font-size: 31px;
+      font-size: 24px;
       letter-spacing: -0.03em;
       line-height: 1;
       font-weight: 760;
@@ -84,7 +86,7 @@
       gap: 44px;
       align-items: center;
       color: var(--text-muted);
-      font-size: 18px;
+      font-size: 14px;
     }
 
     .nav span {
@@ -124,7 +126,7 @@
       border: 1px solid var(--line);
       background: transparent;
       color: var(--text);
-      font-size: 17px;
+      font-size: 14px;
       white-space: nowrap;
     }
 
@@ -140,7 +142,7 @@
 
     h2 {
       margin: 0 0 8px;
-      font-size: 30px;
+      font-size: 22px;
       letter-spacing: -0.025em;
       line-height: 1.15;
     }
@@ -148,14 +150,14 @@
     .lead {
       margin: 0;
       color: var(--text-muted);
-      font-size: 21px;
+      font-size: 17px;
       line-height: 1.35;
     }
 
     .rule-labels,
     .rule-row {
       display: grid;
-      grid-template-columns: minmax(340px, 0.9fr) 88px minmax(410px, 1.05fr) 88px minmax(370px, 0.95fr);
+      grid-template-columns: minmax(0, 0.9fr) 64px minmax(0, 1.05fr) 64px minmax(0, 0.95fr);
       align-items: center;
     }
 
@@ -164,7 +166,7 @@
       margin-bottom: 18px;
       color: var(--text);
       font-weight: 720;
-      font-size: 23px;
+      font-size: 19px;
     }
 
     .label {
@@ -191,6 +193,7 @@
     }
 
     .card {
+      min-width: 0;
       min-height: 150px;
       border: 1px solid var(--line);
       border-radius: 11px;
@@ -227,7 +230,7 @@
 
     .trigger-text,
     .result-title {
-      font-size: 21px;
+      font-size: 17px;
       line-height: 1.28;
       color: var(--text);
     }
@@ -249,7 +252,7 @@
       gap: 22px;
       padding: 10px 30px;
       color: var(--text);
-      font-size: 20px;
+      font-size: 16px;
       line-height: 1.25;
     }
 
@@ -299,7 +302,7 @@
       gap: 13px;
       margin-left: 1px;
       color: var(--text-muted);
-      font-size: 18px;
+      font-size: 15px;
     }
 
     .result-item {
@@ -323,7 +326,7 @@
 
     .connector::before {
       content: "";
-      width: 70px;
+      width: min(52px, 100%);
       height: 1.5px;
       background: rgba(205, 189, 154, 0.78);
     }
@@ -346,6 +349,34 @@
     .icon-box .lucide { width: 35px; height: 35px; }
     .small-icon .lucide { width: 24px; height: 24px; }
     .button .lucide { width: 20px; height: 20px; }
+
+    @media (max-width: 900px) {
+      .artifact {
+        min-height: 100vh;
+        padding: 22px;
+      }
+
+      .app-header,
+      .actions,
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .actions {
+        padding-top: 0;
+      }
+
+      .rule-labels,
+      .rule-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .rule-labels > div:empty,
+      .connector {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>

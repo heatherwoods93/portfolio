@@ -299,10 +299,13 @@
 }
 
 .workflow-section__media {
+  position: relative;
   min-width: 0;
+  display: grid;
 }
 
 .workflow-section__media img {
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: auto;
@@ -314,17 +317,13 @@
 }
 
 .workflow-switcher__image {
-  animation: workflow-image-fade 220ms ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
 }
 
-@keyframes workflow-image-fade {
-  from {
-    opacity: 0.72;
-  }
-
-  to {
-    opacity: 1;
-  }
+.workflow-switcher__image.is-active {
+  opacity: 1;
 }
 
 .workflow-proof-grid {
@@ -516,7 +515,6 @@
 @media (prefers-reduced-motion: reduce) {
   .workflow-switcher__button,
   .workflow-switcher__image {
-    animation: none;
     transition: none;
   }
 }

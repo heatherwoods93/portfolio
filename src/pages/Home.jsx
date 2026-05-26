@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import SystemsShowcase from '../components/SystemsShowcase'
 
-import automationDashboardImage from '../assets/case-studies/automation_dashboard.png'
-import documentationDashboardImage from '../assets/case-studies/documentation_dashboard.png'
-import reviewDashboardImage from '../assets/case-studies/review_dashboard.png'
+import automationDashboardImage from '../assets/artifacts/automation-artifact.png'
+import documentationDashboardImage from '../assets/artifacts/documentation-artifact.png'
+import reviewDashboardImage from '../assets/artifacts/reviews-artifact.png'
 
 const workflowFeatures = [
   {
@@ -154,12 +154,17 @@ function Home() {
                 role="tabpanel"
                 aria-labelledby={`${activeWorkflow.id}-tab`}
               >
-                <img
-                  className="workflow-switcher__image"
-                  key={activeWorkflow.id}
-                  src={activeWorkflow.image}
-                  alt={activeWorkflow.imageAlt}
-                />
+                {workflowFeatures.map((feature) => (
+                  <img
+                    className={`workflow-switcher__image${
+                      feature.id === activeWorkflow.id ? ' is-active' : ''
+                    }`}
+                    key={feature.id}
+                    src={feature.image}
+                    alt={feature.id === activeWorkflow.id ? feature.imageAlt : ''}
+                    aria-hidden={feature.id === activeWorkflow.id ? undefined : 'true'}
+                  />
+                ))}
               </div>
             </div>
           </div>

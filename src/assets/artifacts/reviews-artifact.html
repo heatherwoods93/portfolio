@@ -1,26 +1,27 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Website Reviews Dashboard Mockup</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --bg: #101312;
+      --bg: #080d0d;
 
-  --panel: #171b1d;
+  --panel: #0f1515;
   --panel-soft: #1f2426;
   --panel-mid: #262c2f;
 
-  --line: rgba(255,255,255,0.09);
-  --line-soft: rgba(255,255,255,0.06);
+  --line: rgba(255,255,255,0.11);
+  --line-soft: rgba(255,255,255,0.07);
 
-  --text: #f2f1ed;
-  --text-muted: #c7cbc8;
+  --text: #f4f1ec;
+  --text-muted: #c5c1b9;
   --text-soft: #8d9390;
 
-  --accent: #e08247;
-  --accent-soft: #b96b3c;
+  --accent: #e47e39;
+  --accent-soft: #a84f1d;
 
   --blue: #3d7fb0;
   --blue-soft: #324e67;
@@ -42,7 +43,7 @@
     body {
   margin: 0;
   min-height: 100vh;
-  background: #111413;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   display: grid;
@@ -51,14 +52,107 @@
 }
 
     .dashboard-shot {
-  width: min(1600px, 100%);
-  background: #171a19;
+  width: 100%;
+  max-width: 1600px;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,0.035), transparent 34rem),
+    radial-gradient(circle at 16% 90%, rgba(74, 129, 111, 0.12), transparent 42rem),
+    var(--panel);
   border: none;
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
+  font-size: 14px;
   padding: clamp(24px, 2.5vw, 40px);
 }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line-soft);
+      margin-bottom: 28px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-weight: 760;
+    }
+
+    .nav {
+      display: flex;
+      gap: 44px;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .nav span {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav .active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav .active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -24px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      padding-top: 50px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .button.primary {
+      background: #b45b24;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .dashboard-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
 
     .dashboard-header {
       display: flex;
@@ -67,8 +161,47 @@
       margin-bottom: 28px;
     }
 
+    .dashboard-topbar .dashboard-header {
+      margin-bottom: 28px;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding-top: 4px;
+    }
+
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0 16px;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      line-height: 1;
+      white-space: nowrap;
+      background: transparent;
+    }
+
+    .action-button--primary {
+      border-color: rgba(255,255,255,0.08);
+      background: var(--accent-soft);
+    }
+
+    .action-button--secondary {
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+    }
+
+
     .dashboard-title {
-      font-size: clamp(26px, 2.2vw, 36px);
+      font-size: 24px;
       line-height: 1;
       letter-spacing: -0.04em;
       font-weight: 650;
@@ -86,13 +219,14 @@
 
     .tabs {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: clamp(28px, 4vw, 58px);
       border-bottom: 1px solid var(--line-soft);
       padding: 0 0 14px;
       margin-bottom: 22px;
       color: var(--text-muted);
-      font-size: clamp(13px, 1.05vw, 18px);
+      font-size: 14px;
     }
 
     .tab {
@@ -116,7 +250,7 @@
     }
 
     .plus {
-      font-size: 25px;
+      font-size: 18px;
       color: var(--text-muted);
       line-height: 1;
     }
@@ -126,7 +260,7 @@
       align-items: center;
       gap: clamp(18px, 2.2vw, 32px);
       margin-bottom: 30px;
-      font-size: clamp(13px, 1vw, 17px);
+      font-size: 14px;
       color: var(--text-muted);
     }
 
@@ -165,7 +299,7 @@
       align-items: center;
       gap: 16px;
       color: #e48449;
-      font-size: clamp(20px, 1.8vw, 26px);
+      font-size: 22px;
       font-weight: 700;
       margin: 0 0 18px 6px;
     }
@@ -178,6 +312,15 @@
       transform: rotate(45deg) translateY(-3px);
     }
 
+    .right-caret {
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(-45deg);
+      opacity: 0.8;
+    }
+
     .board-table {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -188,13 +331,13 @@
     .grid {
     display: grid;
     grid-template-columns:
-        52px
-        minmax(240px, 2.6fr)   /* Site */
-        minmax(92px, 0.75fr)   /* Developer */
-        minmax(96px, 0.8fr)    /* Dev Link */
-        minmax(220px, 1.6fr)   /* Review Status */
-        minmax(110px, 0.7fr)   /* QA Checklist */
-        minmax(100px, 0.7fr);  /* Due Date */
+        44px
+        minmax(0, 2.6fr)   /* Site */
+        minmax(0, 0.75fr)  /* Developer */
+        minmax(0, 0.8fr)   /* Dev Link */
+        minmax(0, 1.6fr)   /* Review Status */
+        minmax(0, 0.7fr)   /* QA Checklist */
+        minmax(0, 0.7fr);  /* Due Date */
     }
 
     .cell {
@@ -207,7 +350,7 @@
       justify-content: center;
       padding: 6px 14px;
       color: var(--text-muted);
-      font-size: clamp(12px, .92vw, 16px);
+      font-size: 13px;
       position: relative;
     }
 
@@ -224,7 +367,16 @@
       min-height: 38px;
     }
 
-    .row-main .cell:first-child::before,
+    .row-collapsed .cell {
+      background: rgba(255,255,255,0.008);
+      min-height: 58px;
+    }
+
+    .row-collapsed .site-cell {
+      font-weight: 520;
+    }
+
+    .row-main.is-active .cell:first-child::before,
 .subwrap::before,
 .add-row .cell:first-child::before {
   content: "";
@@ -249,7 +401,7 @@
       gap: 18px;
       color: var(--text);
       font-weight: 500;
-      font-size: clamp(14px, 1.02vw, 18px);
+      font-size: 14px;
     }
 
     .comment {
@@ -284,7 +436,7 @@
       border-radius: 50%;
       background: #3b3f40;
       color: #f0efea;
-      font-size: 14px;
+      font-size: 11px;
     }
 
     .avatar {
@@ -299,16 +451,25 @@
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
 }
 
+    .avatar--green {
+      background: var(--green);
+    }
+
+    .avatar--purple {
+      background: var(--violet);
+    }
+
     .link { color: #55a6cf; }
 
    .pill {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  min-width: min(150px, 100%);
-  min-height: 34px;
+  width: 100%;
+  min-width: 0;
+  min-height: 30px;
   border-radius: 4px;
-  padding: 8px 14px;
+  padding: 6px 10px;
   color: #fff;
   background: var(--chip);
   border: 1px solid rgba(255,255,255,.08);
@@ -324,7 +485,7 @@
 
 .pill.progress {
   background: var(--blue-soft);
-  min-width: 120px;
+  min-width: 0;
 }
 
 .pill.blue {
@@ -357,12 +518,12 @@
 
 .pill.name {
   background: var(--chip);
-  min-width: 90px;
+  min-width: 0;
   min-height: 30px;
 }
 
     .doc {
-      font-size: 26px;
+      font-size: 20px;
       line-height: 1;
       filter: saturate(.8);
     }
@@ -384,12 +545,12 @@
     .subgrid {
         display: grid;
         grid-template-columns:
-            52px
-            minmax(150px, 1fr)      /* Reviewer */
-            minmax(170px, 1.2fr)    /* Status */
-            minmax(180px, 1.2fr)   /* Primary Role */
-            minmax(150px, 0.95fr)   /* Backup Reviewer */
-            minmax(260px, 2fr)      /* Notes */
+            44px
+            minmax(0, 1fr)       /* Reviewer */
+            minmax(0, 1.2fr)     /* Status */
+            minmax(0, 1.2fr)     /* Primary Role */
+            minmax(0, 0.95fr)    /* Backup Reviewer */
+            minmax(0, 2fr)       /* Notes */
         }
 
     .subgrid .cell { min-height: 38px; }
@@ -400,7 +561,7 @@
       gap: 16px;
       color: var(--text);
       font-weight: 450;
-      font-size: clamp(14px, 1vw, 17px);
+      font-size: 13px;
     }
 
     .mini-person {
@@ -459,29 +620,53 @@
 
     .small { font-size: 12px; color: var(--text-soft); }
 
+    .lucide {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.9;
+    }
+
+    .button .lucide { width: 20px; height: 20px; }
+
     @media (max-width: 1100px) {
-      body { padding: 16px; }
-      .dashboard-shot { min-width: 1100px; }
+      body { padding: 0; }
+      .dashboard-shot { width: 100%; }
+      .app-header,
+      .actions,
+      .nav {
+        flex-wrap: wrap;
+      }
+      .actions {
+        padding-top: 0;
+      }
+      .cell { padding-inline: 8px; }
+      .pill { padding-inline: 8px; }
     }
   </style>
 </head>
 <body>
   <main class="dashboard-shot" aria-label="Website Reviews dashboard mockup">
-    <header class="dashboard-header">
-      <h1 class="dashboard-title">WEBSITE REVIEWS</h1>
-      <span class="chevron" aria-hidden="true"></span>
+    <header class="app-header">
+      <div>
+        <div class="title-row">
+          <h1>Website Reviews</h1>
+          <i data-lucide="chevron-down"></i>
+        </div>
+
+        <nav class="nav" aria-label="views">
+          <span class="active">Main table</span>
+          <span>Build Vibe view</span>
+          <span>All sites</span>
+          <span>Calendar</span>
+          <i data-lucide="plus"></i>
+        </nav>
+      </div>
+
+      <div class="actions">
+        <span class="button"><i data-lucide="history"></i>Activity log</span>
+        <span class="button primary"><i data-lucide="plus"></i>Add review</span>
+      </div>
     </header>
-
-    <nav class="tabs" aria-label="Board views">
-      <span class="tab is-active">Main table</span>
-      <span class="tab">Build Vibe view</span>
-      <span class="tab">All sites</span>
-      <span class="tab">Calendar</span>
-      <span class="plus">+</span>
-    </nav>
-
-    <h2 class="group-label"><span class="down-caret" aria-hidden="true"></span>Internal Review</h2>
-
     <section class="board-table">
       <div class="grid header-row">
         <div class="cell header-cell"><span class="check"></span></div>
@@ -493,13 +678,13 @@
         <div class="cell header-cell">Due Date</div>
       </div>
 
-      <div class="grid row-main">
+      <div class="grid row-main is-active">
         <div class="cell"><span class="check"></span></div>
         <div class="cell site-cell"><span class="down-caret"></span>Union Website</div>
         <div class="cell"><span class="avatar">MS</span></div>
         <div class="cell"><span class="link">Link</span></div>
         <div class="cell"><span class="pill review">Internal Review</span></div>
-        <div class="cell"><span class="doc">📋</span></div>
+        <div class="cell"><span class="doc">&#128203;</span></div>
         <div class="cell">May 23</div>
       </div>
 
@@ -569,7 +754,42 @@
           </div>
         </div>
       </div>
+
+      <!-- bottom rows -->
+      <div class="grid row-main row-collapsed">
+        <div class="cell"><span class="check"></span></div>
+        <div class="cell site-cell"><span class="right-caret"></span>Member Resources Update</div>
+        <div class="cell"><span class="avatar avatar--green">JW</span></div>
+        <div class="cell"><span class="link">Link</span></div>
+        <div class="cell"><span class="pill blue">Client Review</span></div>
+        <div class="cell"><span class="doc">&#128203;</span></div>
+        <div class="cell">May 27</div>
+      </div>
+
+      <div class="grid row-main row-collapsed">
+        <div class="cell"><span class="check"></span></div>
+        <div class="cell site-cell"><span class="right-caret"></span>Apprenticeship Program</div>
+        <div class="cell"><span class="avatar avatar--purple">HT</span></div>
+        <div class="cell"><span class="link">Link</span></div>
+        <div class="cell"><span class="pill role-5">Live Check</span></div>
+        <div class="cell"><span class="doc">&#128203;</span></div>
+        <div class="cell">May 30</div>
+      </div>
+
+      <div class="grid row-main row-collapsed">
+        <div class="cell"><span class="check"></span></div>
+        <div class="cell site-cell"><span class="right-caret"></span>Training Hub Redesign</div>
+        <div class="cell"><span class="avatar">MS</span></div>
+        <div class="cell"><span class="link">Link</span></div>
+        <div class="cell"><span class="pill gray">In Progress</span></div>
+        <div class="cell">&mdash;</div>
+        <div class="cell">Jun 2</div>
+      </div>
     </section>
   </main>
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
+
