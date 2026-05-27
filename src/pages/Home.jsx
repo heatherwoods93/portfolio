@@ -200,7 +200,7 @@ function Home() {
               </p>
             </div>
 
-            <div className="about-contact__card" id="contact">
+            <div className="about-contact__card">
               <Network aria-hidden="true" size={24} strokeWidth={1.8} />
               <h3>Let&apos;s talk systems.</h3>
               <p>
@@ -241,6 +241,50 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <section className="section contact" id="contact" aria-labelledby="contact-title">
+        <div className="contact__inner">
+          <p className="contact__eyebrow">Contact</p>
+          <h2 className="contact__title" id="contact-title">
+            Let&apos;s build something clear, useful, and maintainable.
+          </h2>
+          <p className="contact__text">
+            Interested in frontend systems, CMS architecture, or operational
+            workflows? I&apos;d love to connect.
+          </p>
+
+          <div className="contact__actions" aria-label="Contact links">
+            <a className="button button--primary" href="mailto:hello@example.com">
+              Email me
+            </a>
+            <a className="button button--secondary" href="https://www.linkedin.com/">
+              LinkedIn
+            </a>
+            <a className="button button--secondary" href="https://github.com/">
+              GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <div className="site-footer__inner">
+          <a className="site-footer__brand" href="/">
+            Heather Woods
+          </a>
+          <p className="site-footer__text">
+            Webflow Developer &amp; Frontend Systems Builder
+          </p>
+          <nav className="site-footer__links" aria-label="Footer links">
+            <a href="mailto:hello@example.com">Email</a>
+            <a href="https://www.linkedin.com/">LinkedIn</a>
+            <a href="https://github.com/">GitHub</a>
+          </nav>
+          <p className="site-footer__meta">
+            &copy; 2026 Heather Woods. Built with React.
+          </p>
+        </div>
+      </footer>
     </main>
   )
 }
