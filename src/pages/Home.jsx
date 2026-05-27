@@ -61,20 +61,20 @@ const toolGroups = [
   },
   {
     title: 'Workflow & Operations',
-    items: ['Monday.com', 'Notion', 'Slack', 'Make', 'Zapier'],
+    items: ['Monday.com', 'Notion', 'Hubspot', 'Basecamp', 'Clickup'],
   },
   {
     title: 'Development & Deployment',
-    items: ['GitHub', 'VS Code', 'Vite', 'Vercel', 'Firebase'],
+    items: ['Git/GitHub', 'VS Code', 'Vite', 'Cloudflare', 'Claude Code'],
   },
   {
-    title: 'AI-Assisted Workflows',
+    title: 'AI & Automation',
     items: [
-      'ChatGPT',
-      'Claude Code',
-      'Codex',
-      'Cursor',
-      'AI wireframing & implementation review',
+      'Claude Integrations',
+      'Make.com',
+      'Zapier',
+      'Webflow AI',
+      'Monday automations',
     ],
   },
 ]
@@ -226,6 +226,27 @@ function Home() {
                 </section>
               ))}
             </div>
+
+            <aside
+              className="ai-workflow-note"
+              aria-labelledby="ai-workflow-note-title"
+            >
+              <div>
+                <h3
+                  className="ai-workflow-note__title"
+                  id="ai-workflow-note-title"
+                >
+                  AI-Integrated Workflows
+                </h3>
+                <p className="ai-workflow-note__text">
+                  I use AI-assisted tools to support frontend planning, CMS organization, implementation review, documentation, and workflow automation throughout the development process.
+
+                </p>
+                <p className="ai-workflow-note__text">
+                  This includes reducing repetitive implementation work, reviewing content for human errors and inconsistencies, organizing complex client information into clearer structures, and accelerating tasks like CMS setup, wireframe exploration, SOP drafting, and operational planning.
+                </p>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
