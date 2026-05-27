@@ -12,93 +12,109 @@ import documentationSystemsImage from '../assets/showcase/client-first.png'
 const implementationSlides = [
   {
     category: 'Interactive Navigation',
-    title: 'Built interactive map-based navigation for structured legislative content systems.',
+    title:
+  'Built interactive map navigation for location-based content systems.',
     image: interactiveNavigationImage,
     alt: 'Interactive map interface with location-based navigation panels',
     annotations: [
-  'Clickable regions tied to structured legislative content',
-  'State-based navigation simplifies dense information access',
-  'Responsive SVG patterns support scalable CMS integration',
+  'Responsive SVG interaction patterns across devices',
+  'Interactive regions connected to dynamic CMS content',
+  'Multiple navigation paths for state, region, and local discovery',
 ],
     tags: ['Maps', 'SVG', 'CMS'],
   },
   {
     category: 'Structured Content Systems',
-    title: 'Organized large contractor and resource directories into searchable, maintainable CMS-driven systems.',
+    title:
+  'Organized large CMS-driven directories with scalable search and filtering.',
     image: resourceSystemsImage,
     alt: 'Contractor database interface with search and filter options',
     annotations: [
-  'Search and taxonomy patterns support large content libraries',
-  'Flexible CMS structures allow scalable content organization',
-  'Structured filtering improves navigation across dense resource systems',
+  'Keyword search across dynamic CMS collections',
+  'Grouped browsing patterns for large information sets',
+  'Directory layouts designed for recurring content updates',
 ],
     tags: ['Search', 'Taxonomy', 'CMS'],
   },
   {
-    category: 'Information clarity & organization',
-    title: 'Restructured dense member content into clearer, reusable page systems.',
+    category: 'Information Clarity & Organization',
+    title:
+  'Translated raw client content into clearer structure, messaging, and user pathways.',
     image: memberPathwaysImage,
     alt: 'Organized website page layout with structured content sections',
     annotations: [
-  'Clearer hierarchy improves scanability across dense content',
-  'Reusable section structures support consistency across pages',
-  'Content organization reduces friction for member-focused information',
+  'Clear visual separation between content sections',
+  'CTA placement tied to user intent',
+  'Dense informational content organized into clearer layouts',
 ],
-    tags: ['UX', 'Hierarchy', 'Content'],
+    tags: ['Content Clarity', 'Hierarchy', 'CTAs'],
   },
   {
     category: 'Dispatch Systems',
-    title: 'Built structured dispatch systems for clearer operational visibility and maintainable updates.',
+    title:
+  'Built flexible CMS publishing systems designed around real client workflows.',
     image: cmsWorkflowsImage,
     alt: 'CMS-driven dispatch interface with grouped cards and operational content',
     annotations: [
-  'Structured listings support recurring operational updates',
-  'CMS fields planned around real publishing workflows',
-  'Scannable layouts improve visibility across frequently updated content',
+  'CMS fields designed for simple client-side publishing',
+  'Flexible structure adapted to different publishing workflows',
+  'Scannable layouts for recurring content updates',
 ],
     tags: ['Dispatch', 'CMS Fields', 'Operations'],
   },
   {
     category: 'Review Systems',
-    title: 'Built structured QA workflows with role-based review and launch validation.',
+    title:
+  'Designed QA and review workflows that encouraged more thoughtful feedback and smoother launches.',
     image: reviewWorkflowImage,
     alt: 'Review workflow dashboard with QA checklist and status columns',
-    annotations: [
-  'Role-based review stages improve accountability and visibility',
-  'Structured QA workflows support launch validation processes',
-  'Shared status tracking simplifies feedback and approval coordination',
+   annotations: [
+  'Shared review stages tied to specific QA responsibilities',
+  'Launch checklists used across internal review workflows',
+  'Structured feedback designed to improve review quality and collaboration',
 ],
     tags: ['QA', 'Review Roles', 'Launch'],
   },
   {
-    category: 'Frontend Standards',
-    title: 'Built reusable Relume and Webflow component systems to support more consistent frontend builds.',
+    category: 'Component libraries',
+    title:
+  'Standardized shared frontend libraries and reusable patterns for more consistent builds.',
     image: relumeComponentsImage,
     alt: 'Component library mockup showing reusable interface sections',
     annotations: [
-  'Reusable component systems support faster frontend implementation',
-  'Shared standards improve consistency across builds',
-  'Modular patterns simplify long-term maintenance and handoff',
+  'Shared components reused across multiple site builds',
+  'Consistent implementation patterns across projects',
+  'Reusable sections designed for easier long-term updates',
 ],
     tags: ['Relume', 'Webflow', 'Components'],
   },
   {
-    category: 'Documentation Systems',
-    title: 'Built centralized SOP and implementation documentation to support onboarding, consistency, and long-term maintainability.',
+    category: 'Documentation & SOPs',
+    title:
+  'Created and organized SOPs, documentation, and implementation guides for clearer team workflows.',
     image: documentationSystemsImage,
     alt: 'Documentation interface with centralized SOP and implementation guides',
     annotations: [
-  'Centralized SOPs reduce repeated support and onboarding friction',
-  'Structured implementation guides improve team consistency',
-  'Shared documentation supports scalable long-term maintenance',
-],
+  'Implementation guides organized around real team workflows',
+  'Shared documentation used for onboarding and handoff',
+  'Clearer internal references for recurring project tasks',
+],  
     tags: ['SOPs', 'Docs', 'Handoff'],
   },
 ]
 
 export default function SystemsShowcase() {
   const viewportRef = useRef(null)
+  const dragPointerId = useRef(null)
+  const dragStartX = useRef(0)
+  const dragStartScrollLeft = useRef(0)
+  const dragLatestX = useRef(0)
+  const dragFrame = useRef(null)
+  const settleTimeout = useRef(null)
+  const settleFrame = useRef(null)
+  const isSettling = useRef(false)
   const [activeSlide, setActiveSlide] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
 
   const goToSlide = (index) => {
     const viewport = viewportRef.current
@@ -117,7 +133,7 @@ export default function SystemsShowcase() {
   const handleScroll = () => {
     const viewport = viewportRef.current
 
-    if (!viewport) {
+    if (!viewport || isDragging || isSettling.current) {
       return
     }
 
@@ -134,6 +150,146 @@ export default function SystemsShowcase() {
     )
 
     setActiveSlide(nearestSlide.index)
+  }
+
+  const animateScrollTo = (targetLeft, onComplete) => {
+    const viewport = viewportRef.current
+
+    if (!viewport) {
+      return
+    }
+
+    if (settleFrame.current !== null) {
+      window.cancelAnimationFrame(settleFrame.current)
+      settleFrame.current = null
+    }
+
+    const startLeft = viewport.scrollLeft
+    const distance = targetLeft - startLeft
+    const duration = 260
+    const startTime = performance.now()
+
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1)
+      const easedProgress = 1 - Math.pow(1 - progress, 3)
+
+      viewport.scrollLeft = startLeft + distance * easedProgress
+
+      if (progress < 1) {
+        settleFrame.current = window.requestAnimationFrame(step)
+        return
+      }
+
+      settleFrame.current = null
+      onComplete?.()
+    }
+
+    settleFrame.current = window.requestAnimationFrame(step)
+  }
+
+  const handleDragStart = (event) => {
+    if (event.button !== undefined && event.button !== 0) {
+      return
+    }
+
+    const viewport = viewportRef.current
+
+    if (!viewport) {
+      return
+    }
+
+    if (settleTimeout.current !== null) {
+      window.clearTimeout(settleTimeout.current)
+      settleTimeout.current = null
+    }
+
+    if (settleFrame.current !== null) {
+      window.cancelAnimationFrame(settleFrame.current)
+      settleFrame.current = null
+    }
+
+    isSettling.current = false
+    dragPointerId.current = event.pointerId
+    dragStartX.current = event.clientX
+    dragLatestX.current = event.clientX
+    dragStartScrollLeft.current = viewport.scrollLeft
+    setIsDragging(true)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handleDragMove = (event) => {
+    const viewport = viewportRef.current
+
+    if (!viewport || dragPointerId.current !== event.pointerId) {
+      return
+    }
+
+    dragLatestX.current = event.clientX
+
+    if (dragFrame.current !== null) {
+      return
+    }
+
+    dragFrame.current = window.requestAnimationFrame(() => {
+      viewport.scrollLeft =
+        dragStartScrollLeft.current - (dragLatestX.current - dragStartX.current)
+      dragFrame.current = null
+    })
+  }
+
+  const handleDragEnd = (event) => {
+    const viewport = viewportRef.current
+
+    if (dragPointerId.current !== event.pointerId) {
+      return
+    }
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    dragPointerId.current = null
+    if (dragFrame.current !== null) {
+      window.cancelAnimationFrame(dragFrame.current)
+      dragFrame.current = null
+    }
+
+    if (!viewport) {
+      setIsDragging(false)
+      return
+    }
+
+    const slides = [...viewport.querySelectorAll('.implementation-gallery__slide')]
+    const startOffset = slides[0]?.offsetLeft ?? 0
+    const nearestSlide = slides.reduce(
+      (nearest, slide, index) => {
+        const alignedOffset = slide.offsetLeft - startOffset
+        const distance = Math.abs(alignedOffset - viewport.scrollLeft)
+
+        return distance < nearest.distance
+          ? { distance, index, left: alignedOffset }
+          : nearest
+      },
+      {
+        distance: Number.POSITIVE_INFINITY,
+        index: activeSlide,
+        left: viewport.scrollLeft,
+      },
+    )
+
+    isSettling.current = true
+    animateScrollTo(nearestSlide.left, () => {
+      setActiveSlide(nearestSlide.index)
+      setIsDragging(false)
+      isSettling.current = false
+    })
+
+    settleTimeout.current = window.setTimeout(() => {
+      setActiveSlide(nearestSlide.index)
+      setIsDragging(false)
+      isSettling.current = false
+      settleTimeout.current = null
+    }, 320)
   }
 
   const controls = (
@@ -178,9 +334,15 @@ export default function SystemsShowcase() {
 
       <div className="implementation-gallery">
         <div
-          className="implementation-gallery__viewport"
+          className={`implementation-gallery__viewport ${
+            isDragging ? 'is-dragging' : ''
+          }`}
           ref={viewportRef}
           onScroll={handleScroll}
+          onPointerCancel={handleDragEnd}
+          onPointerDown={handleDragStart}
+          onPointerMove={handleDragMove}
+          onPointerUp={handleDragEnd}
         >
           <div className="implementation-gallery__track">
             {implementationSlides.map((slide) => (
