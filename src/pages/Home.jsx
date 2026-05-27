@@ -168,18 +168,6 @@ function Home() {
         aria-labelledby="featured-work-title"
       >
         <div className="section__inner">
-          <div className="featured-work__header">
-            <p className="section__eyebrow">Featured Work</p>
-            <h2 className="section__title" id="featured-work-title">
-              Selected implementation examples
-            </h2>
-            <p className="section__description">
-              A closer look at the CMS structures, interface patterns, review
-              systems, and frontend details behind practical web-based
-              solutions.
-            </p>
-          </div>
-
           <SystemsShowcase />
         </div>
       </section>

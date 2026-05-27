@@ -103,15 +103,14 @@ export default function SystemsShowcase() {
   const goToSlide = (index) => {
     const viewport = viewportRef.current
     const nextIndex = Math.min(Math.max(index, 0), implementationSlides.length - 1)
-    const targetSlide = viewport?.querySelectorAll('.implementation-gallery__slide')[
-      nextIndex
-    ]
+    const slides = viewport?.querySelectorAll('.implementation-gallery__slide')
+    const targetSlide = slides?.[nextIndex]
+    const startOffset = slides?.[0]?.offsetLeft ?? 0
 
     setActiveSlide(nextIndex)
-    targetSlide?.scrollIntoView({
+    viewport?.scrollTo({
+      left: targetSlide ? targetSlide.offsetLeft - startOffset : 0,
       behavior: 'smooth',
-      block: 'nearest',
-      inline: 'start',
     })
   }
 
@@ -123,9 +122,11 @@ export default function SystemsShowcase() {
     }
 
     const slides = [...viewport.querySelectorAll('.implementation-gallery__slide')]
+    const startOffset = slides[0]?.offsetLeft ?? 0
     const nearestSlide = slides.reduce(
       (nearest, slide, index) => {
-        const distance = Math.abs(slide.offsetLeft - viewport.scrollLeft)
+        const alignedOffset = slide.offsetLeft - startOffset
+        const distance = Math.abs(alignedOffset - viewport.scrollLeft)
 
         return distance < nearest.distance ? { distance, index } : nearest
       },
@@ -135,71 +136,89 @@ export default function SystemsShowcase() {
     setActiveSlide(nearestSlide.index)
   }
 
-  return (
-    <div className="implementation-gallery">
-      <div
-        className="implementation-gallery__viewport"
-        ref={viewportRef}
-        onScroll={handleScroll}
+  const controls = (
+    <div
+      className="implementation-gallery__controls"
+      aria-label="Implementation gallery controls"
+    >
+      <button
+        aria-label="Show previous implementation example"
+        disabled={activeSlide === 0}
+        type="button"
+        onClick={() => goToSlide(activeSlide - 1)}
       >
-        <div className="implementation-gallery__track">
-          {implementationSlides.map((slide) => (
-            <article className="implementation-gallery__slide" key={slide.title}>
-              <div className="implementation-gallery__media">
-                <img
-                  className="implementation-gallery__image"
-                  src={slide.image}
-                  alt={slide.alt}
-                />
-              </div>
+        <ArrowLeft aria-hidden="true" size={18} strokeWidth={1.8} />
+      </button>
+      <button
+        aria-label="Show next implementation example"
+        disabled={activeSlide === implementationSlides.length - 1}
+        type="button"
+        onClick={() => goToSlide(activeSlide + 1)}
+      >
+        <ArrowRight aria-hidden="true" size={18} strokeWidth={1.8} />
+      </button>
+    </div>
+  )
 
-              <div className="implementation-gallery__content">
-                <h3 className="implementation-gallery__title">{slide.title}</h3>
-                <ul className="implementation-gallery__annotations">
-                  {slide.annotations.map((annotation) => (
-                    <li
-                      className="implementation-gallery__annotation"
-                      key={annotation}
-                    >
-                      {annotation}
-                    </li>
-                  ))}
-                </ul>
-                <ul
-                  className="implementation-gallery__tags"
-                  aria-label={`${slide.category} focus areas`}
-                >
-                  {slide.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          ))}
+  return (
+    <>
+      <div className="featured-work__header">
+        <div className="featured-work__header-copy">
+          <p className="section__eyebrow">Featured Work</p>
+          <h2 className="section__title" id="featured-work-title">
+            Selected implementation examples
+          </h2>
+          <p className="section__description">
+            A closer look at the CMS structures, interface patterns, review
+            systems, and frontend details behind practical web-based solutions.
+          </p>
+        </div>
+        <div className="featured-work__controls">{controls}</div>
+      </div>
+
+      <div className="implementation-gallery">
+        <div
+          className="implementation-gallery__viewport"
+          ref={viewportRef}
+          onScroll={handleScroll}
+        >
+          <div className="implementation-gallery__track">
+            {implementationSlides.map((slide) => (
+              <article className="implementation-gallery__slide" key={slide.title}>
+                <div className="implementation-gallery__media">
+                  <img
+                    className="implementation-gallery__image"
+                    src={slide.image}
+                    alt={slide.alt}
+                  />
+                </div>
+
+                <div className="implementation-gallery__content">
+                  <h3 className="implementation-gallery__title">{slide.title}</h3>
+                  <ul className="implementation-gallery__annotations">
+                    {slide.annotations.map((annotation) => (
+                      <li
+                        className="implementation-gallery__annotation"
+                        key={annotation}
+                      >
+                        {annotation}
+                      </li>
+                    ))}
+                  </ul>
+                  <ul
+                    className="implementation-gallery__tags"
+                    aria-label={`${slide.category} focus areas`}
+                  >
+                    {slide.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div
-        className="implementation-gallery__controls"
-        aria-label="Implementation gallery controls"
-      >
-        <button
-          aria-label="Show previous implementation example"
-          disabled={activeSlide === 0}
-          type="button"
-          onClick={() => goToSlide(activeSlide - 1)}
-        >
-          <ArrowLeft aria-hidden="true" size={18} strokeWidth={1.8} />
-        </button>
-        <button
-          aria-label="Show next implementation example"
-          disabled={activeSlide === implementationSlides.length - 1}
-          type="button"
-          onClick={() => goToSlide(activeSlide + 1)}
-        >
-          <ArrowRight aria-hidden="true" size={18} strokeWidth={1.8} />
-        </button>
-      </div>
-    </div>
+    </>
   )
 }
