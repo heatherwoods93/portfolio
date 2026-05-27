@@ -255,11 +255,10 @@ function Home() {
         <div className="contact__inner">
           <p className="contact__eyebrow">Contact</p>
           <h2 className="contact__title" id="contact-title">
-            Let&apos;s build something clear, useful, and maintainable.
+            Clearer systems start with clearer structure.
           </h2>
           <p className="contact__text">
-            Interested in frontend systems, CMS architecture, or operational
-            workflows? I&apos;d love to connect.
+            I specialize in frontend systems, CMS organization, documentation, and operational workflows designed to be easier to manage and maintain.
           </p>
 
           <div className="contact__actions" aria-label="Contact links">
