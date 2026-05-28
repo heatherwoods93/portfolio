@@ -102,6 +102,9 @@
   gap: var(--space-xl);
   max-width: 54rem;
 }
+.hero__content .text-tagline {
+  width: min(100%, 20rem);
+}
 
 .hero__content .text-display {
   font-size: clamp(2.5rem, 5vw, 5rem);
@@ -110,6 +113,16 @@
 
 .hero__summary {
   max-width: 43rem;
+}
+
+.hero__credibility {
+  max-width: 43rem;
+  margin-block: calc(var(--space-sm) * -1) calc(var(--space-xs) * -1);
+  color: var(--color-dark-muted);
+  font-size: var(--size-sm);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 
 .hero__actions {
@@ -185,7 +198,7 @@
 
 .systems-card {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto auto 1fr auto;
   gap: var(--space-md);
   min-height: 100%;
   border: 1px solid rgb(37 34 29 / 0.08);
@@ -221,6 +234,10 @@
   color: var(--color-text-muted);
   font-size: 0.96rem;
   line-height: 1.65;
+}
+
+.systems-card p {
+  align-self: start;
 }
 
 .systems-card__tags {
@@ -278,7 +295,10 @@
 /* ANCHOR Implementation Gallery */
 .implementation-gallery {
   --gallery-gap: var(--space-lg);
-  --gallery-container-width: min(calc(100vw - 2rem), var(--container-main));
+  --gallery-container-width: min(
+    calc(100vw - 2rem),
+    calc(var(--container-main) + 3.75rem)
+  );
   --gallery-side-offset: calc((100vw - var(--gallery-container-width)) / 2);
   --gallery-slide-width: calc(
     (var(--gallery-container-width) - var(--gallery-gap)) / 2
@@ -356,7 +376,7 @@
   align-content: start;
   gap: var(--space-sm);
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  padding: var(--space-lg) var(--space-lg) var(--space-lg);
   background:
     linear-gradient(180deg, rgb(48 59 51 / 0.82), var(--color-dark)),
     var(--color-dark);
@@ -787,6 +807,13 @@
 
   .about-contact__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .systems__grid {
+    width: calc(100% + 3.75rem);
+    margin-inline: -1.875rem;
   }
 }
 

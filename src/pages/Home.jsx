@@ -21,35 +21,35 @@ const systems = [
     title: 'Component Libraries',
     description:
       'Reusable sections, interaction patterns, and modular frontend resources designed to accelerate development and support more maintainable Webflow builds.',
-    tags: ['Relume', 'Reusable Components', 'UI Systems'],
+    tags: ['Relume', 'Webflow Libraries'],
     icon: LayoutTemplate,
   },
   {
     title: 'CMS Architecture',
     description:
       'Structured content systems for resource libraries, searchable content, member-focused pages, and maintainable CMS-driven website experiences.',
-    tags: ['Webflow CMS', 'Content Systems', 'Filtering', 'Finsweet'],
+    tags: ['Webflow CMS', 'Attributes v2 by Finsweet'],
     icon: Database,
   },
   {
     title: 'Review Workflows',
     description:
       'Structured QA and review systems that improve accountability, clarify ownership, and reduce missed issues during implementation and launch.',
-    tags: ['QA', 'Team Workflows', 'Launch Validation'],
+    tags: ['QA', 'Internal Review', 'Launch Checks'],
     icon: ClipboardCheck,
   },
   {
     title: 'AI Workflows & Automation',
     description:
       'Practical AI-supported workflows and automation systems designed to reduce manual coordination, improve visibility, and support scalable internal processes.',
-    tags: ['AI', 'Automation', 'Zapier', 'Monday.com', 'Make.com'],
+    tags: ['AI-Assisted Planning', 'Workflow Automation'],
     icon: Bot,
   },
   {
     title: 'Documentation & SOPs',
     description:
       'Clear implementation documentation, development standards, and operational resources that make systems easier to maintain, scale, and hand off across teams.',
-    tags: ['SOPs', 'Notion', 'Docs', 'Internal Resources'],
+    tags: ['Notion', 'Internal Resources'],
     icon: FileText,
   },
 ]
@@ -102,7 +102,7 @@ function Home() {
 
         <div className="hero__layout">
           <div className="hero__content">
-            <p className="text-tagline">Webflow Developer &amp; Systems Builder</p>
+            <p className="text-tagline is-hero">WEBFLOW PARTNER • 5+ YEARS BUILDING CMS & FRONT-END SYSTEMS</p>
 
             <h1 className="text-display" id="hero-title">
               I build clear, maintainable websites and scalable frontend
