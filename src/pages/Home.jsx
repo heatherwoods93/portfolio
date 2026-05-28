@@ -89,7 +89,6 @@ function Home() {
 
           <nav className="hero__nav" aria-label="Primary navigation">
             <a href="#work">Work</a>
-            <a href="#systems">Systems</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -101,7 +100,9 @@ function Home() {
 
         <div className="hero__layout">
           <div className="hero__content">
-            <p className="text-tagline is-hero">WEBFLOW PARTNER • 5+ YEARS BUILDING CMS & FRONT-END SYSTEMS</p>
+            <p className="text-tagline is-hero">
+              WEBFLOW PARTNER &bull; FRONTEND SYSTEMS BUILDER
+            </p>
 
             <h1 className="text-display" id="hero-title">
               I build clear, maintainable websites and scalable frontend
@@ -114,10 +115,16 @@ function Home() {
 
             <div className="hero__actions" aria-label="Hero actions">
               <a className="button button--primary" href="#work">
-                View Selected Work
+                View My Work
               </a>
-              <a className="button button--secondary" href="#systems">
-                Explore My Process
+              <a className="button button--secondary hero__action-contact" href="#contact">
+                Contact
+              </a>
+              <a
+                className="button button--secondary hero__action-resume"
+                href="/resume.pdf"
+              >
+                Download R&eacute;sum&eacute;
               </a>
             </div>
           </div>
@@ -244,7 +251,7 @@ function Home() {
             Heather Woods
           </a>
           <p className="site-footer__text">
-          Webflow Developer • Frontend Systems Builder
+            Webflow Developer &bull; Frontend Systems Builder
           </p>
           <nav className="site-footer__links" aria-label="Footer links">
             <a href="mailto:hello@example.com">Email</a>
