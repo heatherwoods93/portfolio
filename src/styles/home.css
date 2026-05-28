@@ -743,16 +743,32 @@
   }
 
   .hero::before {
-    background-position: 62% center;
-    filter: saturate(0.58) contrast(0.84) blur(0.58px);
-    opacity: 0.28;
+    background-position: 40% center;
+    filter: saturate(0.62) contrast(0.88) blur(0.38px);
+    opacity: 0.48;
   }
 
   .hero::after {
     background:
-      radial-gradient(ellipse at 28% 28%, rgb(31 41 35 / 0.68) 0%, transparent 58%),
-      linear-gradient(90deg, var(--color-dark) 0%, rgb(31 41 35 / 0.96) 58%, rgb(31 41 35 / 0.78) 100%),
-      linear-gradient(180deg, rgb(31 41 35 / 0.9) 0%, rgb(31 41 35 / 0.72) 46%, var(--color-dark) 100%);
+      radial-gradient(
+        ellipse at 24% 30%,
+        rgb(31 41 35 / 0.92) 0%,
+        rgb(31 41 35 / 0.78) 42%,
+        transparent 68%
+      ),
+      linear-gradient(
+        135deg,
+        rgb(31 41 35 / 0.98) 0%,
+        rgb(31 41 35 / 0.9) 38%,
+        rgb(31 41 35 / 0.56) 66%,
+        rgb(31 41 35 / 0.24) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgb(31 41 35 / 0.88) 0%,
+        rgb(31 41 35 / 0.52) 44%,
+        var(--color-dark) 100%
+      );
   }
 
   .implementation-gallery {
