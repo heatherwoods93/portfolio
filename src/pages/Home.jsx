@@ -5,7 +5,6 @@ import {
   Database,
   FileText,
   LayoutTemplate,
-  Network,
 } from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
 
@@ -68,7 +67,7 @@ const toolGroups = [
     items: ['Git/GitHub', 'VS Code', 'Vite', 'Cloudflare', 'Claude Code'],
   },
   {
-    title: 'AI & Automation',
+    title: 'Automation Technologies',
     items: [
       'Claude Integrations',
       'Make.com',
@@ -174,32 +173,17 @@ function Home() {
 
       <section className="section about-contact" id="about" aria-labelledby="about-title">
         <div className="section__inner">
-          <div className="about-contact__grid">
-            <div className="about-contact__content">
-              <p className="section__eyebrow">About</p>
-              <h2 className="section__title" id="about-title">
-                Frontend systems with practical roots.
-              </h2>
-              <p className="section__description">
-                My work sits between design implementation, CMS architecture,
-                process improvement, and documentation. I like building the
-                structures that make websites easier to understand, launch, and
-                keep improving after handoff.
-              </p>
-            </div>
-
-            <div className="about-contact__card">
-              <Network aria-hidden="true" size={24} strokeWidth={1.8} />
-              <h3>Let&apos;s talk systems.</h3>
-              <p>
-                Interested in Webflow implementation, CMS planning, frontend
-                standards, or workflow cleanup?
-              </p>
-              <a className="button button--primary" href="/resume.pdf">
-                <FileText aria-hidden="true" size={17} strokeWidth={1.8} />
-                View resume
-              </a>
-            </div>
+          <div className="about-contact__content">
+            <p className="section__eyebrow">About</p>
+            <h2 className="section__title" id="about-title">
+              Frontend systems with practical roots.
+            </h2>
+            <p className="section__description">
+              My work sits between design implementation, CMS architecture,
+              process improvement, and documentation. I like building the
+              structures that make websites easier to understand, launch, and
+              keep improving after handoff.
+            </p>
           </div>
 
           <div className="about-tools">
@@ -226,27 +210,6 @@ function Home() {
                 </section>
               ))}
             </div>
-
-            <aside
-              className="ai-workflow-note"
-              aria-labelledby="ai-workflow-note-title"
-            >
-              <div>
-                <h3
-                  className="ai-workflow-note__title"
-                  id="ai-workflow-note-title"
-                >
-                  AI-Integrated Workflows
-                </h3>
-                <p className="ai-workflow-note__text">
-                  I use AI-assisted tools to support frontend planning, CMS organization, implementation review, documentation, and workflow automation throughout the development process.
-
-                </p>
-                <p className="ai-workflow-note__text">
-                  This includes reducing repetitive implementation work, reviewing content for human errors and inconsistencies, organizing complex client information into clearer structures, and accelerating tasks like CMS setup, wireframe exploration, SOP drafting, and operational planning.
-                </p>
-              </div>
-            </aside>
           </div>
         </div>
       </section>
@@ -268,7 +231,7 @@ function Home() {
             <a className="button button--secondary" href="https://www.linkedin.com/">
               LinkedIn
             </a>
-            <a className="button button--secondary" href="https://github.com/">
+            <a className="button button--secondary" href="https://github.com/heatherwoods93">
               GitHub
             </a>
           </div>
@@ -281,16 +244,13 @@ function Home() {
             Heather Woods
           </a>
           <p className="site-footer__text">
-            Webflow Developer &amp; Frontend Systems Builder
+          Webflow Developer • Frontend Systems Builder
           </p>
           <nav className="site-footer__links" aria-label="Footer links">
             <a href="mailto:hello@example.com">Email</a>
             <a href="https://www.linkedin.com/">LinkedIn</a>
-            <a href="https://github.com/">GitHub</a>
+            <a href="https://github.com/heatherwoods93">GitHub</a>
           </nav>
-          <p className="site-footer__meta">
-            &copy; 2026 Heather Woods. Built with React.
-          </p>
         </div>
       </footer>
     </main>
