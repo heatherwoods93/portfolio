@@ -101,7 +101,8 @@ function Home() {
         <div className="hero__layout">
           <div className="hero__content">
             <p className="text-tagline is-hero">
-              WEBFLOW PARTNER &bull; FRONTEND SYSTEMS BUILDER
+              WEBFLOW PARTNER &bull;
+              <span className="hero__eyebrow-break"> FRONTEND SYSTEMS BUILDER</span>
             </p>
 
             <h1 className="text-display" id="hero-title">

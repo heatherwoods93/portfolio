@@ -76,7 +76,7 @@
 .hero__nav {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   align-items: center;
 }
 
@@ -105,6 +105,10 @@
 }
 .hero__content .text-tagline {
   width: min(100%, 24rem);
+}
+
+.hero__eyebrow-break {
+  display: inline;
 }
 
 .hero__content .text-display {
@@ -719,6 +723,11 @@
 
   .hero__content {
     gap: var(--space-lg);
+  }
+
+  .hero__eyebrow-break {
+    display: block;
+    margin-top: 0.18rem;
   }
 
   .hero__content .text-display {
