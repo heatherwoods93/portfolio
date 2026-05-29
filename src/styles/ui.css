@@ -553,6 +553,26 @@ p {
   background: var(--color-accent-soft);
 }
 
+.skip-link {
+  position: fixed;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: 100;
+  transform: translateY(calc(-100% - var(--space-lg)));
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  color: var(--color-dark);
+  background: var(--color-surface);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-base);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 :focus-visible {
   outline: 0.18rem solid var(--color-accent);
   outline-offset: 0.22rem;

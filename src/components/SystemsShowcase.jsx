@@ -217,6 +217,7 @@ export default function SystemsShowcase() {
     dragLatestX.current = event.clientX
     dragStartScrollLeft.current = viewport.scrollLeft
     dragStartTime.current = performance.now()
+    event.currentTarget.classList.add('is-dragging')
     setIsDragging(true)
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -252,6 +253,7 @@ export default function SystemsShowcase() {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
 
+    event.currentTarget.classList.remove('is-dragging')
     dragPointerId.current = null
     if (dragFrame.current !== null) {
       window.cancelAnimationFrame(dragFrame.current)

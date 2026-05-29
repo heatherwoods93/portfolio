@@ -80,7 +80,11 @@ const toolGroups = [
 
 function Home() {
   return (
-    <main className="page home">
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+      <main className="page home" id="main-content">
       <section className="section section--dark hero" aria-labelledby="hero-title">
         <header className="hero__header">
           <a className="hero__brand" href="/">
@@ -93,8 +97,14 @@ function Home() {
             <a href="#contact">Contact</a>
           </nav>
 
-          <a className="button button--light" href="/resume.pdf">
-            Download R&eacute;sum&eacute;
+          <a
+            className="button button--light"
+            href="/resume/Resume.pdf"
+            aria-label="View Resume, opens in a new tab"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Resume
           </a>
         </header>
 
@@ -119,7 +129,10 @@ Systems-minded frontend developer focused on solving problems, improving process
               </a>
               <a
                 className="button button--secondary hero__action-resume"
-                href="/resume.pdf"
+                href="/resume/Resume.pdf"
+                aria-label="Download Resume, opens in a new tab"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Download R&eacute;sum&eacute;
               </a>
@@ -226,10 +239,22 @@ Whether it's organizing content, improving internal processes, or streamlining r
             <a className="button button--primary" href="mailto:heatherwoods93@protonmail.com">
               Email me
             </a>
-            <a className="button button--secondary" href="https://www.linkedin.com/in/heatherwoods93/">
+            <a
+              className="button button--secondary"
+              href="https://www.linkedin.com/in/heatherwoods93/"
+              aria-label="LinkedIn, opens in a new tab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               LinkedIn
             </a>
-            <a className="button button--secondary" href="https://github.com/heatherwoods93">
+            <a
+              className="button button--secondary"
+              href="https://github.com/heatherwoods93"
+              aria-label="GitHub, opens in a new tab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               GitHub
             </a>
           </div>
@@ -238,15 +263,39 @@ Whether it's organizing content, improving internal processes, or streamlining r
 
       <footer className="site-footer">
         <div className="site-footer__inner">
-          <a className="site-footer__brand" href="/">
-            Heather Woods
-          </a>
-          <p className="site-footer__text">
-            Webflow Developer &bull; Frontend Systems Builder &bull; Built with React
-          </p>
+          <div className="site-footer__identity">
+            <a className="site-footer__brand" href="/">
+              Heather Woods
+            </a>
+            <p className="site-footer__text">
+              <span>Systems-Minded Front-End Developer &bull;</span>
+              <span className="site-footer__built">Built with React</span>
+            </p>
+          </div>
+
+          <nav className="site-footer__links" aria-label="Footer links">
+            <a
+              href="/resume/Resume.pdf"
+              aria-label="View Resume, opens in a new tab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Resume
+            </a>
+            <a href="mailto:heatherwoods93@protonmail.com">Contact</a>
+            <a
+              href="https://www.linkedin.com/in/heatherwoods93/"
+              aria-label="LinkedIn, opens in a new tab"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </nav>
         </div>
       </footer>
     </main>
+    </>
   )
 }
 
