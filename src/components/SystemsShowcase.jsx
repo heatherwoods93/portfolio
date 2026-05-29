@@ -2,12 +2,12 @@ import { useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import reviewWorkflowImage from '../assets/showcase/reviews-snapshot.png'
-import relumeComponentsImage from '../assets/showcase/components-library.png'
-import cmsWorkflowsImage from '../assets/showcase/dispatch-screenshot.png'
-import interactiveNavigationImage from '../assets/showcase/legislation-map.png'
-import memberPathwaysImage from '../assets/showcase/organize.png'
-import resourceSystemsImage from '../assets/showcase/contractors.png'
-import documentationSystemsImage from '../assets/showcase/client-first.png'
+import relumeComponentsImage from '../assets/showcase/components-library.jpg'
+import cmsWorkflowsImage from '../assets/showcase/dispatch-screenshot.jpg'
+import interactiveNavigationImage from '../assets/showcase/legislation-map.jpg'
+import memberPathwaysImage from '../assets/showcase/organize.jpg'
+import resourceSystemsImage from '../assets/showcase/contractors.jpg'
+import documentationSystemsImage from '../assets/showcase/client-first.jpg'
 
 const implementationSlides = [
   {
