@@ -338,14 +338,15 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-padding-left: var(--gallery-side-offset);
-  scroll-snap-type: x proximity;
+  scroll-snap-type: none;
   scrollbar-width: none;
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
 }
 
-.implementation-gallery__viewport.is-dragging {
+.implementation-gallery__viewport.is-dragging,
+.implementation-gallery__viewport.is-settling {
   cursor: grabbing;
   scroll-behavior: auto;
   scroll-snap-type: none;
@@ -877,7 +878,10 @@
   }
 
   .implementation-gallery__viewport {
+    cursor: auto;
     scroll-snap-type: x mandatory;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
   }
 
   .systems,

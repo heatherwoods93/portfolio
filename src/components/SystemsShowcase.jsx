@@ -117,6 +117,7 @@ export default function SystemsShowcase() {
   const isSettling = useRef(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [isSettlingView, setIsSettlingView] = useState(false)
 
   const goToSlide = (index) => {
     const viewport = viewportRef.current
@@ -169,6 +170,16 @@ export default function SystemsShowcase() {
     const startLeft = viewport.scrollLeft
     const distance = targetLeft - startLeft
     const startTime = performance.now()
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    if (prefersReducedMotion) {
+      viewport.scrollLeft = targetLeft
+      onComplete?.()
+      return
+    }
+
     const step = (now) => {
       const progress = Math.min((now - startTime) / duration, 1)
       const easedProgress = 1 - Math.pow(1 - progress, 3)
@@ -188,6 +199,10 @@ export default function SystemsShowcase() {
   }
 
   const handleDragStart = (event) => {
+    if (event.pointerType === 'touch') {
+      return
+    }
+
     if (event.button !== undefined && event.button !== 0) {
       return
     }
@@ -216,6 +231,7 @@ export default function SystemsShowcase() {
     dragStartScrollLeft.current = viewport.scrollLeft
     dragStartTime.current = performance.now()
     event.currentTarget.classList.add('is-dragging')
+    event.currentTarget.getBoundingClientRect()
     setIsDragging(true)
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -234,8 +250,9 @@ export default function SystemsShowcase() {
     }
 
     dragFrame.current = window.requestAnimationFrame(() => {
-      viewport.scrollLeft =
-        dragStartScrollLeft.current - (dragLatestX.current - dragStartX.current)
+      const dragDistance = dragLatestX.current - dragStartX.current
+
+      viewport.scrollLeft = dragStartScrollLeft.current - dragDistance * 0.42
       dragFrame.current = null
     })
   }
@@ -285,12 +302,12 @@ export default function SystemsShowcase() {
     const dragDuration = Math.max(performance.now() - dragStartTime.current, 1)
     const dragVelocity = Math.abs(dragDistance) / dragDuration
     const isTouchDrag = dragPointerType.current === 'touch'
-    const flickDistance = isTouchDrag ? 22 : slideWidth * 0.18
-    const dragThreshold = isTouchDrag ? slideWidth * 0.12 : slideWidth * 0.2
+    const flickDistance = 22
+    const dragThreshold = slideWidth * 0.12
     const isFlick =
       Math.abs(dragDistance) >= flickDistance && dragVelocity >= 0.32
     const shouldAdvance =
-      Math.abs(dragDistance) >= dragThreshold || (isTouchDrag && isFlick)
+      Math.abs(dragDistance) >= dragThreshold || isFlick
     const direction = dragDistance < 0 ? 1 : -1
     const targetIndex =
       event.type === 'pointercancel' || !shouldAdvance
@@ -303,24 +320,38 @@ export default function SystemsShowcase() {
     const targetLeft = targetSlide
       ? targetSlide.offsetLeft - startOffset
       : nearestSlide.left
+    const finishSettling = () => {
+      viewport.scrollLeft = targetLeft
 
+      if (settleTimeout.current !== null) {
+        window.clearTimeout(settleTimeout.current)
+        settleTimeout.current = null
+      }
+
+      setActiveSlide(targetIndex)
+      setIsDragging(false)
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          event.currentTarget.classList.remove('is-settling')
+          setIsSettlingView(false)
+          isSettling.current = false
+        })
+      })
+    }
+
+    event.currentTarget.classList.add('is-settling')
+    setIsSettlingView(true)
     isSettling.current = true
     animateScrollTo(
       targetLeft,
-      () => {
-        setActiveSlide(targetIndex)
-        setIsDragging(false)
-        isSettling.current = false
-      },
-      isTouchDrag ? 260 : 440,
+      finishSettling,
+      isTouchDrag ? 260 : 640,
     )
 
     settleTimeout.current = window.setTimeout(() => {
-      setActiveSlide(targetIndex)
-      setIsDragging(false)
-      isSettling.current = false
-      settleTimeout.current = null
-    }, 320)
+      finishSettling()
+    }, isTouchDrag ? 320 : 720)
   }
 
   const controls = (
@@ -365,6 +396,7 @@ A closer look at the implementation details, content structures, and workflow im
         <div
           className={`implementation-gallery__viewport ${
             isDragging ? 'is-dragging' : ''
+          } ${isSettlingView ? 'is-settling' : ''
           }`}
           ref={viewportRef}
           onScroll={handleScroll}
