@@ -12,42 +12,42 @@ const systems = [
   {
     title: 'Frontend Standards',
     description:
-      'Scalable implementation standards, naming conventions, accessibility expectations, and responsive development patterns designed to improve consistency across projects and teams.',
+      'Shared implementation standards that improve consistency and support accessible, maintainable websites.',
     tags: ['Client-First', 'Accessibility', 'Responsive Design'],
     icon: Boxes,
   },
   {
     title: 'Component Libraries',
     description:
-      'Reusable sections, interaction patterns, and modular frontend resources designed to accelerate development and support more maintainable Webflow builds.',
+      'Reusable components and interaction patterns that speed up development and create more consistent builds.',
     tags: ['Relume', 'Webflow Libraries'],
     icon: LayoutTemplate,
   },
   {
     title: 'CMS Architecture',
     description:
-      'Structured content systems for resource libraries, searchable content, member-focused pages, and maintainable CMS-driven website experiences.',
+      'Organized content systems that make large websites easier to manage and navigate.',
     tags: ['Webflow CMS', 'Attributes v2 by Finsweet'],
     icon: Database,
   },
   {
     title: 'Review Workflows',
     description:
-      'Structured QA and review systems that improve accountability, clarify ownership, and reduce missed issues during implementation and launch.',
+      'Clear review processes that improve accountability, reduce missed issues, and support smoother launches.',
     tags: ['QA', 'Internal Review', 'Launch Checks'],
     icon: ClipboardCheck,
   },
   {
     title: 'AI Workflows & Automation',
     description:
-      'Practical AI-supported workflows and automation systems designed to reduce manual coordination, improve visibility, and support scalable internal processes.',
+      'Practical automation and AI-assisted workflows that streamline repetitive tasks, support planning, and improve day-to-day efficiency.',
     tags: ['AI-Assisted Planning', 'Workflow Automation'],
     icon: Bot,
   },
   {
     title: 'Documentation & SOPs',
     description:
-      'Clear implementation documentation, development standards, and operational resources that make systems easier to maintain, scale, and hand off across teams.',
+      'Clear documentation that helps teams maintain, support, and improve their work over time.',
     tags: ['Notion', 'Internal Resources'],
     icon: FileText,
   },
@@ -102,18 +102,14 @@ function Home() {
           <div className="hero__content">
             <p className="text-tagline is-hero">
               WEBFLOW PARTNER &bull;
-              <span className="hero__eyebrow-break"> FRONTEND SYSTEMS BUILDER</span>
+              <span className="hero__eyebrow-break"> Frontend Developer</span>
             </p>
 
             <h1 className="text-display" id="hero-title">
-              I build clear, maintainable websites and scalable frontend
-              systems.
+I build websites that bring clarity to complexity.
             </h1>
-
             <p className="hero__summary text-body is-muted">
-              I turn complex content, CMS structures, and evolving workflows into frontend systems that are easier to use, easier to manage, and easier to scale.            
-            </p>
-
+Systems-minded frontend developer focused on solving problems, improving processes, and creating websites that are easier to manage long after launch.          </p>
             <div className="hero__actions" aria-label="Hero actions">
               <a className="button button--primary" href="#work">
                 View My Work
@@ -141,13 +137,10 @@ function Home() {
           <div className="systems__header">
             <p className="section__eyebrow">Systems &amp; Solutions</p>
             <h2 className="section__title" id="systems-title">
-              I build web-based systems that solve real-world problems.
+Better websites start with better foundations.
             </h2>
             <p className="section__description">
-              From CMS architecture and reusable frontend standards to review
-              workflows and automation, I focus on the structures that help
-              teams build clearer, more maintainable websites.
-            </p>
+Whether it's organizing content, improving internal processes, or streamlining repetitive tasks, I look for opportunities to reduce friction and create clearer paths forward.          </p>
           </div>
 
           <div className="systems__grid">
@@ -184,23 +177,20 @@ function Home() {
           <div className="about-contact__content">
             <p className="section__eyebrow">About</p>
             <h2 className="section__title" id="about-title">
-              Frontend systems with practical roots.
+              Building clearer paths through complex work.
             </h2>
             <p className="section__description">
-              My work sits between design implementation, CMS architecture,
-              process improvement, and documentation. I like building the
-              structures that make websites easier to understand, launch, and
-              keep improving after handoff.
+              I enjoy untangling complexity and building things that are easier to use, maintain, and improve. My work spans frontend development, CMS architecture, and process improvement, with a focus on creating clearer paths through complex work.
             </p>
           </div>
 
           <div className="about-tools">
             <div className="about-tools__header">
-              <p className="section__eyebrow">Tools &amp; Technologies</p>
+              <p className="section__eyebrow about-tools__eyebrow">
+                Tools, Workflows &amp; Automation
+              </p>
               <p>
-                A selection of the platforms, workflows, and tools I regularly
-                work with across frontend development, CMS architecture,
-                documentation, and operational systems.
+               The tools and workflows I use to support frontend development, content management, process improvement, and day-to-day implementation.
               </p>
             </div>
 
@@ -222,21 +212,21 @@ function Home() {
         </div>
       </section>
 
-      <section className="section contact" id="contact" aria-labelledby="contact-title">
+      <section className="section section--dark contact" id="contact" aria-labelledby="contact-title">
         <div className="contact__inner">
-          <p className="contact__eyebrow">Contact</p>
+          <p className="contact__eyebrow">CONTACT</p>
           <h2 className="contact__title" id="contact-title">
-            Clearer systems start with clearer structure.
+            Let&rsquo;s connect.
           </h2>
           <p className="contact__text">
-            I specialize in frontend systems, CMS organization, documentation, and operational workflows designed to be easier to manage and maintain.
+            Interested in building something clearer, more maintainable, or easier to manage? I'd love to talk.
           </p>
 
           <div className="contact__actions" aria-label="Contact links">
-            <a className="button button--primary" href="mailto:hello@example.com">
+            <a className="button button--primary" href="mailto:heatherwoods93@protonmail.com">
               Email me
             </a>
-            <a className="button button--secondary" href="https://www.linkedin.com/">
+            <a className="button button--secondary" href="https://www.linkedin.com/in/heatherwoods93/">
               LinkedIn
             </a>
             <a className="button button--secondary" href="https://github.com/heatherwoods93">
@@ -252,13 +242,8 @@ function Home() {
             Heather Woods
           </a>
           <p className="site-footer__text">
-            Webflow Developer &bull; Frontend Systems Builder
+            Webflow Developer &bull; Frontend Systems Builder &bull; Built with React
           </p>
-          <nav className="site-footer__links" aria-label="Footer links">
-            <a href="mailto:hello@example.com">Email</a>
-            <a href="https://www.linkedin.com/">LinkedIn</a>
-            <a href="https://github.com/heatherwoods93">GitHub</a>
-          </nav>
         </div>
       </footer>
     </main>

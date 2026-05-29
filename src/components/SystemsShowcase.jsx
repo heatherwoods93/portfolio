@@ -13,7 +13,7 @@ const implementationSlides = [
   {
     category: 'Interactive Navigation',
     title:
-  'Built interactive map navigation for location-based content systems.',
+  'Built interactive map navigation for location-based content.',
     image: interactiveNavigationImage,
     alt: 'Interactive map interface with location-based navigation panels',
     annotations: [
@@ -26,7 +26,7 @@ const implementationSlides = [
   {
     category: 'Structured Content Systems',
     title:
-  'Organized large CMS-driven directories with scalable search and filtering.',
+  'Organized large CMS directories with scalable search and filtering.',
     image: resourceSystemsImage,
     alt: 'Contractor database interface with search and filter options',
     annotations: [
@@ -39,15 +39,15 @@ const implementationSlides = [
   {
     category: 'Information Clarity & Organization',
     title:
-  'Translated raw client content into clearer structure, messaging, and user pathways.',
+  'Created clearer structure and navigation from complex content.',
     image: memberPathwaysImage,
     alt: 'Organized website page layout with structured content sections',
     annotations: [
   'Clear visual separation between content sections',
-  'CTA placement tied to user intent',
+  'Clear next steps aligned with user goals',
   'Dense informational content organized into clearer layouts',
 ],
-    tags: ['Content Clarity', 'Hierarchy', 'CTAs'],
+    tags: ['Content Structure', 'Hierarchy', 'User Flow'],
   },
   {
     category: 'Dispatch Systems',
@@ -65,7 +65,7 @@ const implementationSlides = [
   {
     category: 'Review Systems',
     title:
-  'Designed QA and review workflows that encouraged more thoughtful feedback and smoother launches.',
+  'Designed QA and review workflows for clearer feedback and smoother launches.',
     image: reviewWorkflowImage,
     alt: 'Review workflow dashboard with QA checklist and status columns',
    annotations: [
@@ -76,9 +76,9 @@ const implementationSlides = [
     tags: ['QA', 'Review Roles', 'Launch'],
   },
   {
-    category: 'Component libraries',
+    category: 'Component Libraries',
     title:
-  'Standardized shared frontend libraries and reusable patterns for more consistent builds.',
+  'Standardized shared frontend libraries and reusable patterns for consistent builds.',
     image: relumeComponentsImage,
     alt: 'Component library mockup showing reusable interface sections',
     annotations: [
@@ -91,7 +91,7 @@ const implementationSlides = [
   {
     category: 'Documentation & SOPs',
     title:
-  'Created and organized SOPs, documentation, and implementation guides for clearer team workflows.',
+  'Organized SOPs, documentation, and implementation guides for clearer team workflows.',
     image: documentationSystemsImage,
     alt: 'Documentation interface with centralized SOP and implementation guides',
     annotations: [
@@ -99,7 +99,7 @@ const implementationSlides = [
   'Shared documentation used for onboarding and handoff',
   'Clearer internal references for recurring project tasks',
 ],  
-    tags: ['SOPs', 'Docs', 'Handoff'],
+    tags: ['SOPs', 'Documentation', 'Handoff'],
   },
 ]
 
@@ -108,7 +108,9 @@ export default function SystemsShowcase() {
   const dragPointerId = useRef(null)
   const dragStartX = useRef(0)
   const dragStartScrollLeft = useRef(0)
+  const dragStartTime = useRef(0)
   const dragLatestX = useRef(0)
+  const dragPointerType = useRef('mouse')
   const dragFrame = useRef(null)
   const settleTimeout = useRef(null)
   const settleFrame = useRef(null)
@@ -210,9 +212,11 @@ export default function SystemsShowcase() {
 
     isSettling.current = false
     dragPointerId.current = event.pointerId
+    dragPointerType.current = event.pointerType
     dragStartX.current = event.clientX
     dragLatestX.current = event.clientX
     dragStartScrollLeft.current = viewport.scrollLeft
+    dragStartTime.current = performance.now()
     setIsDragging(true)
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -276,16 +280,39 @@ export default function SystemsShowcase() {
         left: viewport.scrollLeft,
       },
     )
+    const slideWidth = slides[0]?.offsetWidth ?? 0
+    const dragDistance = dragLatestX.current - dragStartX.current
+    const dragDuration = Math.max(performance.now() - dragStartTime.current, 1)
+    const dragVelocity = Math.abs(dragDistance) / dragDuration
+    const isTouchDrag = dragPointerType.current === 'touch'
+    const flickDistance = isTouchDrag ? 22 : slideWidth * 0.18
+    const dragThreshold = isTouchDrag ? slideWidth * 0.12 : slideWidth * 0.28
+    const isFlick =
+      Math.abs(dragDistance) >= flickDistance && dragVelocity >= 0.32
+    const shouldAdvance =
+      isTouchDrag && (Math.abs(dragDistance) >= dragThreshold || isFlick)
+    const direction = dragDistance < 0 ? 1 : -1
+    const targetIndex =
+      event.type === 'pointercancel' || !shouldAdvance
+        ? nearestSlide.index
+        : Math.min(
+            Math.max(activeSlide + direction, 0),
+            implementationSlides.length - 1,
+          )
+    const targetSlide = slides[targetIndex]
+    const targetLeft = targetSlide
+      ? targetSlide.offsetLeft - startOffset
+      : nearestSlide.left
 
     isSettling.current = true
-    animateScrollTo(nearestSlide.left, () => {
-      setActiveSlide(nearestSlide.index)
+    animateScrollTo(targetLeft, () => {
+      setActiveSlide(targetIndex)
       setIsDragging(false)
       isSettling.current = false
     })
 
     settleTimeout.current = window.setTimeout(() => {
-      setActiveSlide(nearestSlide.index)
+      setActiveSlide(targetIndex)
       setIsDragging(false)
       isSettling.current = false
       settleTimeout.current = null
@@ -320,14 +347,12 @@ export default function SystemsShowcase() {
     <>
       <div className="featured-work__header">
         <div className="featured-work__header-copy">
-          <p className="section__eyebrow">Featured Work</p>
+          <p className="section__eyebrow">Case Studies</p>
           <h2 className="section__title" id="featured-work-title">
-            Selected implementation examples
+            Recent Work
           </h2>
           <p className="section__description">
-            A closer look at the CMS structures, interface patterns, review
-            systems, and frontend details behind practical web-based solutions.
-          </p>
+A closer look at the implementation details, content structures, and workflow improvements behind each project.          </p>
         </div>
         <div className="featured-work__controls">{controls}</div>
       </div>
