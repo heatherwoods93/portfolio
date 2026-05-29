@@ -338,7 +338,7 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-padding-left: var(--gallery-side-offset);
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
   cursor: grab;
   touch-action: pan-y;
@@ -874,6 +874,10 @@
   .implementation-gallery {
     --gallery-gap: var(--space-md);
     --gallery-slide-width: calc(100vw - 3rem);
+  }
+
+  .implementation-gallery__viewport {
+    scroll-snap-type: x mandatory;
   }
 
   .systems,

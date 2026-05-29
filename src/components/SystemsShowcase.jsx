@@ -154,7 +154,7 @@ export default function SystemsShowcase() {
     setActiveSlide(nearestSlide.index)
   }
 
-  const animateScrollTo = (targetLeft, onComplete) => {
+  const animateScrollTo = (targetLeft, onComplete, duration = 260) => {
     const viewport = viewportRef.current
 
     if (!viewport) {
@@ -168,9 +168,7 @@ export default function SystemsShowcase() {
 
     const startLeft = viewport.scrollLeft
     const distance = targetLeft - startLeft
-    const duration = 260
     const startTime = performance.now()
-
     const step = (now) => {
       const progress = Math.min((now - startTime) / duration, 1)
       const easedProgress = 1 - Math.pow(1 - progress, 3)
@@ -288,11 +286,11 @@ export default function SystemsShowcase() {
     const dragVelocity = Math.abs(dragDistance) / dragDuration
     const isTouchDrag = dragPointerType.current === 'touch'
     const flickDistance = isTouchDrag ? 22 : slideWidth * 0.18
-    const dragThreshold = isTouchDrag ? slideWidth * 0.12 : slideWidth * 0.28
+    const dragThreshold = isTouchDrag ? slideWidth * 0.12 : slideWidth * 0.2
     const isFlick =
       Math.abs(dragDistance) >= flickDistance && dragVelocity >= 0.32
     const shouldAdvance =
-      isTouchDrag && (Math.abs(dragDistance) >= dragThreshold || isFlick)
+      Math.abs(dragDistance) >= dragThreshold || (isTouchDrag && isFlick)
     const direction = dragDistance < 0 ? 1 : -1
     const targetIndex =
       event.type === 'pointercancel' || !shouldAdvance
@@ -307,11 +305,15 @@ export default function SystemsShowcase() {
       : nearestSlide.left
 
     isSettling.current = true
-    animateScrollTo(targetLeft, () => {
-      setActiveSlide(targetIndex)
-      setIsDragging(false)
-      isSettling.current = false
-    })
+    animateScrollTo(
+      targetLeft,
+      () => {
+        setActiveSlide(targetIndex)
+        setIsDragging(false)
+        isSettling.current = false
+      },
+      isTouchDrag ? 260 : 440,
+    )
 
     settleTimeout.current = window.setTimeout(() => {
       setActiveSlide(targetIndex)
