@@ -7,6 +7,12 @@ import {
   LayoutTemplate,
 } from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
+import ibewImage from '../assets/examples/ibew11-about.png'
+import ikonImage from '../assets/examples/ikon-collection.png'
+import napoImage from '../assets/examples/napo-hero.png'
+import nassauImage from '../assets/examples/nassau-hero.png'
+import socalImage from '../assets/examples/socal-hero-cropped.png'
+import yumaImage from '../assets/examples/yuma-hero1.png'
 
 const systems = [
   {
@@ -75,6 +81,57 @@ const toolGroups = [
       'Webflow AI',
       'Monday automations',
     ],
+  },
+]
+
+const websiteExamples = [
+  {
+    title: 'SoCal Propane LLC',
+    category: 'Propane Delivery & Commercial Services',
+    description:
+      'A commercial website focused on clear service communication, responsive layouts, and a straightforward customer experience that supports both residential and business audiences.',
+    image: socalImage,
+    alt: 'SoCal Propane LLC website screenshot showing a commercial propane services hero section',
+  },
+  {
+    title: 'iKon Art Gallery',
+    category: 'Art Gallery & Ecommerce Experience',
+    description:
+      'A visually focused website that balances gallery storytelling and ecommerce functionality while maintaining a clean and approachable browsing experience.',
+    image: ikonImage,
+    alt: 'iKon Art Gallery website screenshot showing an art collection browsing experience',
+  },
+  {
+    title: 'IBEW Local 11',
+    category: 'Labor Organization & Membership Services',
+    description:
+      'A large-scale membership website balancing organizational information, member resources, recruitment pathways, and clear navigation across a broad content structure.',
+    image: ibewImage,
+    alt: 'IBEW Local 11 website screenshot showing an informational content page',
+  },
+  {
+    title: 'Nassau County PBA',
+    category: 'Law Enforcement Association',
+    description:
+      'A brand-forward website combining organizational credibility, advocacy messaging, and member-focused resources within a cohesive visual system.',
+    image: nassauImage,
+    alt: 'Nassau County PBA website screenshot showing a brand-forward hero section',
+  },
+  {
+    title: 'NAPO',
+    category: 'National Professional Association',
+    description:
+      'A large organizational website built to support advocacy, events, resources, and communication needs across a national membership audience.',
+    image: napoImage,
+    alt: 'NAPO website screenshot showing organizational content and advocacy messaging',
+  },
+  {
+    title: 'United Yuma Firefighters',
+    category: 'Firefighter Association',
+    description:
+      'A focused organizational website designed around community communication, advocacy efforts, and accessible access to member and public information.',
+    image: yumaImage,
+    alt: 'United Yuma Firefighters website screenshot showing a welcome section',
   },
 ]
 
@@ -182,6 +239,54 @@ Whether it's organizing content, improving internal processes, or streamlining r
       >
         <div className="section__inner">
           <SystemsShowcase />
+        </div>
+      </section>
+
+      <section
+        className="section website-examples"
+        aria-labelledby="website-examples-title"
+      >
+        <div className="section__inner">
+          <div className="website-examples__header">
+            <p className="section__eyebrow">Selected Website Examples</p>
+            <h2 className="section__title" id="website-examples-title">
+              Visual implementation across real website builds
+            </h2>
+            <p className="section__description">
+              A small collection of website examples showing responsive layouts, visual polish, content clarity, and maintainable Webflow implementation.
+            </p>
+          </div>
+
+          <div className="website-examples__grid">
+            {websiteExamples.map(({ title, category, description, image, alt }) => (
+              <article className="website-example-card" key={title}>
+                <div className="website-example-card__media">
+                  <img
+                    className="website-example-card__image"
+                    src={image}
+                    alt={alt}
+                  />
+                </div>
+
+                <div className="website-example-card__content">
+                  <div className="website-example-card__heading">
+                    <h3 className="website-example-card__title">{title}</h3>
+                    <p className="website-example-card__category">{category}</p>
+                  </div>
+                  <p className="website-example-card__description">
+                    {description}
+                  </p>
+                  <a
+                    className="website-example-card__link"
+                    href="#website-examples-title"
+                    aria-label={`View website for ${title}`}
+                  >
+                    View website
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
