@@ -6,10 +6,16 @@ export default function WebsiteExamplesSlider({ examples }) {
   const dragPointerId = useRef(null)
   const dragStartX = useRef(0)
   const dragStartScrollLeft = useRef(0)
+  const dragStartTime = useRef(0)
   const dragLatestX = useRef(0)
+  const dragPointerType = useRef('mouse')
   const dragFrame = useRef(null)
+  const settleTimeout = useRef(null)
+  const settleFrame = useRef(null)
+  const isSettling = useRef(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [isSettlingView, setIsSettlingView] = useState(false)
 
   const getSlides = () => [
     ...(viewportRef.current?.querySelectorAll('.website-slider__slide') ?? []),
@@ -32,7 +38,7 @@ export default function WebsiteExamplesSlider({ examples }) {
   const handleScroll = () => {
     const viewport = viewportRef.current
 
-    if (!viewport || isDragging) {
+    if (!viewport || isDragging || isSettling.current) {
       return
     }
 
@@ -51,6 +57,49 @@ export default function WebsiteExamplesSlider({ examples }) {
     setActiveSlide(nearestSlide.index)
   }
 
+  const animateScrollTo = (targetLeft, onComplete, duration = 260) => {
+    const viewport = viewportRef.current
+
+    if (!viewport) {
+      return
+    }
+
+    if (settleFrame.current !== null) {
+      window.cancelAnimationFrame(settleFrame.current)
+      settleFrame.current = null
+    }
+
+    const startLeft = viewport.scrollLeft
+    const distance = targetLeft - startLeft
+    const startTime = performance.now()
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    if (prefersReducedMotion) {
+      viewport.scrollLeft = targetLeft
+      onComplete?.()
+      return
+    }
+
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1)
+      const easedProgress = 1 - Math.pow(1 - progress, 3)
+
+      viewport.scrollLeft = startLeft + distance * easedProgress
+
+      if (progress < 1) {
+        settleFrame.current = window.requestAnimationFrame(step)
+        return
+      }
+
+      settleFrame.current = null
+      onComplete?.()
+    }
+
+    settleFrame.current = window.requestAnimationFrame(step)
+  }
+
   const handleDragStart = (event) => {
     if (event.pointerType === 'touch') {
       return
@@ -62,10 +111,25 @@ export default function WebsiteExamplesSlider({ examples }) {
       return
     }
 
+    if (settleTimeout.current !== null) {
+      window.clearTimeout(settleTimeout.current)
+      settleTimeout.current = null
+    }
+
+    if (settleFrame.current !== null) {
+      window.cancelAnimationFrame(settleFrame.current)
+      settleFrame.current = null
+    }
+
+    isSettling.current = false
     dragPointerId.current = event.pointerId
+    dragPointerType.current = event.pointerType
     dragStartX.current = event.clientX
     dragLatestX.current = event.clientX
     dragStartScrollLeft.current = viewport.scrollLeft
+    dragStartTime.current = performance.now()
+    event.currentTarget.classList.add('is-dragging')
+    event.currentTarget.getBoundingClientRect()
     setIsDragging(true)
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -86,7 +150,7 @@ export default function WebsiteExamplesSlider({ examples }) {
     dragFrame.current = window.requestAnimationFrame(() => {
       const dragDistance = dragLatestX.current - dragStartX.current
 
-      viewport.scrollLeft = dragStartScrollLeft.current - dragDistance
+      viewport.scrollLeft = dragStartScrollLeft.current - dragDistance * 0.42
       dragFrame.current = null
     })
   }
@@ -103,6 +167,7 @@ export default function WebsiteExamplesSlider({ examples }) {
     }
 
     dragPointerId.current = null
+    event.currentTarget.classList.remove('is-dragging')
 
     if (dragFrame.current !== null) {
       window.cancelAnimationFrame(dragFrame.current)
@@ -132,9 +197,54 @@ export default function WebsiteExamplesSlider({ examples }) {
       },
     )
 
-    setActiveSlide(nearestSlide.index)
-    viewport.scrollTo({ left: nearestSlide.left, behavior: 'smooth' })
-    setIsDragging(false)
+    const slideWidth = slides[0]?.offsetWidth ?? 0
+    const dragDistance = dragLatestX.current - dragStartX.current
+    const dragDuration = Math.max(performance.now() - dragStartTime.current, 1)
+    const dragVelocity = Math.abs(dragDistance) / dragDuration
+    const isTouchDrag = dragPointerType.current === 'touch'
+    const flickDistance = 22
+    const dragThreshold = slideWidth * 0.12
+    const isFlick =
+      Math.abs(dragDistance) >= flickDistance && dragVelocity >= 0.32
+    const shouldAdvance =
+      Math.abs(dragDistance) >= dragThreshold || isFlick
+    const direction = dragDistance < 0 ? 1 : -1
+    const targetIndex =
+      event.type === 'pointercancel' || !shouldAdvance
+        ? nearestSlide.index
+        : Math.min(Math.max(activeSlide + direction, 0), examples.length - 1)
+    const targetSlide = slides[targetIndex]
+    const targetLeft = targetSlide
+      ? targetSlide.offsetLeft - startOffset
+      : nearestSlide.left
+    const finishSettling = () => {
+      viewport.scrollLeft = targetLeft
+
+      if (settleTimeout.current !== null) {
+        window.clearTimeout(settleTimeout.current)
+        settleTimeout.current = null
+      }
+
+      setActiveSlide(targetIndex)
+      setIsDragging(false)
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          event.currentTarget.classList.remove('is-settling')
+          setIsSettlingView(false)
+          isSettling.current = false
+        })
+      })
+    }
+
+    event.currentTarget.classList.add('is-settling')
+    setIsSettlingView(true)
+    isSettling.current = true
+    animateScrollTo(targetLeft, finishSettling, isTouchDrag ? 260 : 640)
+
+    settleTimeout.current = window.setTimeout(() => {
+      finishSettling()
+    }, isTouchDrag ? 320 : 720)
   }
 
   return (
@@ -159,7 +269,9 @@ export default function WebsiteExamplesSlider({ examples }) {
       </div>
 
       <div
-        className={`website-slider__viewport ${isDragging ? 'is-dragging' : ''}`}
+        className={`website-slider__viewport ${
+          isDragging ? 'is-dragging' : ''
+        } ${isSettlingView ? 'is-settling' : ''}`}
         ref={viewportRef}
         onScroll={handleScroll}
         onPointerCancel={handleDragEnd}
@@ -171,7 +283,12 @@ export default function WebsiteExamplesSlider({ examples }) {
           {examples.map(({ title, category, description, image, alt, url }) => (
             <article className="website-example-card website-slider__slide" key={title}>
               <div className="website-example-card__media">
-                <img className="website-example-card__image" src={image} alt={alt} />
+                <img
+                  className="website-example-card__image"
+                  src={image}
+                  alt={alt}
+                  draggable="false"
+                />
               </div>
 
               <div className="website-example-card__content">

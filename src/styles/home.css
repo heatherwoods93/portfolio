@@ -358,14 +358,15 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-padding-left: var(--slider-side-offset);
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
   scrollbar-width: none;
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
 }
 
-.website-slider__viewport.is-dragging {
+.website-slider__viewport.is-dragging,
+.website-slider__viewport.is-settling {
   cursor: grabbing;
   scroll-snap-type: none;
 }
@@ -412,6 +413,8 @@
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  pointer-events: none;
+  user-select: none;
 }
 
 .website-example-card__content {
@@ -953,6 +956,7 @@
 
   .website-slider__viewport {
     cursor: auto;
+    scroll-snap-type: x mandatory;
     touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch;
   }
