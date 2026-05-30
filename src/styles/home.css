@@ -984,9 +984,9 @@
 
   .website-slider__viewport {
     cursor: auto;
-    scroll-snap-type: x mandatory;
-    touch-action: pan-x pan-y;
-    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: none;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: auto;
   }
 
   .systems,

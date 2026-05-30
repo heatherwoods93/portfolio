@@ -101,7 +101,7 @@ export default function WebsiteExamplesSlider({ examples }) {
   }
 
   const handleDragStart = (event) => {
-    if (event.pointerType === 'touch') {
+    if (event.target.closest?.('a, button')) {
       return
     }
 
@@ -202,10 +202,11 @@ export default function WebsiteExamplesSlider({ examples }) {
     const dragDuration = Math.max(performance.now() - dragStartTime.current, 1)
     const dragVelocity = Math.abs(dragDistance) / dragDuration
     const isTouchDrag = dragPointerType.current === 'touch'
-    const flickDistance = 22
-    const dragThreshold = slideWidth * 0.12
+    const flickDistance = isTouchDrag ? 44 : 22
+    const dragThreshold = slideWidth * (isTouchDrag ? 0.22 : 0.12)
     const isFlick =
-      Math.abs(dragDistance) >= flickDistance && dragVelocity >= 0.32
+      Math.abs(dragDistance) >= flickDistance &&
+      dragVelocity >= (isTouchDrag ? 0.5 : 0.32)
     const shouldAdvance =
       Math.abs(dragDistance) >= dragThreshold || isFlick
     const direction = dragDistance < 0 ? 1 : -1
