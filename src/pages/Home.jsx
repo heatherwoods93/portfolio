@@ -8,12 +8,12 @@ import {
 } from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
 import WebsiteExamplesSlider from '../components/WebsiteExamplesSlider'
-import ibewImage from '../assets/examples/ibew11-about.png'
-import ikonImage from '../assets/examples/ikon-collection.png'
-import napoImage from '../assets/examples/napo-hero.png'
-import nassauImage from '../assets/examples/nassau-hero.png'
-import socalImage from '../assets/examples/socal-hero-cropped.png'
-import yumaImage from '../assets/examples/yuma-hero1.png'
+import ibewImage from '../assets/examples/ibew11-about.jpg'
+import ikonImage from '../assets/examples/ikon-collection.jpg'
+import napoImage from '../assets/examples/napo-hero.jpg'
+import nassauImage from '../assets/examples/nassau-hero.jpg'
+import socalImage from '../assets/examples/socal-hero-cropped.jpg'
+import yumaImage from '../assets/examples/yuma-hero1.jpg'
 
 const systems = [
   {
