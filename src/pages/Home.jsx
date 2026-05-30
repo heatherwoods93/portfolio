@@ -245,17 +245,20 @@ Whether it's organizing content, improving internal processes, or streamlining r
         aria-labelledby="website-examples-title"
       >
         <div className="section__inner">
-          <div className="website-examples__header">
-            <p className="section__eyebrow">Selected Website Examples</p>
-            <h2 className="section__title" id="website-examples-title">
-              Visual implementation across real website builds
-            </h2>
-            <p className="section__description">
-              A small collection of website examples showing responsive layouts, visual polish, content clarity, and maintainable Webflow implementation.
-            </p>
-          </div>
-
-          <WebsiteExamplesSlider examples={websiteExamples} />
+          <WebsiteExamplesSlider
+            examples={websiteExamples}
+            header={
+              <div className="website-examples__header-copy">
+                <p className="section__eyebrow">Selected Website Examples</p>
+                <h2 className="section__title" id="website-examples-title">
+                  Visual implementation across real website builds
+                </h2>
+                <p className="section__description">
+                  A small collection of website examples showing responsive layouts, visual polish, content clarity, and maintainable Webflow implementation.
+                </p>
+              </div>
+            }
+          />
         </div>
       </section>
 

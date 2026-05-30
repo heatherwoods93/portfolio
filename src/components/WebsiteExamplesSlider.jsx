@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
-export default function WebsiteExamplesSlider({ examples }) {
+export default function WebsiteExamplesSlider({ examples, header }) {
   const viewportRef = useRef(null)
   const dragPointerId = useRef(null)
   const dragStartX = useRef(0)
@@ -248,8 +248,7 @@ export default function WebsiteExamplesSlider({ examples }) {
     }, isTouchDrag ? 320 : 720)
   }
 
-  return (
-    <div className="website-slider">
+  const controls = (
       <div className="website-slider__controls" aria-label="Website example controls">
         <button
           aria-label="Show previous website example"
@@ -267,6 +266,14 @@ export default function WebsiteExamplesSlider({ examples }) {
         >
           <ArrowRight aria-hidden="true" size={18} strokeWidth={1.8} />
         </button>
+      </div>
+  )
+
+  return (
+    <div className="website-slider">
+      <div className="website-examples__header">
+        {header}
+        <div className="website-examples__controls">{controls}</div>
       </div>
 
       <div
@@ -311,6 +318,13 @@ export default function WebsiteExamplesSlider({ examples }) {
             </article>
           ))}
         </div>
+      </div>
+
+      <div className="website-slider__mobile-controls">
+        {controls}
+        <p className="website-slider__count" aria-live="polite">
+          {activeSlide + 1} / {examples.length}
+        </p>
       </div>
     </div>
   )
