@@ -92,6 +92,7 @@ const websiteExamples = [
       'A commercial website focused on clear service communication, responsive layouts, and a straightforward customer experience that supports both residential and business audiences.',
     image: socalImage,
     alt: 'SoCal Propane LLC website screenshot showing a commercial propane services hero section',
+    url: 'https://www.socalp.com/',
   },
   {
     title: 'iKon Art Gallery',
@@ -100,6 +101,7 @@ const websiteExamples = [
       'A visually focused website that balances gallery storytelling and ecommerce functionality while maintaining a clean and approachable browsing experience.',
     image: ikonImage,
     alt: 'iKon Art Gallery website screenshot showing an art collection browsing experience',
+    url: 'https://www.ikonag.com/',
   },
   {
     title: 'IBEW Local 11',
@@ -108,6 +110,7 @@ const websiteExamples = [
       'A large-scale membership website balancing organizational information, member resources, recruitment pathways, and clear navigation across a broad content structure.',
     image: ibewImage,
     alt: 'IBEW Local 11 website screenshot showing an informational content page',
+    url: 'https://www.ibew11.org/',
   },
   {
     title: 'Nassau County PBA',
@@ -116,6 +119,7 @@ const websiteExamples = [
       'A brand-forward website combining organizational credibility, advocacy messaging, and member-focused resources within a cohesive visual system.',
     image: nassauImage,
     alt: 'Nassau County PBA website screenshot showing a brand-forward hero section',
+    url: 'https://www.nassaupba.org/',
   },
   {
     title: 'NAPO',
@@ -124,6 +128,7 @@ const websiteExamples = [
       'A large organizational website built to support advocacy, events, resources, and communication needs across a national membership audience.',
     image: napoImage,
     alt: 'NAPO website screenshot showing organizational content and advocacy messaging',
+    url: 'https://www.napo.org/',
   },
   {
     title: 'United Yuma Firefighters',
@@ -132,6 +137,7 @@ const websiteExamples = [
       'A focused organizational website designed around community communication, advocacy efforts, and accessible access to member and public information.',
     image: yumaImage,
     alt: 'United Yuma Firefighters website screenshot showing a welcome section',
+    url: 'https://www.yumafirefighters.org/',
   },
 ]
 
@@ -258,7 +264,7 @@ Whether it's organizing content, improving internal processes, or streamlining r
           </div>
 
           <div className="website-examples__grid">
-            {websiteExamples.map(({ title, category, description, image, alt }) => (
+            {websiteExamples.map(({ title, category, description, image, alt, url }) => (
               <article className="website-example-card" key={title}>
                 <div className="website-example-card__media">
                   <img
@@ -278,8 +284,10 @@ Whether it's organizing content, improving internal processes, or streamlining r
                   </p>
                   <a
                     className="website-example-card__link"
-                    href="#website-examples-title"
+                    href={url}
                     aria-label={`View website for ${title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     View website
                   </a>
