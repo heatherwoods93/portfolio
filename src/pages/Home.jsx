@@ -7,6 +7,7 @@ import {
   LayoutTemplate,
 } from 'lucide-react'
 import SystemsShowcase from '../components/SystemsShowcase'
+import WebsiteExamplesSlider from '../components/WebsiteExamplesSlider'
 import ibewImage from '../assets/examples/ibew11-about.png'
 import ikonImage from '../assets/examples/ikon-collection.png'
 import napoImage from '../assets/examples/napo-hero.png'
@@ -89,7 +90,7 @@ const websiteExamples = [
     title: 'SoCal Propane LLC',
     category: 'Propane Delivery & Commercial Services',
     description:
-      'A commercial website focused on clear service communication, responsive layouts, and a straightforward customer experience that supports both residential and business audiences.',
+      'Commercial website focused on clear service communication and responsive visual implementation.',
     image: socalImage,
     alt: 'SoCal Propane LLC website screenshot showing a commercial propane services hero section',
     url: 'https://www.socalp.com/',
@@ -98,7 +99,7 @@ const websiteExamples = [
     title: 'iKon Art Gallery',
     category: 'Art Gallery & Ecommerce Experience',
     description:
-      'A visually focused website that balances gallery storytelling and ecommerce functionality while maintaining a clean and approachable browsing experience.',
+      'Gallery website balancing curated collections, brand storytelling, and online purchasing.',
     image: ikonImage,
     alt: 'iKon Art Gallery website screenshot showing an art collection browsing experience',
     url: 'https://www.ikonag.com/',
@@ -107,7 +108,7 @@ const websiteExamples = [
     title: 'IBEW Local 11',
     category: 'Labor Organization & Membership Services',
     description:
-      'A large-scale membership website balancing organizational information, member resources, recruitment pathways, and clear navigation across a broad content structure.',
+      'Large-scale membership website supporting resources, recruitment, and organizational communication.',
     image: ibewImage,
     alt: 'IBEW Local 11 website screenshot showing an informational content page',
     url: 'https://www.ibew11.org/',
@@ -116,7 +117,7 @@ const websiteExamples = [
     title: 'Nassau County PBA',
     category: 'Law Enforcement Association',
     description:
-      'A brand-forward website combining organizational credibility, advocacy messaging, and member-focused resources within a cohesive visual system.',
+      'Brand-forward association website with strong visual identity and member-focused resources.',
     image: nassauImage,
     alt: 'Nassau County PBA website screenshot showing a brand-forward hero section',
     url: 'https://www.nassaupba.org/',
@@ -125,7 +126,7 @@ const websiteExamples = [
     title: 'NAPO',
     category: 'National Professional Association',
     description:
-      'A large organizational website built to support advocacy, events, resources, and communication needs across a national membership audience.',
+      'National organization website supporting advocacy, events, resources, and communication.',
     image: napoImage,
     alt: 'NAPO website screenshot showing organizational content and advocacy messaging',
     url: 'https://www.napo.org/',
@@ -134,7 +135,7 @@ const websiteExamples = [
     title: 'United Yuma Firefighters',
     category: 'Firefighter Association',
     description:
-      'A focused organizational website designed around community communication, advocacy efforts, and accessible access to member and public information.',
+      'Community-focused association website with bold typography and strong visual direction.',
     image: yumaImage,
     alt: 'United Yuma Firefighters website screenshot showing a welcome section',
     url: 'https://www.yumafirefighters.org/',
@@ -239,17 +240,8 @@ Whether it's organizing content, improving internal processes, or streamlining r
       </section>
 
       <section
-        className="section featured-work"
-        id="work"
-        aria-labelledby="featured-work-title"
-      >
-        <div className="section__inner">
-          <SystemsShowcase />
-        </div>
-      </section>
-
-      <section
         className="section website-examples"
+        id="work"
         aria-labelledby="website-examples-title"
       >
         <div className="section__inner">
@@ -263,38 +255,16 @@ Whether it's organizing content, improving internal processes, or streamlining r
             </p>
           </div>
 
-          <div className="website-examples__grid">
-            {websiteExamples.map(({ title, category, description, image, alt, url }) => (
-              <article className="website-example-card" key={title}>
-                <div className="website-example-card__media">
-                  <img
-                    className="website-example-card__image"
-                    src={image}
-                    alt={alt}
-                  />
-                </div>
+          <WebsiteExamplesSlider examples={websiteExamples} />
+        </div>
+      </section>
 
-                <div className="website-example-card__content">
-                  <div className="website-example-card__heading">
-                    <h3 className="website-example-card__title">{title}</h3>
-                    <p className="website-example-card__category">{category}</p>
-                  </div>
-                  <p className="website-example-card__description">
-                    {description}
-                  </p>
-                  <a
-                    className="website-example-card__link"
-                    href={url}
-                    aria-label={`View website for ${title}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View website
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+      <section
+        className="section systems-practice"
+        aria-labelledby="systems-practice-title"
+      >
+        <div className="section__inner">
+          <SystemsShowcase />
         </div>
       </section>
 
