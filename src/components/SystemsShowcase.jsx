@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import reviewWorkflowImage from '../assets/showcase/reviews-snapshot.png'
 import relumeComponentsImage from '../assets/showcase/components-library.jpg'
-import cmsWorkflowsImage from '../assets/showcase/dispatch-screenshot.jpg'
+import cmsWorkflowsImage from '../assets/showcase/dispatch-screenshot-gallery.jpg'
 import interactiveNavigationImage from '../assets/showcase/legislation-map.jpg'
 import resourceSystemsImage from '../assets/showcase/contractors.jpg'
 import documentationSystemsImage from '../assets/showcase/client-first.jpg'
-import ibewNewsImage from '../assets/examples/ibew11-news.jpg'
+import ibewNewsImage from '../assets/examples/ibew11-news-optimized.jpg'
 import ikonMenuImage from '../assets/examples/ikon-menu.png'
-import napoArticleImage from '../assets/examples/napo-article.png'
+import napoArticleImage from '../assets/examples/napo-article-optimized.jpg'
 
 const systemsShowcases = [
   {
