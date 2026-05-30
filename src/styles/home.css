@@ -1013,6 +1013,44 @@
     padding: var(--space-md);
   }
 
+  .systems-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: var(--space-sm);
+    row-gap: 0.45rem;
+    align-items: start;
+  }
+
+  .systems-card__icon {
+    grid-row: 1 / -1;
+    width: 2.25rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .systems-card h3,
+  .systems-card p,
+  .systems-card__tags {
+    grid-column: 2;
+  }
+
+  .systems-card h3 {
+    font-size: 1rem;
+  }
+
+  .systems-card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .systems-card__tags {
+    margin-top: 0.2rem;
+  }
+
+  .systems-card__tags li {
+    padding: 0.24rem 0.5rem;
+    font-size: 0.72rem;
+  }
+
   .about-tools {
     gap: var(--space-lg);
     margin-top: var(--space-2xl);
