@@ -6,14 +6,6 @@ import {
   FileText,
   LayoutTemplate,
 } from 'lucide-react'
-import SystemsShowcase from '../components/SystemsShowcase'
-import WebsiteExamplesSlider from '../components/WebsiteExamplesSlider'
-import ibewImage from '../assets/examples/ibew11-about.jpg'
-import ikonImage from '../assets/examples/ikon-collection.jpg'
-import napoImage from '../assets/examples/napo-hero.jpg'
-import nassauImage from '../assets/examples/nassau-hero.jpg'
-import socalImage from '../assets/examples/socal-hero-cropped.jpg'
-import yumaImage from '../assets/examples/yuma-hero1.jpg'
 
 const systems = [
   {
@@ -85,63 +77,6 @@ const toolGroups = [
   },
 ]
 
-const websiteExamples = [
-  {
-    title: 'SoCal Propane LLC',
-    category: 'Propane Delivery & Commercial Services',
-    description:
-      'Commercial website focused on clear service communication and responsive visual implementation.',
-    image: socalImage,
-    alt: 'SoCal Propane LLC website screenshot showing a commercial propane services hero section',
-    url: 'https://www.socalp.com/',
-  },
-  {
-    title: 'iKon Art Gallery',
-    category: 'Art Gallery & Ecommerce Experience',
-    description:
-      'Gallery website balancing curated collections, brand storytelling, and online purchasing.',
-    image: ikonImage,
-    alt: 'iKon Art Gallery website screenshot showing an art collection browsing experience',
-    url: 'https://www.ikonag.com/',
-  },
-  {
-    title: 'IBEW Local 11',
-    category: 'Labor Organization & Membership Services',
-    description:
-      'Large-scale membership website supporting resources, recruitment, and organizational communication.',
-    image: ibewImage,
-    alt: 'IBEW Local 11 website screenshot showing an informational content page',
-    url: 'https://www.ibew11.org/',
-  },
-  {
-    title: 'Nassau County PBA',
-    category: 'Law Enforcement Association',
-    description:
-      'Brand-forward association website with strong visual identity and member-focused resources.',
-    image: nassauImage,
-    alt: 'Nassau County PBA website screenshot showing a brand-forward hero section',
-    url: 'https://www.nassaupba.org/',
-  },
-  {
-    title: 'NAPO',
-    category: 'National Professional Association',
-    description:
-      'National organization website supporting advocacy, events, resources, and communication.',
-    image: napoImage,
-    alt: 'NAPO website screenshot showing organizational content and advocacy messaging',
-    url: 'https://www.napo.org/',
-  },
-  {
-    title: 'United Yuma Firefighters',
-    category: 'Firefighter Association',
-    description:
-      'Community-focused association website with bold typography and strong visual direction.',
-    image: yumaImage,
-    alt: 'United Yuma Firefighters website screenshot showing a welcome section',
-    url: 'https://www.yumafirefighters.org/',
-  },
-]
-
 function Home() {
   return (
     <>
@@ -156,7 +91,7 @@ function Home() {
           </a>
 
           <nav className="hero__nav" aria-label="Primary navigation">
-            <a href="#work">Work</a>
+            <a href="#systems">Capabilities</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -185,8 +120,8 @@ I build websites that bring clarity to complexity.
             <p className="hero__summary text-body is-muted">
 Systems-minded frontend developer focused on solving problems, improving processes, and creating websites that are easier to manage long after launch.          </p>
             <div className="hero__actions" aria-label="Hero actions">
-              <a className="button button--primary" href="#work">
-                View My Work
+              <a className="button button--primary" href="#systems">
+                View Capabilities
               </a>
               <a className="button button--secondary hero__action-contact" href="#contact">
                 Contact
@@ -239,37 +174,7 @@ Whether it's organizing content, improving internal processes, or streamlining r
         </div>
       </section>
 
-      <section
-        className="section website-examples"
-        id="work"
-        aria-labelledby="website-examples-title"
-      >
-        <div className="section__inner">
-          <WebsiteExamplesSlider
-            examples={websiteExamples}
-            header={
-              <div className="website-examples__header-copy">
-                <p className="section__eyebrow">Selected Website Examples</p>
-                <h2 className="section__title" id="website-examples-title">
-                  Visual implementation across real website builds
-                </h2>
-                <p className="section__description">
-                  A small collection of website examples showing responsive layouts, visual polish, content clarity, and maintainable Webflow implementation.
-                </p>
-              </div>
-            }
-          />
-        </div>
-      </section>
-
-      <section
-        className="section systems-practice"
-        aria-labelledby="systems-practice-title"
-      >
-        <div className="section__inner">
-          <SystemsShowcase />
-        </div>
-      </section>
+      {/* Professional work is temporarily withheld. See docs/content-visibility.md to restore. */}
 
       <section className="section about-contact" id="about" aria-labelledby="about-title">
         <div className="section__inner">

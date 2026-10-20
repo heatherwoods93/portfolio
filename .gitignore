@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Private employment reference; retained locally only.
+/docs/Employee_Handbook_2019.pdf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

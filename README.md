@@ -13,6 +13,12 @@ Designed to showcase frontend development, CMS architecture, workflow systems, d
 * CSS
 * Netlify
 
+## Deployment
+
+Netlify publishes production from `main` and provides branch deploys for
+configured non-production branches. See [Deployment instructions](docs/deployment.md)
+for the production workflow, branch review, and build settings.
+
 ## Design Principles
 
 * Clarity over complexity
